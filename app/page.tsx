@@ -1,64 +1,15 @@
-"use client";
+import Link from "next/link";
+import { Mark, Shell, services } from "./components";
 
-import { FormEvent, useState } from "react";
-
-export default function Home() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-
-  async function submitInterest(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus("sending");
-    const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/contact", { method: "POST", body: form });
-    setStatus(response.ok ? "success" : "error");
-    if (response.ok) event.currentTarget.reset();
-  }
-
-  return (
-    <main>
-      <nav className="nav">
-        <a className="wordmark" href="#top" aria-label="Mosaic home">MOSAIC<span>®</span></a>
-        <a className="nav-cta" href="#contact">Let’s talk <span>↗</span></a>
-      </nav>
-
-      <section className="hero" id="top">
-        <p className="eyebrow">A new point of view</p>
-        <h1>Make your<br /><em>next move</em><br />matter.</h1>
-        <div className="hero-foot">
-          <p>We’re building something thoughtful, energetic, and unmistakably ours. A new standard starts here.</p>
-          <a href="#contact" className="round-link" aria-label="Get in touch">↓</a>
-        </div>
-        <div className="orb orb-one" /><div className="orb orb-two" /><div className="grid" />
-      </section>
-
-      <section className="statement">
-        <p className="eyebrow">The beginning</p>
-        <h2>Big ideas deserve a <em>beautiful</em> home.</h2>
-        <p className="body-copy">Mosaic is taking shape. We’re creating an experience with equal parts clarity, character, and momentum—designed for people who want more from what comes next.</p>
-      </section>
-
-      <section className="values" aria-label="What guides us">
-        {[['01', 'Human first'], ['02', 'Make it matter'], ['03', 'Keep moving']].map(([number, title]) => (
-          <article className="value" key={number}>
-            <span>{number}</span><h3>{title}</h3><p>Intentional details. Clear thinking. The kind of work people remember.</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="contact" id="contact">
-        <p className="eyebrow">Be first to know</p>
-        <h2>Let’s make<br /><em>something real.</em></h2>
-        <form onSubmit={submitInterest}>
-          <label htmlFor="email">Your email</label>
-          <div className="form-row">
-            <input id="email" name="email" type="email" required placeholder="you@company.com" />
-            <button disabled={status === "sending"} type="submit">{status === "sending" ? "Sending…" : "Keep me posted"} <span>↗</span></button>
-          </div>
-          <p className={`form-note ${status}`}>{status === "success" ? "You’re on the list. We’ll be in touch." : status === "error" ? "Something went wrong. Please try again." : "No noise. Just the good stuff."}</p>
-        </form>
-      </section>
-
-      <footer><a className="wordmark" href="#top">MOSAIC<span>®</span></a><p>© {new Date().getFullYear()} Mosaic. Built with intention.</p></footer>
-    </main>
-  );
-}
+const work = [["Harbor & Field", "A connected order and inventory operation for a growing goods company."], ["Cedar House", "A clearer website and lead journey for a service business ready for its next chapter."], ["Northline", "A thoughtful internal system replacing a tangle of spreadsheets."]];
+export default function Home() { return <Shell>
+  <section className="hero"><div><p className="kicker">Business Systems Studio</p><h1>Bring every<br/><em>piece</em> together.</h1><p className="lede">Businesses grow one idea at a time. Mosaic brings those ideas, systems, and experiences together so your business can work beautifully.</p><div className="actions"><Link className="button" href="/start">Start With Vision <b>↗</b></Link><Link className="text-link" href="/services">Explore How We Help →</Link></div></div><div className="hero-mark"><Mark /></div></section>
+  <section className="split-section"><p className="kicker">The problem</p><div><h2>Businesses don’t become chaotic overnight.</h2><p>It happens one spreadsheet, one app, one employee, and one workaround at a time. Eventually, everything works—but nothing works together.</p><div className="scatter"><i/><i/><i/><i/></div></div></section>
+  <section className="belief"><p className="kicker">A simple belief</p><h2>Beautiful businesses aren’t the ones with the most software. They’re the ones where <em>everything has a place.</em></h2></section>
+  <section className="service-index"><div className="section-intro"><p className="kicker">How we help</p><h2>One connected journey.</h2><p>We begin with what matters, then shape the experience and systems around it.</p></div>{services.map(([n,title,copy,href])=><Link href={href} className="service-row" key={title}><span>{n}</span><h3>{title}</h3><p>{copy}</p><b>↗</b></Link>)}</section>
+  <section className="manifesto-band"><p className="kicker">The Mosaic Playbook</p><h2>Every business begins with a <em>vision.</em></h2><p>Not a website. Not software. Not a process. A vision.</p><Link className="text-link light" href="/playbook">Read the Playbook →</Link></section>
+  <section className="method-preview"><p className="kicker">The Mosaic Method</p><h2>Make room for what’s next.</h2><div className="method-list">{["Discover","Clarify","Create","Connect","Empower"].map((x,i)=><span key={x}><i>0{i+1}</i>{x}</span>)}</div><Link className="text-link" href="/process">Explore our process →</Link></section>
+  <section className="work-grid"><div className="section-intro"><p className="kicker">Selected work</p><h2>Clarity, made tangible.</h2></div>{work.map(([name,copy],i)=><article key={name} className={`work-card work-${i+1}`}><div className="work-art"><Mark small /></div><p className="kicker">Case study</p><h3>{name}</h3><p>{copy}</p><Link href={`/work/${name.toLowerCase().replaceAll(" ", "-")}`}>View project →</Link></article>)}</section>
+  <section className="founder"><div className="founder-shape">L</div><div><p className="kicker">A note from Lauren</p><h2>See the whole picture.</h2><p>Lauren brings brand, customer experience, operations, and technology into one clear frame—so the details can finally support the bigger vision.</p><Link className="text-link" href="/about">More about Mosaic →</Link></div></section>
+  <section className="final-cta"><p className="kicker">Start with vision</p><h2>Your vision is still there.<br/><em>Let’s make it clear again.</em></h2><Link className="button" href="/start">Start With Vision <b>↗</b></Link></section>
+</Shell>; }

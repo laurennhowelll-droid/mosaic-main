@@ -1,0 +1,1 @@
+import Link from "next/link"; import { Shell } from "./components"; export default function NotFound(){return <Shell><section className="page-hero"><p className="kicker">404</p><h1>This page has found another path.</h1><p className="lede">Let’s get you back to the bigger picture.</p><Link className="button" href="/">Back to Mosaic</Link></section></Shell>}

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mosaic — Made for what’s next",
-  description: "A considered digital experience, built to move your business forward.",
+  title: "Mosaic — Businesses That Work Beautifully",
+  description: "Mosaic brings ideas, systems, and experiences together so your business can work beautifully.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
