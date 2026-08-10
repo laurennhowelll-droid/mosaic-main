@@ -3,11 +3,18 @@
 import { FormEvent, useState } from "react";
 
 const budgetOptions = [
-  "$2,500–$5,000",
-  "$5,000–$10,000",
-  "$10,000–$20,000",
-  "$20,000+",
-  "Not sure yet",
+  ["$2,500–$5,000", "$2,500–5,000"],
+  ["$5,000–$10,000", "$5,000–10,000"],
+  ["$10,000–$20,000", "$10,000–20,000"],
+  ["$20,000+", "$20,000+"],
+  ["Not sure yet", "Not sure yet"],
+];
+
+const timelineOptions = [
+  "Immediately",
+  "Within 30 days",
+  "1–3 months",
+  "Just exploring",
 ];
 
 const initialState = {
@@ -16,8 +23,11 @@ const initialState = {
   email: "",
   phone: "",
   website: "",
+  businessDescription: "",
   problems: "",
+  success: "",
   budget: "",
+  timeline: "",
 };
 
 export default function StartVisionForm() {
@@ -55,20 +65,31 @@ export default function StartVisionForm() {
 
       setStatus("success");
       setForm(initialState);
-      setMessage(
-        "Thank you. We’ll review what you shared and reach out with the clearest next step.",
-      );
     } catch {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
     }
   }
 
+  if (status === "success") {
+    return (
+      <div className="start-form start-form-success" role="status">
+        <h3>Thank you.</h3>
+        <p>We&apos;ve received your Vision request.</p>
+        <p>Every submission is personally reviewed.</p>
+        <p>
+          If we believe we&apos;re a good fit, we&apos;ll reach out with the next steps to schedule your Vision Session.
+        </p>
+        <p>We&apos;re excited to learn more about what you&apos;re building.</p>
+      </div>
+    );
+  }
+
   return (
     <form className="start-form" onSubmit={handleSubmit} noValidate>
       <div className="start-form-grid">
         <label>
-          Company <span>Required</span>
+          Company Name <span>*</span>
           <input
             required
             name="companyName"
@@ -79,7 +100,7 @@ export default function StartVisionForm() {
         </label>
 
         <label>
-          Your Name <span>Required</span>
+          Your Name <span>*</span>
           <input
             required
             name="contactName"
@@ -90,7 +111,7 @@ export default function StartVisionForm() {
         </label>
 
         <label>
-          Email <span>Required</span>
+          Email <span>*</span>
           <input
             required
             type="email"
@@ -124,19 +145,41 @@ export default function StartVisionForm() {
         </label>
 
         <label className="start-form-wide">
-          What feels disconnected? <span>Required</span>
+          What does your business do? <span>*</span>
+          <textarea
+            required
+            name="businessDescription"
+            value={form.businessDescription}
+            onChange={(event) => updateField("businessDescription", event.target.value)}
+            rows={4}
+          />
+        </label>
+
+        <label className="start-form-wide">
+          What feels disconnected? <span>*</span>
           <textarea
             required
             name="problems"
             value={form.problems}
             onChange={(event) => updateField("problems", event.target.value)}
-            placeholder="Tell us what feels messy, manual, unclear, or harder than it should be."
+            placeholder={"What's taking too much time?\n\nWhere are things getting messy?\n\nWhat's frustrating you?\n\nWhere do you think your business could work better?"}
+            rows={9}
+          />
+        </label>
+
+        <label className="start-form-wide">
+          What would success look like six months from now? <span>*</span>
+          <textarea
+            required
+            name="success"
+            value={form.success}
+            onChange={(event) => updateField("success", event.target.value)}
             rows={7}
           />
         </label>
 
         <label className="start-form-wide">
-          Approximate Budget <span>Required</span>
+          Budget <span>*</span>
           <select
             required
             name="budget"
@@ -144,7 +187,23 @@ export default function StartVisionForm() {
             onChange={(event) => updateField("budget", event.target.value)}
           >
             <option value="">Choose a range</option>
-            {budgetOptions.map((option) => (
+            {budgetOptions.map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="start-form-wide">
+          Timeline <span>Optional</span>
+          <select
+            name="timeline"
+            value={form.timeline}
+            onChange={(event) => updateField("timeline", event.target.value)}
+          >
+            <option value="">Choose a timeline</option>
+            {timelineOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>

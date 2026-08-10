@@ -1,6 +1,6 @@
 -- Run this in the Supabase SQL editor for project ivmvfknrzmftsdzexwhd.
--- Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and
--- SUPABASE_SERVICE_ROLE_KEY to your local and production environment variables.
+-- Add NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, and
+-- SUPABASE_SECRET_KEY to your local and production environment variables.
 
 create table if not exists public.leads (
   id uuid primary key default gen_random_uuid(),
@@ -26,7 +26,7 @@ create table if not exists public.leads (
 alter table public.leads enable row level security;
 
 -- No public SELECT policy is created. Lead records are not publicly readable.
--- The website API route should insert using SUPABASE_SERVICE_ROLE_KEY server-side.
+-- The website API route should insert using SUPABASE_SECRET_KEY server-side.
 
 create index if not exists leads_status_idx on public.leads(status);
 create index if not exists leads_created_at_idx on public.leads(created_at desc);

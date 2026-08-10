@@ -17,8 +17,11 @@ type LeadPayload = {
   email?: unknown;
   phone?: unknown;
   website?: unknown;
+  businessDescription?: unknown;
   problems?: unknown;
+  success?: unknown;
   budget?: unknown;
+  timeline?: unknown;
 };
 
 function clean(value: unknown) {
@@ -42,10 +45,21 @@ export async function POST(request: Request) {
   const email = clean(payload.email).toLowerCase();
   const phone = clean(payload.phone) || null;
   const website = clean(payload.website) || null;
+  const businessDescription = clean(payload.businessDescription);
   const problems = clean(payload.problems);
+  const success = clean(payload.success);
   const budget = clean(payload.budget);
+  const timeline = clean(payload.timeline);
 
-  if (!companyName || !contactName || !email || !problems || !budget) {
+  if (
+    !companyName ||
+    !contactName ||
+    !email ||
+    !businessDescription ||
+    !problems ||
+    !success ||
+    !budget
+  ) {
     return NextResponse.json(
       { error: "Please complete the required fields." },
       { status: 400 },
@@ -76,8 +90,15 @@ export async function POST(request: Request) {
       website,
       problems,
       budget,
-      source: "start_with_vision",
+      source: "website_start_with_vision",
       status: "new",
+      notes: [
+        `What the business does: ${businessDescription}`,
+        `Six-month success: ${success}`,
+        timeline ? `Timeline: ${timeline}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
     });
 
     if (error) {
