@@ -3,8 +3,8 @@
 .mark-small { width: 30px !important; height: 30px !important; }
 .hero-mark { justify-self: end; transform: translateX(7vw) rotate(-3deg); }
 .hero-mark .mark { width: 420px; }
-footer .brand { display: inline-flex; padding: 12px 15px; background: var(--sand); }
-footer .brand .mark { width: 64px; height: 64px; mix-blend-mode: multiply; }
+footer .brand { display: inline-flex; padding: 0; background: transparent; }
+footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: multiply; }
 .pieces { padding: 10vw 8vw; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #20212430; }
 .pieces .section-intro { grid-column: 1 / -1; padding: 3vw 2vw 5vw; margin: 0; background: var(--ivory); }
 .piece { min-height: 340px; padding: 34px; background: var(--ivory); display: flex; flex-direction: column; }
