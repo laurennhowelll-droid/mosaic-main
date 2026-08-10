@@ -1,16 +1,239 @@
 import Link from "next/link";
 import { Mark, Shell, services } from "./components";
 
-const work = [["Harbor & Field", "A connected order and inventory operation for a growing goods company."], ["Cedar House", "A clearer website and lead journey for a service business ready for its next chapter."], ["Northline", "A thoughtful internal system replacing a tangle of spreadsheets."]];
-export default function Home() { return <Shell>
-  <section className="hero"><div><p className="kicker">Business Systems Studio</p><h1>Bring every<br/><em>piece</em> together.</h1><p className="lede">Businesses grow one decision at a time. Eventually those decisions become disconnected—marketing, operations, technology, people, and processes. We reconnect every piece into one business that works beautifully.</p><div className="actions"><Link className="button" href="/start">Start With Vision <b>↗</b></Link><Link className="text-link" href="/services">Explore How We Help →</Link></div></div><div className="hero-mark"><Mark /></div></section>
-  <section className="split-section"><p className="kicker">The problem</p><div><h2>Businesses don’t become chaotic overnight.</h2><p>It happens one spreadsheet, one app, one employee, and one workaround at a time. Eventually, everything works—but nothing works together.</p><div className="scatter"><i/><i/><i/><i/></div></div></section>
-  <section className="belief"><p className="kicker">What is Mosaic?</p><h2>Technology should feel manageable. Businesses should feel intentional. Growth should feel <em>clear.</em></h2></section>
-  <section className="pieces"><div className="section-intro"><p className="kicker">Every piece matters</p><h2>A business is a living system.</h2><p>As businesses grow, marketing, operations, technology, and people begin making decisions separately. Mosaic reconnects each one to the original vision.</p></div>{[["Vision","Every business begins with a vision. Before software, branding, hiring, or growth—vision gives every future decision direction."],["Structure","Ideas become reality through systems, operations, documentation, and consistency. Structure creates freedom, not restriction."],["Connection","Marketing affects operations. Operations affect customer experience. Technology affects leadership. Nothing exists in isolation."],["Craft","Beautiful businesses aren’t accidental. Craft is the difference between something that functions and something people love using."]].map(([title,copy],i)=><article className={`piece piece-${i+1}`} key={title}><Mark small/><p className="kicker">0{i+1}</p><h3>{title}</h3><p>{copy}</p></article>)}<div className="piece-closing"><Mark /><h2>When every piece has purpose,<br/><em>everything works beautifully.</em></h2></div></section>
-  <section className="service-index"><div className="section-intro"><p className="kicker">How we help</p><h2>One connected journey.</h2><p>We begin with what matters, then shape the experience and systems around it.</p></div>{services.map(([n,title,copy,href])=><Link href={href} className="service-row" key={title}><span>{n}</span><h3>{title}</h3><p>{copy}</p><b>↗</b></Link>)}</section>
-  <section className="manifesto-band"><p className="kicker">The Mosaic Playbook</p><h2>Every business begins with a <em>vision.</em></h2><p>Not a website. Not software. Not a process. A vision.</p><Link className="text-link light" href="/playbook">Read the Playbook →</Link></section>
-  <section className="method-preview"><p className="kicker">The Mosaic Method</p><h2>Make room for what’s next.</h2><div className="method-list">{["Discover","Clarify","Create","Connect","Empower"].map((x,i)=><span key={x}><i>0{i+1}</i>{x}</span>)}</div><Link className="text-link" href="/process">Explore our process →</Link></section>
-  <section className="work-grid"><div className="section-intro"><p className="kicker">Featured transformation</p><h2>White Poppy Preservation</h2><p>A more connected order flow, inventory system, and customer experience for a growing preservation studio.</p></div><article className="work-card work-1"><div className="work-art"><Mark small /></div><p className="kicker">Operations + experience</p><h3>One clear business.</h3><p>Order flow, inventory visibility, automation, and a calmer customer journey—all designed to work as one.</p><Link href="/work/white-poppy-preservation">View case study →</Link></article>{work.slice(1).map(([name,copy],i)=><article key={name} className={`work-card work-${i+2}`}><div className="work-art"><Mark small /></div><p className="kicker">Case study</p><h3>{name}</h3><p>{copy}</p><Link href={`/work/${name.toLowerCase().replaceAll(" ", "-")}`}>View project →</Link></article>)}</section>
-  <section className="founder"><div className="founder-shape">L</div><div><p className="kicker">A note from Lauren</p><h2>See the whole picture.</h2><p>Lauren brings brand, customer experience, operations, and technology into one clear frame—so the details can finally support the bigger vision.</p><Link className="text-link" href="/about">More about Mosaic →</Link></div></section>
-  <section className="final-cta"><p className="kicker">Start with vision</p><h2>Your vision is still there.<br/><em>Let’s make it clear again.</em></h2><Link className="button" href="/start">Start With Vision <b>↗</b></Link></section>
-</Shell>; }
+const philosophyCards = [
+  {
+    title: "Vision",
+    accent: "home-card-vision",
+    copy: [
+      "Everything begins with clarity.",
+      "Without vision, businesses slowly become collections of disconnected decisions.",
+      "Vision gives every future decision direction.",
+    ],
+  },
+  {
+    title: "Structure",
+    accent: "home-card-structure",
+    copy: [
+      "Systems create consistency.",
+      "Good processes remove friction and give people confidence.",
+      "Technology should support the business, not complicate it.",
+    ],
+  },
+  {
+    title: "Connection",
+    accent: "home-card-connection",
+    copy: [
+      "Departments should never operate independently.",
+      "Marketing. Operations. Sales. Customer experience. Technology.",
+      "Everything affects everything else. Connection is where momentum happens.",
+    ],
+  },
+  {
+    title: "Craft",
+    accent: "home-card-craft",
+    copy: [
+      "Details matter.",
+      "Beautiful execution builds trust.",
+      "Small improvements repeated across every part of a business create extraordinary outcomes.",
+    ],
+  },
+];
+
+const processSteps = ["Discover", "Clarify", "Create", "Connect", "Empower"];
+
+export default function Home() {
+  return (
+    <Shell>
+      <section className="hero">
+        <div>
+          <p className="kicker">Business Systems Studio</p>
+          <h1>
+            Bring every
+            <br />
+            <em>piece</em> together.
+          </h1>
+          <p className="lede">
+            Businesses grow one decision at a time. Eventually those
+            decisions become disconnected—marketing, operations,
+            technology, people, and processes. We reconnect every piece
+            into one business that works beautifully.
+          </p>
+          <div className="actions">
+            <Link className="button" href="/start">
+              Start With Vision <b>↗</b>
+            </Link>
+            <Link className="text-link" href="/services">
+              Explore How We Help →
+            </Link>
+          </div>
+        </div>
+        <div className="hero-mark">
+          <Mark />
+        </div>
+      </section>
+
+      <section className="home-meaning">
+        <div className="home-meaning-intro">
+          <p className="kicker">What does Mosaic mean?</p>
+          <h2>The logo isn&apos;t just a logo.</h2>
+          <p>
+            Every tile represents something every business needs. On
+            their own they&apos;re valuable. Together they create something
+            stronger. This is the philosophy behind every engagement.
+          </p>
+        </div>
+        <div className="home-meaning-layout">
+          <div className="home-museum-mark" aria-label="Mosaic icon">
+            <Mark />
+          </div>
+          <div className="home-philosophy-cards">
+            {philosophyCards.map((card, index) => (
+              <article className={`home-philosophy-card ${card.accent}`} key={card.title}>
+                <span>0{index + 1}</span>
+                <h3>{card.title}</h3>
+                {card.copy.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+        </div>
+        <p className="home-piece-statement">
+          Individually every piece has value.
+          <br />
+          Together they become something greater.
+        </p>
+      </section>
+
+      <section className="home-manifesto">
+        <h2>
+          When every piece has purpose,
+          <br />
+          <em>everything works beautifully.</em>
+        </h2>
+        <p>
+          Businesses don&apos;t become extraordinary because they own more
+          software. They become extraordinary because every decision
+          supports a larger vision.
+        </p>
+        <p>
+          Mosaic helps businesses reconnect every system, every process,
+          every customer interaction, and every decision back to that
+          original purpose.
+        </p>
+        <p>
+          When every piece belongs...
+          <br />
+          everything works beautifully.
+        </p>
+        <div className="home-manifesto-points">
+          <span>Clarity over complexity.</span>
+          <span>Systems that empower people.</span>
+          <span>Growth with intention.</span>
+        </div>
+        <Link className="button" href="/start">
+          Start With Vision <b>↗</b>
+        </Link>
+      </section>
+
+      <section className="home-services">
+        <div className="section-intro">
+          <p className="kicker">How we help</p>
+          <h2>
+            Once the vision is clear,
+            <br />
+            we help bring it to life.
+          </h2>
+        </div>
+        {services.map(([number, title, copy, href]) => (
+          <Link href={href} className="service-row" key={title}>
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+            <b>↗</b>
+          </Link>
+        ))}
+      </section>
+
+      <section className="home-process">
+        <div>
+          <p className="kicker">The Mosaic Method</p>
+          <h2>Make room for what&apos;s next.</h2>
+        </div>
+        <div>
+          <p>
+            Every project begins by understanding what matters, then
+            turning that clarity into the systems, experiences, and
+            decisions that move the business forward.
+          </p>
+          <div className="method-list">
+            {processSteps.map((step, index) => (
+              <span key={step}>
+                <i>0{index + 1}</i>
+                {step}
+              </span>
+            ))}
+          </div>
+          <Link className="text-link" href="/process">
+            Explore our process →
+          </Link>
+        </div>
+      </section>
+
+      <section className="home-work">
+        <div className="section-intro">
+          <p className="kicker">Featured Work</p>
+          <h2>White Poppy Preservation</h2>
+          <p>
+            A more connected order flow, inventory system, and customer
+            experience for a growing preservation studio.
+          </p>
+        </div>
+        <article className="home-work-feature">
+          <div className="home-work-summary">
+            <p className="kicker">Primary Case Study</p>
+            <h3>One clear business.</h3>
+            <p>
+              Order flow, inventory visibility, automation, and a calmer
+              customer journey, designed to work as one.
+            </p>
+            <Link href="/work/white-poppy-preservation">
+              View case study →
+            </Link>
+          </div>
+          <div className="home-work-metrics">
+            <div>
+              <span>Order flow</span>
+              <strong>Connected</strong>
+            </div>
+            <div>
+              <span>Manual work</span>
+              <strong>Reduced</strong>
+            </div>
+            <div>
+              <span>Inventory</span>
+              <strong>Visible</strong>
+            </div>
+            <div>
+              <span>Customer experience</span>
+              <strong>Clearer</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section className="final-cta">
+        <p className="kicker">Start with vision</p>
+        <h2>
+          Your vision is still there.
+          <br />
+          <em>Let&apos;s make it clear again.</em>
+        </h2>
+        <Link className="button" href="/start">
+          Start With Vision <b>↗</b>
+        </Link>
+      </section>
+    </Shell>
+  );
+}
