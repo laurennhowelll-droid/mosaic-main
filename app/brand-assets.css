@@ -1,6 +1,8 @@
-.logo { display: block; width: 172px; height: auto; }
-.mark { display: block; object-fit: contain; }
+.logo { display: block; width: 172px; height: auto; mix-blend-mode: multiply; }
+.mark { display: block; object-fit: contain; mix-blend-mode: multiply; }
 .mark-small { width: 30px !important; height: 30px !important; }
+
+footer .logo { mix-blend-mode: normal; filter: invert(1); }
 
 @media (max-width: 800px) {
   .logo { width: 135px; }
