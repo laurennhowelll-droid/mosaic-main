@@ -5,6 +5,13 @@
 .hero-mark .mark { width: 420px; }
 footer .brand { display: inline-flex; padding: 12px 15px; background: var(--sand); }
 footer .brand .mark { width: 64px; height: 64px; mix-blend-mode: multiply; }
+.pieces { padding: 10vw 8vw; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #20212430; }
+.pieces .section-intro { grid-column: 1 / -1; padding: 3vw 2vw 5vw; margin: 0; background: var(--ivory); }
+.piece { min-height: 340px; padding: 34px; background: var(--ivory); display: flex; flex-direction: column; }
+.piece .mark { width: 55px; height: 55px; margin-bottom: auto; }.piece h3 { font: 44px var(--serif); margin: 22px 0 8px; }.piece p:last-child { max-width: 360px; line-height: 1.6; }
+.piece-1 { background: #e7e6dc; }.piece-2 { background: #f1d9ce; }.piece-3 { background: #dbe0e0; }.piece-4 { background: #eee6da; }
+.piece-closing { grid-column: 1 / -1; background: var(--olive); color: var(--ivory); padding: 8vw 5vw; text-align: center; }.piece-closing .mark { width: 105px; margin: 0 auto 40px; }.piece-closing h2 { font: 500 clamp(38px,5vw,76px)/.95 var(--serif); margin: 0; }
+@media (max-width: 800px) { .pieces { grid-template-columns: 1fr; padding: 70px 7vw; }.piece { min-height: 280px; }.piece-closing { grid-column: auto; } }
 
 @media (max-width: 800px) {
   .logo { width: 135px; }
