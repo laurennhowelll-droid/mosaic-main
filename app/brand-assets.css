@@ -1,0 +1,7 @@
+.logo { display: block; width: 172px; height: auto; }
+.mark { display: block; object-fit: contain; }
+.mark-small { width: 30px !important; height: 30px !important; }
+
+@media (max-width: 800px) {
+  .logo { width: 135px; }
+}
