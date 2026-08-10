@@ -3,6 +3,8 @@
 .mark-small { width: 30px !important; height: 30px !important; }
 .hero-mark { justify-self: end; transform: translateX(7vw) rotate(-3deg); }
 .hero-mark .mark { width: 420px; }
+footer .brand { display: inline-flex; padding: 16px 20px; background: var(--sand); }
+footer .brand .logo { mix-blend-mode: multiply; }
 
 @media (max-width: 800px) {
   .logo { width: 135px; }
