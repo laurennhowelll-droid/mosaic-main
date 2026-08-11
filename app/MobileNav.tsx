@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 const navLinks = [
   ["Home", "/"],
   ["How We Help", "/services"],
-  ["The Mosaic Method", "/process"],
+  ["Our Process", "/process"],
   ["Work", "/work"],
   ["Playbook", "/playbook"],
   ["About", "/about"],

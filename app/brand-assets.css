@@ -30,18 +30,16 @@ footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: normal; }
 }
 
 .site-header .brand { flex: 0 1 auto; min-width: 0; }
-.site-header .logo { display: block; width: clamp(136px, 40vw, 172px); max-width: 100%; height: auto; object-fit: contain; }
+.site-header .logo { display: block; max-width: 100%; height: auto; object-fit: contain; }
 
-@media (max-width: 430px) {
-  .site-header { gap: 16px; }
-  .site-header .logo { width: 142px; }
+@media (max-width: 800px) {
+  .site-header { gap: 18px; }
+  .site-header .brand { width: 135px; }
+  .site-header .logo { width: 135px; }
 }
 
-@media (max-width: 375px) {
-  .site-header .logo { width: 132px; }
-}
-
-@media (max-width: 340px) {
-  .site-header { gap: 10px; }
-  .site-header .logo { width: 122px; }
+@media (max-width: 360px) {
+  .site-header { gap: 12px; }
+  .site-header .brand,
+  .site-header .logo { width: 120px; }
 }
