@@ -131,7 +131,7 @@ export default function ClarityPage() {
         </div>
       </section>
 
-      <section className="service-detail-faq">
+      <section className="services-faq">
         <div className="section-intro">
           <p className="kicker">FAQ</p>
           <h2>Questions worth answering first.</h2>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Shell } from "../../../components";
-import { getAdminLead, getPlanLabel, getStageLabel } from "../../../../lib/supabase/admin";
+import { getAdminLead, getLeadClarityAssessments, getPlanLabel, getStageLabel } from "../../../../lib/supabase/admin";
+import { categoryLabel, clarityQuestions, type ClarityCategory } from "../../../../lib/clarity-check";
 import { updateLead } from "../../actions";
 import LeadEditForm from "./LeadEditForm";
 
@@ -37,10 +38,11 @@ export default async function AdminLeadDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const lead = await getAdminLead(id);
+  const [lead, assessments] = await Promise.all([getAdminLead(id), getLeadClarityAssessments(id)]);
   const currentStage = lead.pipeline_stage ?? "new_inquiry";
   const currentPlan = lead.selected_plan ?? "not_selected";
   const updateLeadWithId = updateLead.bind(null, lead.id);
+  const latestAssessment = assessments[0];
 
   return (
     <Shell>
@@ -75,6 +77,34 @@ export default async function AdminLeadDetail({
               <div className="wide"><dt>Original Problems / Inquiry</dt><dd>{lead.problems}</dd></div>
               {lead.notes && <div className="wide"><dt>Submission Notes</dt><dd>{lead.notes}</dd></div>}
             </dl>
+
+            {latestAssessment && (
+              <div className="admin-assessment">
+                <p className="kicker">Clarity Check</p>
+                <dl>
+                  <div><dt>Clarity Score</dt><dd>{latestAssessment.total_score} / 50</dd></div>
+                  <div><dt>Result Band</dt><dd>{latestAssessment.result_band}</dd></div>
+                  <div><dt>Primary Gap</dt><dd>{latestAssessment.primary_gap}</dd></div>
+                  <div><dt>Recommended Service</dt><dd>{latestAssessment.recommended_service}</dd></div>
+                  <div><dt>Email Sent</dt><dd>{latestAssessment.email_sent_at ? formatDate(latestAssessment.email_sent_at) : "Not sent"}</dd></div>
+                  <div><dt>Created Date</dt><dd>{formatDate(latestAssessment.created_at)}</dd></div>
+                  <div className="wide"><dt>Category Scores</dt><dd>Vision: {latestAssessment.vision_score} · Experience: {latestAssessment.experience_score} · Systems: {latestAssessment.systems_score} · Operations: {latestAssessment.operations_score} · Growth: {latestAssessment.growth_score}</dd></div>
+                  <div className="wide"><dt>Linked Lead</dt><dd>{latestAssessment.lead_id}</dd></div>
+                </dl>
+                <div className="admin-answer-list">
+                  {latestAssessment.answers.map((answer) => {
+                    const question = clarityQuestions.find((item) => item.id === answer.id);
+
+                    return (
+                      <article key={answer.id}>
+                        <span>{categoryLabel(answer.category as ClarityCategory)} · {answer.score}/5</span>
+                        <p>{question?.question ?? answer.id}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </section>
 
           <LeadEditForm

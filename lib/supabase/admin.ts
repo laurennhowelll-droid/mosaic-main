@@ -47,6 +47,28 @@ export type EmployeeProfile = {
   active: boolean;
 };
 
+export type ClarityAssessment = {
+  id: string;
+  first_name: string;
+  email: string;
+  company_name: string | null;
+  total_score: number;
+  result_band: string;
+  vision_score: number;
+  experience_score: number;
+  systems_score: number;
+  operations_score: number;
+  growth_score: number;
+  strongest_category: string;
+  weakest_category: string;
+  primary_gap: string;
+  recommended_service: string;
+  answers: Array<{ id: string; category: string; score: number }>;
+  email_sent_at: string | null;
+  lead_id: string | null;
+  created_at: string;
+};
+
 export function getAuthClient(accessToken?: string) {
   if (!supabaseUrl || !supabasePublishableKey) {
     throw new Error("Supabase public environment variables are not configured.");
@@ -135,4 +157,20 @@ export async function getAdminLead(id: string) {
   }
 
   return data as Lead;
+}
+
+export async function getLeadClarityAssessments(leadId: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("clarity_assessments")
+    .select("*")
+    .eq("lead_id", leadId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as ClarityAssessment[];
 }
