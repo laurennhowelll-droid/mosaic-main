@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Mark, Shell, services } from "./components";
 
@@ -75,8 +76,24 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="hero-mark">
-          <Mark />
+        <div className="hero-mark" aria-label="Connected business illustration">
+          <span className="hero-art-watermark" aria-hidden="true" />
+          <span className="hero-art-line hero-art-line-vision" aria-hidden="true" />
+          <span className="hero-art-line hero-art-line-structure" aria-hidden="true" />
+          <span className="hero-art-line hero-art-line-connection" aria-hidden="true" />
+          <span className="hero-art-line hero-art-line-craft" aria-hidden="true" />
+          <span className="hero-art-label hero-art-label-vision">Vision</span>
+          <span className="hero-art-label hero-art-label-structure">Structure</span>
+          <span className="hero-art-label hero-art-label-connection">Connection</span>
+          <span className="hero-art-label hero-art-label-craft">Craft</span>
+          <Image
+            className="hero-mark-image"
+            src="/brand/mosaic-hero.svg"
+            alt="Mosaic icon"
+            width={738}
+            height={700}
+            priority
+          />
         </div>
       </section>
 

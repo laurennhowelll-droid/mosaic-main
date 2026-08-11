@@ -77,10 +77,10 @@ export default function AboutPage() {
       <section className="about-founder">
         <div className="about-founder-portrait">
           <Image
-            src="/brand-reference/founder photo.jpg"
+            src="/brand-reference/founder-photo-web.jpg"
             alt="Lauren Howell Christensen, founder of Mosaic"
-            width={4284}
-            height={5712}
+            width={1066}
+            height={1600}
             sizes="(max-width: 1000px) 84vw, 36vw"
             quality={100}
             unoptimized
