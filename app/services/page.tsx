@@ -7,13 +7,15 @@ const serviceCards = [
     title: "Vision",
     price: "Starting at $2,500",
     purpose: "Find clarity before building.",
-    label: "Deliverables",
+    description:
+      "A focused strategic engagement for businesses that know something needs to change but need a clearer roadmap before investing in a website, system, or technology decision.",
+    label: "Key inclusions",
     items: [
       "Vision Workshop",
       "Business Audit",
-      "Brand Positioning",
       "Customer Journey",
       "Systems Audit",
+      "Opportunity Mapping",
       "90-Day Roadmap",
     ],
     timeline: "1-2 weeks",
@@ -25,14 +27,16 @@ const serviceCards = [
     price: "Starting at $4,500",
     purpose:
       "Create a customer experience that reflects the vision.",
-    label: "Deliverables",
+    description:
+      "A custom website and customer journey engagement that brings messaging, structure, design, lead capture, and launch details into alignment.",
+    label: "Key inclusions",
     items: [
       "Website Strategy",
       "UX Architecture",
       "Custom Website",
-      "Copywriting",
+      "Messaging Direction",
       "CRM Integration",
-      "SEO Foundation",
+      "Launch Support",
     ],
     timeline: "4-8 weeks",
     href: "/services/experience",
@@ -42,15 +46,16 @@ const serviceCards = [
     title: "Connect",
     price: "Starting at $5,000",
     purpose: "Build internal systems that remove friction.",
-    label: "Deliverables",
+    description:
+      "A systems engagement for teams outgrowing manual work, scattered data, repeated entry, or workflows that only one person understands.",
+    label: "Key inclusions",
     items: [
-      "Airtable",
-      "CRM",
-      "Dashboards",
-      "AI Workflows",
-      "Automations",
+      "Process Architecture",
+      "CRM + Databases",
+      "Workflow Automation",
+      "Dashboards + Reporting",
       "Documentation",
-      "SOPs",
+      "Team Training",
     ],
     timeline: "4-10 weeks",
     href: "/services/connect",
@@ -60,6 +65,8 @@ const serviceCards = [
     title: "Grow",
     price: "Starting at $750/mo",
     purpose: "Long-term strategic partnership.",
+    description:
+      "Ongoing support for businesses that want their website, systems, reporting, automations, and operational decisions to keep improving with context.",
     label: "Includes",
     items: [
       "Monthly Strategy",
@@ -192,6 +199,7 @@ export default function ServicesPage() {
               </div>
               <h3>{service.title}</h3>
               <p className="services-purpose">{service.purpose}</p>
+              <p className="services-card-description">{service.description}</p>
               <div className="services-list-block">
                 <p className="kicker">{service.label}</p>
                 <ul>
@@ -235,6 +243,39 @@ export default function ServicesPage() {
             cohesive project.
           </p>
           <p>Bundled engagements receive custom pricing.</p>
+        </div>
+      </section>
+
+      <section className="systems-clarity">
+        <div>
+          <p className="kicker">Focused Entry Point</p>
+          <h2>Systems Clarity Session</h2>
+          <p>
+            A 90-minute working session for one specific systems or operational question when you want experienced outside perspective without committing to a full Vision engagement yet.
+          </p>
+          <p>
+            Systems Clarity Session = solve one defined question.
+            <br />
+            Vision = understand the whole business and determine what should happen next.
+          </p>
+        </div>
+        <div className="systems-clarity-panel">
+          <span>Investment</span>
+          <strong>$500</strong>
+          <span>Format</span>
+          <strong>90-minute working session</strong>
+          <ul>
+            <li>Short pre-session questionnaire</li>
+            <li>Review of the specific problem</li>
+            <li>Technology/process recommendations</li>
+            <li>Written summary and next steps</li>
+          </ul>
+          <p>
+            If you move into a full Vision engagement within 30 days, the $500 session fee can be credited toward the Vision investment.
+          </p>
+          <Link className="text-link" href="/start">
+            Book a Systems Clarity Session →
+          </Link>
         </div>
       </section>
 
