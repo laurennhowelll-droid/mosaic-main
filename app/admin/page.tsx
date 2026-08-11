@@ -104,6 +104,10 @@ export default async function AdminDashboard({
             <button className="text-link" type="submit">Sign out</button>
           </form>
         </div>
+        <div className="admin-top-nav">
+          <Link href="/admin/growth">Growth Dashboard →</Link>
+          <Link href="/admin/clarity">Clarity Checks →</Link>
+        </div>
 
         <div className="admin-metrics">
           {metrics.map(([label, value]) => (

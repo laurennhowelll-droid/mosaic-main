@@ -76,7 +76,10 @@ export default async function AdminClarityPage({
             <p className="kicker">Mosaic Admin</p>
             <h1>Clarity Checks.</h1>
           </div>
-          <Link className="text-link" href="/admin">Back to Leads →</Link>
+          <div className="growth-nav">
+            <Link className="text-link" href="/admin/growth">Growth Dashboard →</Link>
+            <Link className="text-link" href="/admin">Back to Leads →</Link>
+          </div>
         </div>
 
         <div className="admin-metrics">

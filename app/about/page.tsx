@@ -74,6 +74,35 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="about-founder">
+        <div className="about-founder-portrait">
+          <Image
+            src="/brand-reference/founder photo.jpg"
+            alt="Lauren Howell Christensen, founder of Mosaic"
+            width={4284}
+            height={5712}
+            sizes="(max-width: 1000px) 84vw, 36vw"
+            quality={100}
+            unoptimized
+          />
+        </div>
+        <div>
+          <p className="kicker">Founder</p>
+          <h2>Meet Lauren.</h2>
+          <div className="about-founder-copy">
+            <p>Lauren Howell Christensen is the founder of Mosaic.</p>
+            <p>Her background sits at the intersection of marketing, operations, ecommerce, customer experience, automation, and business systems.</p>
+            <p>She began her career in marketing but repeatedly found herself moving beyond the boundaries of the role-into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations.</p>
+            <p>At White Poppy Preservation, what began as a Social Media Manager role expanded into Director of Marketing & Operations in less than a year as she took on increasingly connected parts of the business.</p>
+            <p>Over the course of that work, the company tripled in size while its ecommerce platform, operational infrastructure, reporting, automation, and customer experience evolved alongside the growth.</p>
+            <p>That experience revealed an opportunity:</p>
+            <p>Most businesses don&apos;t need another specialist looking at one isolated problem.</p>
+            <p>They need someone willing to see how all the pieces affect one another.</p>
+            <p>That realization became Mosaic.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="about-exists">
         <div>
           <p className="kicker">Why Mosaic Exists</p>
@@ -168,35 +197,6 @@ export default function AboutPage() {
           <p>And it means being able to stay close enough to see how one decision affects everything else.</p>
           <p>As Mosaic grows, the goal is not to lose that feeling.</p>
           <p>It is to protect it.</p>
-        </div>
-      </section>
-
-      <section className="about-founder">
-        <div className="about-founder-portrait">
-          <Image
-            src="/brand-reference/founder-portrait.jpg"
-            alt="Lauren Howell Christensen, founder of Mosaic"
-            width={3370}
-            height={5712}
-            sizes="(max-width: 1000px) 84vw, 36vw"
-            quality={100}
-            unoptimized
-          />
-        </div>
-        <div>
-          <p className="kicker">Founder</p>
-          <h2>Meet Lauren.</h2>
-          <div className="about-founder-copy">
-            <p>Lauren Howell Christensen is the founder of Mosaic.</p>
-            <p>Her background sits at the intersection of marketing, operations, ecommerce, customer experience, automation, and business systems.</p>
-            <p>She began her career in marketing but repeatedly found herself moving beyond the boundaries of the role-into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations.</p>
-            <p>At White Poppy Preservation, what began as a Social Media Manager role expanded into Director of Marketing & Operations in less than a year as she took on increasingly connected parts of the business.</p>
-            <p>Over the course of that work, the company tripled in size while its ecommerce platform, operational infrastructure, reporting, automation, and customer experience evolved alongside the growth.</p>
-            <p>That experience revealed an opportunity:</p>
-            <p>Most businesses don&apos;t need another specialist looking at one isolated problem.</p>
-            <p>They need someone willing to see how all the pieces affect one another.</p>
-            <p>That realization became Mosaic.</p>
-          </div>
         </div>
       </section>
 

@@ -34,6 +34,15 @@ function isReviewStatus(value: string) {
   return ["unreviewed", "reviewed", "follow_up_needed"].includes(value);
 }
 
+function optionalNumber(value: string) {
+  if (value === "") return null;
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0) {
+    throw new Error("Target values must be positive numbers.");
+  }
+  return number;
+}
+
 export async function signInAdmin(_: unknown, formData: FormData) {
   if (!supabaseUrl || !supabasePublishableKey) {
     return { error: "Supabase environment variables are not configured." };
@@ -152,4 +161,117 @@ export async function updateClarityAssessmentStatus(assessmentId: string, formDa
   revalidatePath("/admin");
   revalidatePath("/admin/clarity");
   revalidatePath(`/admin/clarity/${assessmentId}`);
+}
+
+export async function updateGrowthCampaign(campaignId: string, formData: FormData) {
+  await requireAdmin();
+
+  const campaignName = clean(formData.get("campaign_name")) || "Mosaic Launch — 90 Days";
+  const startDate = clean(formData.get("start_date"));
+  const endDate = clean(formData.get("end_date"));
+  const notes = clean(formData.get("notes")) || null;
+
+  if (!startDate || !endDate) {
+    throw new Error("Campaign dates are required.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase
+    .from("growth_campaigns")
+    .update({ campaign_name: campaignName, start_date: startDate, end_date: endDate, notes })
+    .eq("id", campaignId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/growth");
+}
+
+export async function addGrowthActivity(campaignId: string, formData: FormData) {
+  await requireAdmin();
+
+  const activityType = clean(formData.get("activity_type"));
+  const activityDate = clean(formData.get("activity_date")) || new Date().toISOString().slice(0, 10);
+  const count = Number(clean(formData.get("count")) || "1");
+  const url = clean(formData.get("url")) || null;
+  const notes = clean(formData.get("notes")) || null;
+
+  if (!activityType || !Number.isInteger(count) || count < 1) {
+    throw new Error("Activity type and a positive count are required.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase.from("growth_activity").insert({
+    campaign_id: campaignId,
+    activity_date: activityDate,
+    activity_type: activityType,
+    count,
+    url,
+    notes,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/growth");
+}
+
+export async function addContentTrackerItem(campaignId: string, formData: FormData) {
+  await requireAdmin();
+
+  const title = clean(formData.get("title"));
+  const postType = clean(formData.get("post_type"));
+  const status = clean(formData.get("status")) || "idea";
+  const publishDate = clean(formData.get("publish_date")) || null;
+  const url = clean(formData.get("url")) || null;
+  const notes = clean(formData.get("notes")) || null;
+
+  if (!title || !postType) {
+    throw new Error("Title and post type are required.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase.from("content_tracker").insert({
+    campaign_id: campaignId,
+    title,
+    post_type: postType,
+    status,
+    publish_date: publishDate,
+    url,
+    notes,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/growth");
+}
+
+export async function updateGrowthTargets(campaignId: string, formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const targetIds = formData.getAll("target_id").map((value) => clean(value));
+
+  for (const id of targetIds) {
+    const weeklyTarget = optionalNumber(clean(formData.get(`weekly_target_${id}`)));
+    const campaignTarget = optionalNumber(clean(formData.get(`campaign_target_${id}`)));
+    const { error } = await supabase
+      .from("growth_targets")
+      .update({
+        weekly_target: weeklyTarget,
+        campaign_target: campaignTarget,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .eq("campaign_id", campaignId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  revalidatePath("/admin/growth");
 }

@@ -71,6 +71,49 @@ export type ClarityAssessment = {
   lead?: Lead | null;
 };
 
+export type GrowthCampaign = {
+  id: string;
+  campaign_name: string;
+  start_date: string;
+  end_date: string;
+  notes: string | null;
+  created_at: string;
+};
+
+export type GrowthTarget = {
+  id: string;
+  campaign_id: string;
+  metric: string;
+  weekly_target: number | null;
+  campaign_target: number | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type GrowthActivity = {
+  id: string;
+  campaign_id: string;
+  activity_date: string;
+  activity_type: string;
+  count: number;
+  url: string | null;
+  notes: string | null;
+  created_at: string;
+};
+
+export type ContentTrackerItem = {
+  id: string;
+  campaign_id: string;
+  title: string;
+  post_type: string;
+  status: "idea" | "draft" | "scheduled" | "published";
+  publish_date: string | null;
+  url: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export function getAuthClient(accessToken?: string) {
   if (!supabaseUrl || !supabasePublishableKey) {
     throw new Error("Supabase public environment variables are not configured.");
@@ -236,4 +279,106 @@ export async function getAdminClarityAssessment(id: string) {
   }
 
   return assessment;
+}
+
+const defaultTargets = [
+  ["linkedin_connection", 50, 200],
+  ["outreach_message", 25, 100],
+  ["linkedin_comment", 25, null],
+  ["personal_linkedin_post", 3, 24],
+  ["company_linkedin_post", 1, 8],
+  ["partnership_conversation", 2, null],
+  ["discovery_call", 2, 25],
+  ["playbook_article", 0.5, 4],
+  ["proposal_sent", 2, 10],
+  ["client_won", null, 5],
+  ["case_study", null, 2],
+  ["retainer", null, 2],
+  ["signed_revenue", null, 25000],
+] as const;
+
+export async function getGrowthDashboardData() {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+
+  let { data: campaign, error: campaignError } = await supabase
+    .from("growth_campaigns")
+    .select("*")
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  if (campaignError) {
+    throw new Error(campaignError.message);
+  }
+
+  if (!campaign) {
+    const today = new Date();
+    const end = new Date(today);
+    end.setDate(today.getDate() + 89);
+    const { data: created, error: createError } = await supabase
+      .from("growth_campaigns")
+      .insert({
+        campaign_name: "Mosaic Launch — 90 Days",
+        start_date: today.toISOString().slice(0, 10),
+        end_date: end.toISOString().slice(0, 10),
+      })
+      .select("*")
+      .single();
+
+    if (createError) {
+      throw new Error(createError.message);
+    }
+
+    campaign = created;
+  }
+
+  const typedCampaign = campaign as GrowthCampaign;
+
+  const { data: existingTargets, error: targetError } = await supabase
+    .from("growth_targets")
+    .select("*")
+    .eq("campaign_id", typedCampaign.id)
+    .order("metric", { ascending: true });
+
+  if (targetError) {
+    throw new Error(targetError.message);
+  }
+
+  if (!existingTargets?.length) {
+    const { error: seedError } = await supabase.from("growth_targets").insert(
+      defaultTargets.map(([metric, weekly_target, campaign_target]) => ({
+        campaign_id: typedCampaign.id,
+        metric,
+        weekly_target,
+        campaign_target,
+      })),
+    );
+
+    if (seedError) {
+      throw new Error(seedError.message);
+    }
+  }
+
+  const [{ data: targets, error: targetsError }, { data: activity, error: activityError }, { data: content, error: contentError }, leads, assessments] =
+    await Promise.all([
+      supabase.from("growth_targets").select("*").eq("campaign_id", typedCampaign.id).order("metric", { ascending: true }),
+      supabase.from("growth_activity").select("*").eq("campaign_id", typedCampaign.id).order("activity_date", { ascending: false }).limit(40),
+      supabase.from("content_tracker").select("*").eq("campaign_id", typedCampaign.id).order("created_at", { ascending: false }).limit(40),
+      getAdminLeads(),
+      getAdminClarityAssessments(),
+    ]);
+
+  if (targetsError) throw new Error(targetsError.message);
+  if (activityError) throw new Error(activityError.message);
+  if (contentError) throw new Error(contentError.message);
+
+  return {
+    campaign: typedCampaign,
+    targets: (targets ?? []) as GrowthTarget[],
+    activity: (activity ?? []) as GrowthActivity[],
+    content: (content ?? []) as ContentTrackerItem[],
+    leads,
+    assessments,
+  };
 }

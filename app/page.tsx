@@ -83,7 +83,7 @@ export default function Home() {
       <section className="home-meaning">
         <div className="home-meaning-intro">
           <p className="kicker">What does Mosaic mean?</p>
-          <h2>The logo isn&apos;t just a logo.</h2>
+          <h2>Our logo isn&apos;t just a logo.</h2>
           <p>
             Every tile represents something every business needs. On
             their own they&apos;re valuable. Together they create something

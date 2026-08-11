@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
@@ -20,6 +21,7 @@ const secondaryLinks = [
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -67,7 +69,12 @@ export default function MobileNav() {
 
           <nav className="mobile-menu-links" aria-label="Mobile primary">
             {navLinks.map(([label, href]) => (
-              <Link href={href} key={href} onClick={() => setOpen(false)}>
+              <Link
+                aria-current={pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)) ? "page" : undefined}
+                href={href}
+                key={href}
+                onClick={() => setOpen(false)}
+              >
                 {label}
               </Link>
             ))}
