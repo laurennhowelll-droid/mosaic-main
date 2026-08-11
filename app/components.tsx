@@ -6,7 +6,7 @@ export function Mark({ small = false }: { small?: boolean }) {
   return <Image className={`mark ${small ? "mark-small" : ""}`} src="/brand-reference/main-icon.svg" alt="Mosaic icon" width={210} height={210} />;
 }
 
-export function Logo() { return <Image className="logo" src="/brand-reference/main-logo.svg" alt="Mosaic — Businesses That Work Beautifully" width={240} height={86} priority />; }
+export function Logo() { return <Image className="logo" src="/brand-reference/main-logo.svg" alt="Mosaic — Businesses That Work Beautifully" width={172} height={172} priority unoptimized />; }
 
 export function Header() {
   return <header className="site-header"><Link className="brand" href="/"><Logo /></Link><nav aria-label="Primary"><Link href="/">Home</Link><Link href="/services">How We Help</Link><Link href="/process">Our Process</Link><Link href="/work">Work</Link><Link href="/playbook">Playbook</Link><Link href="/about">About</Link></nav><Link className="header-cta" href="/start">Start With Vision <b>↗</b></Link><MobileNav /></header>;
