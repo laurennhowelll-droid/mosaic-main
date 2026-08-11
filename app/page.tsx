@@ -41,6 +41,13 @@ const philosophyCards = [
 ];
 
 const processSteps = ["Discover", "Clarify", "Create", "Connect", "Empower"];
+const processStepCopy = [
+  "Understand before recommending.",
+  "Remove unnecessary complexity.",
+  "Bring the vision to life.",
+  "Build the systems behind it.",
+  "Document, train, and leave the client capable.",
+];
 
 export default function Home() {
   return (
@@ -171,7 +178,8 @@ export default function Home() {
             {processSteps.map((step, index) => (
               <span key={step}>
                 <i>0{index + 1}</i>
-                {step}
+                <strong>{step}</strong>
+                <small>{processStepCopy[index]}</small>
               </span>
             ))}
           </div>
