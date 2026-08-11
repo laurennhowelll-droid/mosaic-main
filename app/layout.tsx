@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Mosaic — Businesses That Work Beautifully",
   description: "Mosaic brings ideas, systems, and experiences together so your business can work beautifully.",
   icons: {
-    icon: [{ url: "/brand-reference/main-icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
 };
 
