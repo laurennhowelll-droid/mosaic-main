@@ -249,32 +249,40 @@ export default function ServicesPage() {
       <section className="systems-clarity">
         <div>
           <p className="kicker">Focused Entry Point</p>
-          <h2>Systems Clarity Session</h2>
+          <h2>Not every project starts with a full engagement.</h2>
           <p>
-            A 90-minute working session for one specific systems or operational question when you want experienced outside perspective without committing to a full Vision engagement yet.
+            Sometimes you don&apos;t need a complete business roadmap.
           </p>
           <p>
-            Systems Clarity Session = solve one defined question.
-            <br />
-            Vision = understand the whole business and determine what should happen next.
+            Sometimes you simply need an experienced partner to help untangle one important question. The Clarity Session is designed for exactly that.
           </p>
+          <ul className="clarity-question-list">
+            <li>Should we change CRMs?</li>
+            <li>What should we automate first?</li>
+            <li>Is Airtable the right solution?</li>
+            <li>Do we actually need custom software?</li>
+            <li>Why does this workflow feel so complicated?</li>
+            <li>How should these systems connect?</li>
+          </ul>
         </div>
         <div className="systems-clarity-panel">
           <span>Investment</span>
           <strong>$500</strong>
-          <span>Format</span>
-          <strong>90-minute working session</strong>
+          <span>Length</span>
+          <strong>90 minutes</strong>
+          <span>Includes</span>
           <ul>
-            <li>Short pre-session questionnaire</li>
-            <li>Review of the specific problem</li>
-            <li>Technology/process recommendations</li>
-            <li>Written summary and next steps</li>
+            <li>Short questionnaire</li>
+            <li>Focused strategy session</li>
+            <li>Practical recommendations</li>
+            <li>Written action summary</li>
+            <li>Clear next steps</li>
           </ul>
           <p>
-            If you move into a full Vision engagement within 30 days, the $500 session fee can be credited toward the Vision investment.
+            If you move into a Vision engagement within 30 days, your Clarity Session investment is credited toward your Vision project.
           </p>
-          <Link className="text-link" href="/start">
-            Book a Systems Clarity Session →
+          <Link className="secondary-button" href="/clarity">
+            Book a Clarity Session →
           </Link>
         </div>
       </section>

@@ -39,6 +39,12 @@ function stage(lead: Lead) {
   return lead.pipeline_stage ?? "new_inquiry";
 }
 
+function leadType(source: string | null | undefined) {
+  if (source === "clarity_session") return "Clarity Session";
+  if (source === "website_start_with_vision" || source === "start_with_vision") return "Vision";
+  return source ?? "Lead";
+}
+
 function matchesFilter(lead: Lead, filter: string) {
   const current = stage(lead);
 
@@ -125,6 +131,7 @@ export default async function AdminDashboard({
             <span>Contact</span>
             <span>Email</span>
             <span>Submitted</span>
+            <span>Lead Type</span>
             <span>Pipeline Stage</span>
             <span>Selected Plan</span>
             <span>Projected Revenue</span>
@@ -137,6 +144,7 @@ export default async function AdminDashboard({
               <span data-label="Contact">{lead.contact_name}</span>
               <span data-label="Email">{lead.email}</span>
               <span data-label="Submitted">{date(lead.created_at)}</span>
+              <span data-label="Lead Type">{leadType(lead.source)}</span>
               <span data-label="Pipeline Stage">{getStageLabel(stage(lead))}</span>
               <span data-label="Selected Plan">{getPlanLabel(lead.selected_plan)}</span>
               <span data-label="Projected Revenue">{currency(lead.projected_revenue)}</span>

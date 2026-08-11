@@ -3,10 +3,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createClient } from "@supabase/supabase-js";
 import {
   adminRefreshCookie,
   adminSessionCookie,
+  getAdminProfile,
+  getAuthClient,
   getPlanStartingRevenue,
   pipelineStages,
   planOptions,
@@ -16,7 +17,6 @@ import { getSupabaseServerClient } from "../../lib/supabase/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-const adminEmail = process.env.MOSAIC_ADMIN_EMAIL;
 
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
@@ -42,21 +42,18 @@ export async function signInAdmin(_: unknown, formData: FormData) {
     return { error: "Email and password are required." };
   }
 
-  if (adminEmail && email !== adminEmail.toLowerCase()) {
-    return { error: "This account is not authorized for Mosaic admin." };
-  }
-
-  const supabase = createClient(supabaseUrl, supabasePublishableKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  });
+  const supabase = getAuthClient();
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error || !data.session) {
     return { error: "Invalid email or password." };
+  }
+
+  const employee = await getAdminProfile(data.session.access_token);
+
+  if (!employee) {
+    return { error: "This account is not authorized for Mosaic admin." };
   }
 
   const cookieStore = await cookies();

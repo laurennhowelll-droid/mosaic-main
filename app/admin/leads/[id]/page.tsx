@@ -15,6 +15,22 @@ function formatDate(value: string | null | undefined) {
   }).format(new Date(value));
 }
 
+function leadType(source: string | null | undefined) {
+  if (source === "clarity_session") return "Clarity Session";
+  if (source === "website_start_with_vision" || source === "start_with_vision") return "Vision";
+  return source ?? "Lead";
+}
+
+function submittedTimeline(notes: string | null | undefined) {
+  if (!notes) return "Not provided";
+
+  const timelineLine = notes
+    .split("\n")
+    .find((line) => line.startsWith("Timeline:") || line.startsWith("Preferred timeline:"));
+
+  return timelineLine?.split(":").slice(1).join(":").trim() || "Not provided";
+}
+
 export default async function AdminLeadDetail({
   params,
 }: {
@@ -51,7 +67,9 @@ export default async function AdminLeadDetail({
               <div><dt>Email</dt><dd><a href={`mailto:${lead.email}`}>{lead.email}</a></dd></div>
               <div><dt>Phone</dt><dd>{lead.phone || "Not provided"}</dd></div>
               <div><dt>Website</dt><dd>{lead.website ? <a href={lead.website}>{lead.website}</a> : "Not provided"}</dd></div>
+              <div><dt>Lead Type</dt><dd>{leadType(lead.source)}</dd></div>
               <div><dt>Budget</dt><dd>{lead.budget}</dd></div>
+              <div><dt>Timeline</dt><dd>{submittedTimeline(lead.notes)}</dd></div>
               <div><dt>Created Date</dt><dd>{formatDate(lead.created_at)}</dd></div>
               <div><dt>Last Updated</dt><dd>{formatDate(lead.last_updated ?? lead.created_at)}</dd></div>
               <div className="wide"><dt>Original Problems / Inquiry</dt><dd>{lead.problems}</dd></div>

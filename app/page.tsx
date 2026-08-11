@@ -230,6 +230,20 @@ export default function Home() {
           <br />
           <em>Let&apos;s make it clear again.</em>
         </h2>
+        <div className="home-clarity-prompt">
+          <h3>Not sure where to start?</h3>
+          <p>
+            If you&apos;re looking at the whole business, we&apos;ll begin with Vision. If you&apos;re trying to solve one specific question, begin with a Clarity Session.
+          </p>
+          <div className="actions">
+            <Link className="secondary-button" href="/start">
+              Start With Vision
+            </Link>
+            <Link className="text-link" href="/clarity">
+              Clarity Session →
+            </Link>
+          </div>
+        </div>
         <Link className="button" href="/start">
           Start With Vision <b>↗</b>
         </Link>

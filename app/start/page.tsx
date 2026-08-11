@@ -1,4 +1,5 @@
 import { Shell } from "../components";
+import Link from "next/link";
 import StartVisionForm from "./StartVisionForm";
 
 const nextSteps = [
@@ -35,6 +36,15 @@ export default function StartPage() {
           <section className="start-intro">
             <p className="kicker">Start With Vision</p>
             <h1>Every great business begins with clarity.</h1>
+            <div className="start-clarity-callout">
+              <h2>Only have one specific question?</h2>
+              <p>
+                If you&apos;re trying to solve a single systems, operations, or technology challenge, the Clarity Session may be the better place to begin.
+              </p>
+              <Link className="text-link" href="/clarity">
+                Learn about the Clarity Session →
+              </Link>
+            </div>
             <p>
               You don&apos;t need to know exactly what needs to change.
             </p>

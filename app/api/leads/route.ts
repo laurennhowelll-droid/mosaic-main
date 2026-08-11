@@ -22,6 +22,7 @@ type LeadPayload = {
   success?: unknown;
   budget?: unknown;
   timeline?: unknown;
+  source?: unknown;
 };
 
 function clean(value: unknown) {
@@ -50,16 +51,17 @@ export async function POST(request: Request) {
   const success = clean(payload.success);
   const budget = clean(payload.budget);
   const timeline = clean(payload.timeline);
+  const source = clean(payload.source);
+  const isClaritySession = source === "clarity_session";
 
-  if (
-    !companyName ||
-    !contactName ||
-    !email ||
-    !businessDescription ||
-    !problems ||
-    !success ||
-    !budget
-  ) {
+  if (!companyName || !contactName || !email || !problems) {
+    return NextResponse.json(
+      { error: "Please complete the required fields." },
+      { status: 400 },
+    );
+  }
+
+  if (!isClaritySession && (!businessDescription || !success || !budget)) {
     return NextResponse.json(
       { error: "Please complete the required fields." },
       { status: 400 },
@@ -73,7 +75,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!budgets.has(budget)) {
+  if (!isClaritySession && !budgets.has(budget)) {
     return NextResponse.json(
       { error: "Please choose an approximate budget." },
       { status: 400 },
@@ -89,16 +91,23 @@ export async function POST(request: Request) {
       phone,
       website,
       problems,
-      budget,
-      source: "website_start_with_vision",
+      budget: isClaritySession ? "Not sure yet" : budget,
+      source: isClaritySession ? "clarity_session" : "website_start_with_vision",
       status: "new",
-      notes: [
-        `What the business does: ${businessDescription}`,
-        `Six-month success: ${success}`,
-        timeline ? `Timeline: ${timeline}` : null,
-      ]
-        .filter(Boolean)
-        .join("\n\n"),
+      notes: isClaritySession
+        ? [
+            "Lead type: Clarity Session",
+            timeline ? `Preferred timeline: ${timeline}` : null,
+          ]
+            .filter(Boolean)
+            .join("\n\n")
+        : [
+            `What the business does: ${businessDescription}`,
+            `Six-month success: ${success}`,
+            timeline ? `Timeline: ${timeline}` : null,
+          ]
+            .filter(Boolean)
+            .join("\n\n"),
     });
 
     if (error) {

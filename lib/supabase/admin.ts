@@ -15,7 +15,6 @@ export {
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-const adminEmail = process.env.MOSAIC_ADMIN_EMAIL;
 
 export const adminSessionCookie = "mosaic_admin_access_token";
 export const adminRefreshCookie = "mosaic_admin_refresh_token";
@@ -40,6 +39,57 @@ export type Lead = {
   last_updated: string | null;
 };
 
+export type EmployeeProfile = {
+  id: string;
+  email: string;
+  full_name: string | null;
+  role: "admin" | "employee";
+  active: boolean;
+};
+
+export function getAuthClient(accessToken?: string) {
+  if (!supabaseUrl || !supabasePublishableKey) {
+    throw new Error("Supabase public environment variables are not configured.");
+  }
+
+  return createClient(supabaseUrl, supabasePublishableKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+    global: accessToken
+      ? {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      : undefined,
+  });
+}
+
+export async function getAdminProfile(accessToken: string) {
+  const supabase = getAuthClient(accessToken);
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !userData.user) {
+    return null;
+  }
+
+  const { data: employee, error: employeeError } = await supabase
+    .from("employees")
+    .select("id,email,full_name,role,active")
+    .eq("id", userData.user.id)
+    .eq("active", true)
+    .eq("role", "admin")
+    .single();
+
+  if (employeeError || !employee) {
+    return null;
+  }
+
+  return employee as EmployeeProfile;
+}
+
 export async function requireAdmin() {
   if (!supabaseUrl || !supabasePublishableKey) {
     throw new Error("Supabase public environment variables are not configured.");
@@ -52,29 +102,12 @@ export async function requireAdmin() {
     redirect("/admin/login");
   }
 
-  const supabase = createClient(supabaseUrl, supabasePublishableKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-    global: {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
-  });
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data.user) {
+  const employee = await getAdminProfile(accessToken);
+  if (!employee) {
     redirect("/admin/login");
   }
 
-  if (adminEmail && data.user.email?.toLowerCase() !== adminEmail.toLowerCase()) {
-    redirect("/admin/login");
-  }
-
-  return data.user;
+  return employee;
 }
 
 export async function getAdminLeads() {

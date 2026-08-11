@@ -17,15 +17,15 @@ export const pipelineStages = [
 
 export const planOptions = [
   ["not_selected", "Not Selected", null],
-  ["systems_clarity_session", "Systems Clarity Session - $500", 500],
+  ["clarity", "Clarity Session - $500", 500],
   ["vision", "Vision - $2,500", 2500],
   ["experience", "Experience - $4,500 starting", 4500],
   ["connect", "Connect - $5,000 starting", 5000],
-  ["essentials_retainer", "Essentials Retainer - $750/month", 750],
+  ["essentials", "Essentials - $750/month", 750],
   ["growth_partner", "Growth Partner - $1,250/month", 1250],
   ["fractional_systems_director", "Fractional Systems Director - $2,500/month starting", 2500],
-  ["foundation_journey", "Foundation Journey - $6,500 starting", 6500],
-  ["connected_business_journey", "Connected Business Journey - $11,000 starting", 11000],
+  ["foundation", "Foundation Journey - $6,500 starting", 6500],
+  ["connected_business", "Connected Business Journey - $11,000 starting", 11000],
   ["custom", "Custom", null],
 ] as const;
 
