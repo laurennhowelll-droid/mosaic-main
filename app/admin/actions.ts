@@ -30,6 +30,10 @@ function isPlanOption(value: string): value is (typeof planOptions)[number][0] {
   return planOptions.some(([plan]) => plan === value);
 }
 
+function isReviewStatus(value: string) {
+  return ["unreviewed", "reviewed", "follow_up_needed"].includes(value);
+}
+
 export async function signInAdmin(_: unknown, formData: FormData) {
   if (!supabaseUrl || !supabasePublishableKey) {
     return { error: "Supabase environment variables are not configured." };
@@ -124,4 +128,28 @@ export async function updateLead(leadId: string, formData: FormData) {
   revalidatePath("/admin");
   revalidatePath(`/admin/leads/${leadId}`);
   redirect(`/admin/leads/${leadId}`);
+}
+
+export async function updateClarityAssessmentStatus(assessmentId: string, formData: FormData) {
+  await requireAdmin();
+
+  const reviewStatus = clean(formData.get("review_status"));
+
+  if (!isReviewStatus(reviewStatus)) {
+    throw new Error("Invalid review status.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase
+    .from("clarity_assessments")
+    .update({ review_status: reviewStatus })
+    .eq("id", assessmentId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/admin/clarity");
+  revalidatePath(`/admin/clarity/${assessmentId}`);
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Shell } from "../components";
-import { getAdminLeads, getPlanLabel, getStageLabel, type Lead } from "../../lib/supabase/admin";
+import { getAdminClarityAssessments, getAdminLeads, getPlanLabel, getStageLabel, type Lead } from "../../lib/supabase/admin";
 import { signOutAdmin } from "./actions";
 
 const filters = [
@@ -70,6 +70,8 @@ export default async function AdminDashboard({
     searchParams,
     getAdminLeads(),
   ]);
+  const assessments = await getAdminClarityAssessments();
+  const recentAssessments = assessments.slice(0, 5);
 
   const filteredLeads = leads
     .filter((lead) => matchesFilter(lead, filter))
@@ -85,6 +87,7 @@ export default async function AdminDashboard({
     ["New Inquiries", leads.filter((lead) => stage(lead) === "new_inquiry").length.toString()],
     ["Active Opportunities", leads.filter((lead) => !openExcludedStages.has(stage(lead)) && !activeStages.has(stage(lead))).length.toString()],
     ["Projected Revenue", currency(openLeads.reduce((sum, lead) => sum + Number(lead.projected_revenue ?? 0), 0))],
+    ["New Clarity Checks", assessments.filter((assessment) => assessment.review_status === "unreviewed").length.toString()],
     ["Active Projects", leads.filter((lead) => stage(lead) === "project_active").length.toString()],
     ["Active Retainers", leads.filter((lead) => stage(lead) === "retainer_active").length.toString()],
   ];
@@ -110,6 +113,26 @@ export default async function AdminDashboard({
             </article>
           ))}
         </div>
+
+        <section className="admin-clarity-preview">
+          <div>
+            <p className="kicker">Clarity Checks</p>
+            <h2>Recent Clarity Checks</h2>
+          </div>
+          <div className="admin-clarity-preview-list">
+            {recentAssessments.map((assessment) => (
+              <Link href={`/admin/clarity/${assessment.id}`} key={assessment.id}>
+                <span>{assessment.first_name}</span>
+                <strong>{assessment.total_score} / 50</strong>
+                <span>{assessment.primary_gap}</span>
+                <span>{assessment.recommended_service}</span>
+              </Link>
+            ))}
+          </div>
+          <Link className="text-link" href="/admin/clarity">
+            View All Clarity Checks →
+          </Link>
+        </section>
 
         <div className="admin-controls">
           <div>

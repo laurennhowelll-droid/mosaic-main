@@ -66,7 +66,9 @@ export type ClarityAssessment = {
   answers: Array<{ id: string; category: string; score: number }>;
   email_sent_at: string | null;
   lead_id: string | null;
+  review_status: "unreviewed" | "reviewed" | "follow_up_needed";
   created_at: string;
+  lead?: Lead | null;
 };
 
 export function getAuthClient(accessToken?: string) {
@@ -173,4 +175,65 @@ export async function getLeadClarityAssessments(leadId: string) {
   }
 
   return (data ?? []) as ClarityAssessment[];
+}
+
+export async function getAdminClarityAssessments() {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("clarity_assessments")
+    .select("*, lead:leads(*)")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as ClarityAssessment[];
+}
+
+export async function getAdminClarityAssessment(id: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("clarity_assessments")
+    .select("*, lead:leads(*)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const assessment = data as ClarityAssessment;
+
+  if (!assessment.lead_id) {
+    const { data: matchingLead, error: leadError } = await supabase
+      .from("leads")
+      .select("*")
+      .eq("email", assessment.email)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (leadError) {
+      throw new Error(leadError.message);
+    }
+
+    if (matchingLead) {
+      const { error: linkError } = await supabase
+        .from("clarity_assessments")
+        .update({ lead_id: matchingLead.id })
+        .eq("id", assessment.id);
+
+      if (linkError) {
+        throw new Error(linkError.message);
+      }
+
+      assessment.lead_id = matchingLead.id;
+      assessment.lead = matchingLead as Lead;
+    }
+  }
+
+  return assessment;
 }

@@ -20,14 +20,29 @@ create table if not exists public.clarity_assessments (
   answers jsonb not null,
   email_sent_at timestamptz,
   lead_id uuid references public.leads(id) on delete set null,
+  review_status text not null default 'unreviewed',
   created_at timestamptz not null default now(),
   constraint clarity_result_band_check check (
     result_band in ('CONNECTED', 'GROWING FRICTION', 'DISCONNECTED', 'REACTIVE')
   ),
   constraint clarity_recommended_service_check check (
     recommended_service in ('Vision', 'Experience', 'Connect', 'Grow', 'Clarity Session')
+  ),
+  constraint clarity_review_status_check check (
+    review_status in ('unreviewed', 'reviewed', 'follow_up_needed')
   )
 );
+
+alter table public.clarity_assessments
+  add column if not exists review_status text not null default 'unreviewed';
+
+alter table public.clarity_assessments
+  drop constraint if exists clarity_review_status_check;
+
+alter table public.clarity_assessments
+  add constraint clarity_review_status_check check (
+    review_status in ('unreviewed', 'reviewed', 'follow_up_needed')
+  );
 
 alter table public.clarity_assessments enable row level security;
 
