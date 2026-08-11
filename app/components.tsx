@@ -16,5 +16,5 @@ export function Footer() { return <footer><div><Link className="brand" href="/">
 export function Shell({ children }: { children: React.ReactNode }) { return <><Header /><main>{children}</main><Footer /></>; }
 
 export const services = [
-  ["01", "Vision", "Rediscover where you’re going.", "/services/vision"], ["02", "Experience", "Bring your vision to life.", "/services/experience"], ["03", "Connect", "Make your business work beautifully.", "/services/connect"], ["04", "Grow", "Keep moving forward.", "/services/grow"],
+  ["01", "Vision", "Rediscover where you’re going.", "https://buildwithmosaic.co/services/vision"], ["02", "Experience", "Bring your vision to life.", "https://buildwithmosaic.co/services/experience"], ["03", "Connect", "Make your business work beautifully.", "https://buildwithmosaic.co/services/connect"], ["04", "Grow", "Keep moving forward.", "https://buildwithmosaic.co/services/grow"],
 ];

@@ -1,10 +1,11 @@
 .logo { display: block; width: 172px; height: auto; }
 .mark { display: block; object-fit: contain; }
 .mark-small { width: 30px !important; height: 30px !important; }
+.hero { overflow: hidden; }
 .hero-mark { justify-self: end; transform: translateX(7vw) rotate(-3deg); }
-.hero-mark .mark { width: 420px; }
+.hero-mark .mark { width: min(840px, 54vw); max-width: none; }
 footer .brand { display: inline-flex; padding: 0; background: transparent; }
-footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: multiply; }
+footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: normal; }
 .pieces { padding: 10vw 8vw; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #20212430; }
 .pieces .section-intro { grid-column: 1 / -1; padding: 3vw 2vw 5vw; margin: 0; background: var(--ivory); }
 .piece { min-height: 340px; padding: 34px; background: var(--ivory); display: flex; flex-direction: column; }
@@ -16,5 +17,14 @@ footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: multiply; }
 @media (max-width: 800px) {
   .logo { width: 135px; }
   .hero-mark { justify-self: start; transform: rotate(-3deg); }
-  .hero-mark .mark { width: 300px; }
+  .hero-mark .mark { width: min(360px, 86vw); }
+}
+
+@media (min-width: 801px) and (max-width: 1023px) {
+  .hero-mark { justify-self: start; transform: rotate(-3deg); }
+  .hero-mark .mark { width: min(480px, 70vw); }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .hero-mark .mark { width: min(680px, 50vw); }
 }
