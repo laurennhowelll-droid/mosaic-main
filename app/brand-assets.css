@@ -1,4 +1,5 @@
 .logo { display: block; width: 172px; height: auto; }
+.mobile-wordmark { display: none; }
 .mark { display: block; object-fit: contain; }
 .mark-small { width: 30px !important; height: 30px !important; }
 .hero { overflow: hidden; }
@@ -31,6 +32,11 @@ footer .brand .mark { width: 128px; height: 128px; mix-blend-mode: normal; }
 
 .site-header .brand { flex: 0 1 auto; min-width: 0; }
 .site-header .logo { display: block; max-width: 100%; height: auto; object-fit: contain; }
+
+@media (max-width: 900px) {
+  .site-header .logo { display: none; }
+  .site-header .mobile-wordmark { display: block; font: 500 22px/1 var(--serif); letter-spacing: .24em; text-transform: uppercase; }
+}
 
 @media (max-width: 800px) {
   .site-header { gap: 18px; }
