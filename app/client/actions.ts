@@ -121,8 +121,14 @@ export async function sendClientLoginLink(_: unknown, formData: FormData) {
     return { error: error?.message ?? "Could not create a secure login link." };
   }
 
+  const tokenHash = data.properties.hashed_token;
+  const verificationType = data.properties.verification_type ?? "magiclink";
+  const actionLink = tokenHash
+    ? `${siteUrl}/client/auth/verify?token_hash=${encodeURIComponent(tokenHash)}&type=${encodeURIComponent(verificationType)}`
+    : data.properties.action_link;
+
   try {
-    await sendBrandedLoginEmail(email, data.properties.action_link);
+    await sendBrandedLoginEmail(email, actionLink);
   } catch (error) {
     return { error: error instanceof Error ? error.message : "Could not send login email." };
   }
