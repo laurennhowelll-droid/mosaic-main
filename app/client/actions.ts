@@ -65,8 +65,12 @@ async function sendBrandedLoginEmail(email: string, actionLink: string) {
 
 function answersFromForm(formData: FormData) {
   const answers: Record<string, string | string[]> = {};
+  const questionIds = formData.getAll("__question_id").map((value) => clean(value)).filter(Boolean);
 
-  for (const [id, question] of assessmentQuestionMap) {
+  for (const id of questionIds) {
+    const question = assessmentQuestionMap.get(id);
+    if (!question) continue;
+
     if (question.type === "multiselect") {
       const selected = formData.getAll(id).map((value) => clean(value)).filter(Boolean);
       answers[id] = question.maxSelected ? selected.slice(0, question.maxSelected) : selected;
@@ -76,6 +80,21 @@ function answersFromForm(formData: FormData) {
   }
 
   return answers;
+}
+
+function completeAnswers(answers: Record<string, unknown>) {
+  for (const [id, question] of assessmentQuestionMap) {
+    const value = answers[id];
+
+    if (question.type === "multiselect") {
+      if (!Array.isArray(value) || value.length < 1) return false;
+      continue;
+    }
+
+    if (typeof value !== "string" || value.trim().length < 1) return false;
+  }
+
+  return true;
 }
 
 export async function sendClientLoginLink(_: unknown, formData: FormData) {
@@ -197,6 +216,10 @@ export async function completeAssessment(formData: FormData) {
     ...((existing?.answers as Record<string, unknown> | null) ?? {}),
     ...answers,
   };
+
+  if (!completeAnswers(mergedAnswers)) {
+    throw new Error("Please complete every question before submitting your assessment.");
+  }
 
   const now = new Date().toISOString();
   const { error: assessmentError } = await supabase
