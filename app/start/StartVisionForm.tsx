@@ -75,10 +75,10 @@ export default function StartVisionForm() {
     return (
       <div className="start-form start-form-success" role="status">
         <h3>Thank you.</h3>
-        <p>We&apos;ve received your Vision request.</p>
+        <p>We&apos;ve received your Discovery Call request.</p>
         <p>Every submission is personally reviewed.</p>
         <p>
-          If we believe we&apos;re a good fit, we&apos;ll reach out with the next steps to schedule your Vision Session.
+          If we believe Mosaic may be a good fit, we&apos;ll reach out with the next step for a complimentary Discovery Call.
         </p>
         <p>We&apos;re excited to learn more about what you&apos;re building.</p>
       </div>
@@ -213,7 +213,7 @@ export default function StartVisionForm() {
       </div>
 
       <button className="button" type="submit" disabled={status === "loading"}>
-        {status === "loading" ? "Sending..." : "Start With Vision →"}
+        {status === "loading" ? "Sending..." : "Send Request →"}
       </button>
 
       {message && (

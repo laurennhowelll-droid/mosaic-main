@@ -277,11 +277,11 @@ export default function PlaybookPage() {
       <section className="playbook-final-cta">
         <h2>See something you recognize in your own business?</h2>
         <p>
-          Start with Vision and we&apos;ll figure out which problems deserve attention first.
+          Book a complimentary 20-minute conversation to understand where you are today, what feels disconnected, and whether Mosaic is the right fit.
         </p>
         <div className="actions">
-          <Link className="button" href="/start">
-            Start With Vision <b>↗</b>
+          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+            Book a Discovery Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/services">
             Explore How We Help →

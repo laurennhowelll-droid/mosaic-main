@@ -365,7 +365,7 @@ export default async function ServiceDetailPage({
           <h1>{service.headline}</h1>
           <p className="service-detail-promise">{service.promise}</p>
           <p className="service-detail-intro">{service.description[0]}</p>
-          <Link className="button" href="/start">Start With Vision <b>↗</b></Link>
+          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">Book a Discovery Call <b>↗</b></Link>
         </div>
         <aside className="service-detail-meta">
           <span>Starting investment</span>
@@ -539,9 +539,9 @@ export default async function ServiceDetailPage({
       </section>
 
       <section className="service-detail-final">
-        <p className="kicker">Start With Vision</p>
+        <p className="kicker">Book a Discovery Call</p>
         <h2>Ready to make the next decision clearer?</h2>
-        <Link className="button" href="/start">Start With Vision <b>↗</b></Link>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">Book a Discovery Call <b>↗</b></Link>
       </section>
     </Shell>
   );

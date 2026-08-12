@@ -149,7 +149,7 @@ const details: Record<string, DetailPage> = {
   },
 
   start: {
-    eyebrow: "Start With Vision",
+    eyebrow: "Book a Discovery Call",
     title: "Let’s make your next chapter clear.",
     intro:
       "Tell us a little about what is working, what is not, and where you want to go.",
@@ -381,8 +381,8 @@ export default async function CatchAll({
           )}
 
           {!isContact && (
-            <Link className="button" href="/start">
-              Start With Vision <b>↗</b>
+            <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+              Book a Discovery Call <b>↗</b>
             </Link>
           )}
         </section>

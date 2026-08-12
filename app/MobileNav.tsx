@@ -80,8 +80,8 @@ export default function MobileNav() {
             ))}
           </nav>
 
-          <Link className="button mobile-menu-cta" href="/start" onClick={() => setOpen(false)}>
-            Start With Vision <b>↗</b>
+          <Link className="button mobile-menu-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6" onClick={() => setOpen(false)}>
+            Book a Discovery Call <b>↗</b>
           </Link>
 
           <div className="mobile-menu-secondary">

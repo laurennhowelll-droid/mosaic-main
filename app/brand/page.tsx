@@ -234,8 +234,8 @@ export default function BrandPage() {
         <h2>Let&apos;s build something where every piece belongs.</h2>
         <p>Great businesses rarely need more. They usually need greater clarity about what already exists.</p>
         <div className="actions">
-          <Link className="button" href="/start">
-            Start With Vision <b>↗</b>
+          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+            Book a Discovery Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/process">
             Explore The Mosaic Method →

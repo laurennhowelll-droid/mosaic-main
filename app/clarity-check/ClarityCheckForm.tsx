@@ -15,6 +15,7 @@ const scoreLabels = [
   "Mostly true",
   "Very true",
 ];
+const discoveryCallUrl = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
 
 export default function ClarityCheckForm() {
   const [scores, setScores] = useState<Record<string, number>>({});
@@ -85,8 +86,8 @@ export default function ClarityCheckForm() {
           We sent your full report to {gate.email}. Your score was {result.totalScore} / 50, with{" "}
           {result.primaryGap.toLowerCase()} as the biggest opportunity.
         </p>
-        <Link className="button" href={result.nextStepHref}>
-          Explore Your Next Step <b>↗</b>
+        <Link className="button" href={discoveryCallUrl}>
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
     );

@@ -37,6 +37,10 @@ export type Lead = {
   projected_revenue: number | null;
   internal_notes: string | null;
   last_updated: string | null;
+  discovery_decision?: "pending" | "accepted" | "declined";
+  discovery_decision_at?: string | null;
+  discovery_decision_notes?: string | null;
+  discovery_email_sent_at?: string | null;
 };
 
 export type EmployeeProfile = {
@@ -112,6 +116,32 @@ export type ContentTrackerItem = {
   notes: string | null;
   created_at: string;
   updated_at: string;
+};
+
+export type Client = {
+  id: string;
+  lead_id: string | null;
+  auth_user_id: string | null;
+  company_name: string;
+  primary_contact_name: string;
+  email: string;
+  status: string;
+  current_engagement: string | null;
+  created_at: string;
+  updated_at: string;
+  lead?: Lead | null;
+};
+
+export type BusinessHealthAssessment = {
+  id: string;
+  client_id: string;
+  status: "not_started" | "in_progress" | "complete";
+  started_at: string | null;
+  completed_at: string | null;
+  answers: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+  client?: Client | null;
 };
 
 export function getAuthClient(accessToken?: string) {
@@ -202,6 +232,54 @@ export async function getAdminLead(id: string) {
   }
 
   return data as Lead;
+}
+
+export async function getLeadClient(leadId: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("clients")
+    .select("*")
+    .eq("lead_id", leadId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data as Client | null;
+}
+
+export async function getAdminClient(id: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("clients")
+    .select("*, lead:leads(*)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data as Client;
+}
+
+export async function getClientAssessment(clientId: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("business_health_assessments")
+    .select("*")
+    .eq("client_id", clientId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data as BusinessHealthAssessment | null;
 }
 
 export async function getLeadClarityAssessments(leadId: string) {

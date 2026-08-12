@@ -68,8 +68,8 @@ export default function AboutPage() {
           <p>
             We step back, understand the whole picture, and bring every piece back together with purpose.
           </p>
-          <Link className="button" href="/start">
-            Start With Vision <b>↗</b>
+          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+            Book a Discovery Call <b>↗</b>
           </Link>
         </div>
       </section>
@@ -251,8 +251,8 @@ export default function AboutPage() {
         <h2>Your business already has the pieces.</h2>
         <p>Let&apos;s make them work together.</p>
         <div className="actions">
-          <Link className="button" href="/start">
-            Start With Vision <b>↗</b>
+          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+            Book a Discovery Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/services">
             Explore How We Help →

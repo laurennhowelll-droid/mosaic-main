@@ -15,8 +15,8 @@ const nextSteps = [
   },
   {
     number: "3",
-    title: "Begin with Vision.",
-    copy: "If we're a good fit, we'll schedule a paid Vision Session and build a roadmap together.",
+    title: "Book a Discovery Call.",
+    copy: "If Mosaic may be the right fit, we'll use the conversation to understand what type of help your business needs and whether a paid Vision engagement makes sense.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function StartPage() {
       <section className="start-page">
         <div className="start-main">
           <section className="start-intro">
-            <p className="kicker">Start With Vision</p>
+            <p className="kicker">Book a Discovery Call</p>
             <h1>Every great business begins with clarity.</h1>
             <div className="start-clarity-callout">
               <h2>Only have one specific question?</h2>
@@ -52,7 +52,7 @@ export default function StartPage() {
               You simply need to know something isn&apos;t working the way it should.
             </p>
             <p>
-              Whether your challenge is branding, operations, technology, customer experience, or internal systems, we&apos;ll begin by understanding your business before recommending a solution.
+              Whether your challenge is branding, operations, technology, customer experience, or internal systems, we&apos;ll begin with a complimentary conversation to understand whether Mosaic is the right fit.
             </p>
           </section>
 

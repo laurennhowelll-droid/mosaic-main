@@ -3,6 +3,7 @@ export const pipelineStages = [
   ["scheduling_first_call", "Scheduling First Call"],
   ["first_call_scheduled", "First Call Scheduled"],
   ["first_call_complete", "First Call Complete"],
+  ["discovery_call_complete", "Discovery Call Complete"],
   ["working_on_plan", "Working on Plan"],
   ["proposal_sent", "Proposal Sent"],
   ["waiting_on_client", "Waiting on Client"],

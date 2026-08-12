@@ -136,8 +136,8 @@ export default function ServicesPage() {
             connected business.
           </p>
           <div className="actions">
-            <Link className="button" href="/start">
-              Start With Vision <b>↗</b>
+            <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+              Book a Discovery Call <b>↗</b>
             </Link>
             <Link className="text-link" href="/process">
               Learn About Our Process →
@@ -329,17 +329,15 @@ export default function ServicesPage() {
       </section>
 
       <section className="services-final-cta">
-        <p className="kicker">Start With Vision</p>
+        <p className="kicker">Book a Discovery Call</p>
         <h2>
           Let&apos;s build the business you&apos;ve been trying to run.
         </h2>
         <p>
-          Start with a paid Vision Session. Every engagement begins
-          by understanding your business before recommending
-          technology.
+          A complimentary 20-minute conversation to understand your business, what&apos;s feeling disconnected, and whether Mosaic is the right fit.
         </p>
-        <Link className="button" href="/start">
-          Start With Vision <b>↗</b>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
     </Shell>

@@ -15,6 +15,7 @@ import { getSupabaseServerClient } from "../../../lib/supabase/server";
 
 const emailPattern = /^\S+@\S+\.\S+$/;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buildwithmosaic.co";
+const discoveryCallUrl = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
 const categories: ClarityCategory[] = ["vision", "experience", "systems", "operations", "growth"];
 
 function clean(value: unknown) {
@@ -171,8 +172,8 @@ async function sendReportEmail({
                           <p style="margin:0 0 10px;color:#e4dccd;font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;">Recommended Starting Point</p>
                           <h2 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:500;color:#f8f2e8;">${result.recommendedService}</h2>
                           <p style="margin:14px 0 24px;color:#f8f2e8;font-size:15px;line-height:1.65;">Based on your answers, this is where I’d look first. ${result.recommendation}</p>
-                          <a href="${siteUrl}${result.nextStepHref}" style="display:inline-block;background:#7a8266;color:#ffffff;text-decoration:none;padding:13px 18px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Explore Your Next Step →</a>
-                          <p style="margin:20px 0 0;"><a href="${siteUrl}/start" style="color:#f8f2e8;text-decoration:underline;font-size:13px;">Start With Vision →</a></p>
+                          <p style="margin:18px 0 24px;color:#f8f2e8;font-size:15px;line-height:1.65;">The next step is a complimentary 20-minute Discovery Call to understand your business, what&apos;s feeling disconnected, and whether Mosaic is the right fit.</p>
+                          <a href="${discoveryCallUrl}" style="display:inline-block;background:#7a8266;color:#ffffff;text-decoration:none;padding:13px 18px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Book a Discovery Call →</a>
                         </td>
                       </tr>
                     </table>

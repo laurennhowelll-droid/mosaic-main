@@ -68,8 +68,8 @@ export default function Home() {
             into one business that works beautifully.
           </p>
           <div className="actions">
-            <Link className="button" href="/start">
-              Start With Vision <b>↗</b>
+            <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+              Book a Discovery Call <b>↗</b>
             </Link>
             <Link className="text-link" href="/services">
               Explore How We Help →
@@ -156,8 +156,8 @@ export default function Home() {
           <span>Systems that empower people.</span>
           <span>Growth with intention.</span>
         </div>
-        <Link className="button" href="/start">
-          Start With Vision <b>↗</b>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
 
@@ -249,28 +249,28 @@ export default function Home() {
       </section>
 
       <section className="final-cta">
-        <p className="kicker">Start with vision</p>
+        <p className="kicker">Two Ways To Begin</p>
         <h2>
-          Your vision is still there.
+          Start where you are.
           <br />
-          <em>Let&apos;s make it clear again.</em>
+          <em>We&apos;ll find the right next step.</em>
         </h2>
         <div className="home-clarity-prompt">
-          <h3>Not sure where to start?</h3>
+          <h3>Not sure what&apos;s causing the friction?</h3>
           <p>
-            If you&apos;re looking at the whole business, we&apos;ll begin with Vision. If you&apos;re trying to solve one specific question, begin with a Clarity Session.
+            Take the Clarity Check to see where your business may be getting disconnected, or book a complimentary Discovery Call if you already know you want help.
           </p>
           <div className="actions">
-            <Link className="secondary-button" href="/start">
-              Start With Vision
+            <Link className="secondary-button" href="/clarity-check">
+              Take the Clarity Check
             </Link>
-            <Link className="text-link" href="/clarity">
-              Clarity Session →
+            <Link className="secondary-button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+              Book a Discovery Call
             </Link>
           </div>
         </div>
-        <Link className="button" href="/start">
-          Start With Vision <b>↗</b>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
     </Shell>

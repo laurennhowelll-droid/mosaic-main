@@ -130,8 +130,8 @@ export default function ProcessPage() {
             That&apos;s where every Mosaic engagement begins.
           </p>
         </div>
-        <Link className="button" href="/start">
-          Start With Vision <b>↗</b>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
 
@@ -263,14 +263,14 @@ export default function ProcessPage() {
         <p className="kicker">Begin With Understanding</p>
         <h2>Let&apos;s understand your business before we change it.</h2>
         <p>
-          Every engagement begins with one conversation.
+          Every potential engagement begins with a complimentary Discovery Call.
           <br />
-          Not about software.
+          Not a consulting session.
           <br />
-          About where you&apos;re trying to go.
+          A conversation about where you are today, where you&apos;d like to go, and whether Mosaic is the right partner.
         </p>
-        <Link className="button" href="/start">
-          Start With Vision <b>↗</b>
+        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
         </Link>
       </section>
     </Shell>
