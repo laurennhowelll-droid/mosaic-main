@@ -81,11 +81,30 @@ const serviceCards = [
   },
 ];
 
+const aLaCarteServices = [
+  ["Clarity Call", "Starting at $500"],
+  ["Business Systems Audit", "Starting at $750"],
+  ["Brand Refresh", "Starting at $750"],
+  ["Website / UX Audit", "Starting at $500"],
+  ["Landing Page", "Starting at $750"],
+  ["Website", "Starting at $1,500"],
+  ["Website Migration", "Starting at $750"],
+  ["Automation Sprint", "Starting at $750"],
+  ["Workflow Build", "Starting at $1,000"],
+  ["Dashboard", "Starting at $1,000"],
+  ["CRM Setup / Cleanup", "Starting at $1,000"],
+  ["Airtable / Database Build", "Starting at $1,500"],
+  ["Client / Team Portal", "Starting at $1,500"],
+  ["AI Workflow Setup", "Starting at $750"],
+  ["Documentation / SOP Package", "Starting at $1,000"],
+  ["Team Training", "Starting at $500"],
+];
+
 const faqs = [
   {
     question: "Do I have to do every phase?",
     answer:
-      "No. Every engagement starts with Vision, then we recommend only the phases that match your business, timing, and goals.",
+      "No. Each engagement can stand on its own. After your Discovery Call, we recommend only the engagement—or combination of engagements—that matches your business, timing, and goals.",
   },
   {
     question: "Can Mosaic work with my existing team?",
@@ -142,6 +161,9 @@ export default function ServicesPage() {
             <Link className="text-link" href="/process">
               Learn About Our Process →
             </Link>
+            <Link className="text-link" href="#a-la-carte">
+              Explore À La Carte →
+            </Link>
           </div>
         </div>
       </section>
@@ -189,6 +211,9 @@ export default function ServicesPage() {
         <div className="section-intro">
           <p className="kicker">Four Services</p>
           <h2>Choose the right level of clarity.</h2>
+          <p className="services-supporting-copy">
+            Standalone by design. Stackable when it makes sense.
+          </p>
         </div>
         <div className="services-card-grid">
           {serviceCards.map((service) => (
@@ -222,10 +247,10 @@ export default function ServicesPage() {
 
       <section className="services-growth">
         <div className="section-intro">
-          <p className="kicker">How Projects Grow</p>
-          <h2>Every engagement begins with Vision.</h2>
+          <p className="kicker">How Projects Work Together</p>
+          <h2>Built to work together.</h2>
         </div>
-        <div className="services-timeline" aria-label="Project phases">
+        <div className="services-timeline" aria-label="Mosaic engagements can build on each other when needed">
           {serviceCards.map((service) => (
             <div className="services-phase" key={service.title}>
               <span>{service.number}</span>
@@ -234,15 +259,34 @@ export default function ServicesPage() {
           ))}
         </div>
         <div className="services-growth-copy">
-          <p>Every engagement begins with Vision.</p>
           <p>
-            Most clients continue into Experience or Connect.
+            Each Mosaic engagement stands on its own. One does not automatically include the services or deliverables of another.
           </p>
           <p>
-            Larger engagements combine multiple phases into one
-            cohesive project.
+            But businesses rarely fit neatly into one box. Vision, Experience, Connect, and Grow are designed to work together when your needs cross multiple parts of the business.
           </p>
-          <p>Bundled engagements receive custom pricing.</p>
+          <p>
+            After your Discovery Call, we&apos;ll recommend the engagement—or combination of engagements—that makes the most sense for you.
+          </p>
+        </div>
+      </section>
+
+      <section className="services-growth">
+        <div className="section-intro">
+          <p className="kicker">Full Mosaic</p>
+          <h2>I need to rethink the whole thing.</h2>
+        </div>
+        <div className="services-full-mosaic">
+          <div>
+            <span>Full Mosaic</span>
+            <strong>Starting at $11,500</strong>
+          </div>
+          <p>
+            When the disconnect crosses multiple parts of the business, Full Mosaic brings the right engagements together into one coordinated transformation.
+          </p>
+          <p>
+            Full Mosaic is custom-scoped based on what your business actually needs—not a preset package containing every service or deliverable.
+          </p>
         </div>
       </section>
 
@@ -287,6 +331,45 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <section className="services-a-la-carte" id="a-la-carte">
+        <div className="section-intro">
+          <p className="kicker">À La Carte</p>
+          <h2>Sometimes you don&apos;t need the whole transformation. You just need one piece.</h2>
+          <p className="services-supporting-copy">
+            For focused needs, Mosaic offers smaller standalone engagements that can solve a specific problem, strengthen an existing system, or give us a place to start.
+          </p>
+          <p className="services-supporting-copy">
+            These engagements can stand alone or become part of something bigger later.
+          </p>
+        </div>
+        <div className="services-a-la-carte-grid">
+          {aLaCarteServices.map(([name, price]) => (
+            <article className="services-a-la-carte-item" key={name}>
+              <h3>{name}</h3>
+              <p>{price}</p>
+            </article>
+          ))}
+        </div>
+        <p className="services-a-la-carte-note">
+          À la carte pricing reflects starting investments. Final scope and pricing may vary based on complexity and project requirements.
+        </p>
+        <div className="services-a-la-carte-bridge">
+          <h3>Need more than one piece?</h3>
+          <p>
+            À la carte work can stand alone, or we can connect multiple needs through a larger Mosaic engagement.
+          </p>
+        </div>
+        <div className="services-a-la-carte-custom">
+          <h3>Don&apos;t see exactly what you need?</h3>
+          <p>
+            Custom builds, integrations, and one-off projects are scoped individually. Tell me what you&apos;re trying to solve and we&apos;ll see if Mosaic is the right fit.
+          </p>
+          <Link className="button" href="mailto:lauren@buildwithmosaic.co?subject=Mosaic%20%E2%80%94%20Custom%20Project%20Inquiry">
+            Tell me what you need →
+          </Link>
+        </div>
+      </section>
+
       <section className="services-investment">
         <div>
           <p className="kicker">Investment</p>
@@ -294,6 +377,9 @@ export default function ServicesPage() {
           <p>
             We intentionally price our work around outcomes instead
             of hours.
+          </p>
+          <p className="services-supporting-copy">
+            Starting prices reflect individual engagements. Combined engagements are scoped and priced based on the work involved.
           </p>
         </div>
         <div className="services-investment-grid">
@@ -329,12 +415,12 @@ export default function ServicesPage() {
       </section>
 
       <section className="services-final-cta">
-        <p className="kicker">Book a Discovery Call</p>
+        <p className="kicker">Not sure where you fit?</p>
         <h2>
-          Let&apos;s build the business you&apos;ve been trying to run.
+          You don&apos;t need to diagnose the problem before we talk.
         </h2>
         <p>
-          A complimentary 20-minute conversation to understand your business, what&apos;s feeling disconnected, and whether Mosaic is the right fit.
+          During your Discovery Call, we&apos;ll determine which engagement—or combination—makes the most sense for where you are.
         </p>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
           Book a Discovery Call <b>↗</b>
