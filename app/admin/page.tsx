@@ -105,6 +105,7 @@ export default async function AdminDashboard({
           </form>
         </div>
         <div className="admin-top-nav">
+          <Link href="/admin/work">Work →</Link>
           <Link href="/admin/growth">Growth Dashboard →</Link>
           <Link href="/admin/clarity">Clarity Checks →</Link>
         </div>
