@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useActionState, useMemo, useState } from "react";
 import type { WorkContent } from "../../../lib/work-content";
 import { createWorkContent, updateWorkContent } from "./editor-actions";
 
@@ -15,9 +15,11 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
   const [contentType, setContentType] = useState<string>(item?.content_type ?? "article");
   const [ctaType, setCtaType] = useState<string>(item?.cta_type ?? "none");
   const action = useMemo(() => (item ? updateWorkContent.bind(null, item.id) : createWorkContent), [item]);
+  const [state, formAction, isPending] = useActionState(action, {});
 
   return (
-    <form className="work-editor-form" action={action}>
+    <form className="work-editor-form" action={formAction}>
+      {state.error ? <p className="admin-form-error">{state.error}</p> : null}
       <div className="work-editor-grid">
         <label className="wide">Title<input name="title" value={title} onChange={(event) => {
           setTitle(event.target.value);
@@ -69,7 +71,7 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
           </>
         ) : null}
       </div>
-      <button className="button" type="submit">{item ? "Save Work" : "Create Work"} <b>↗</b></button>
+      <button className="button" type="submit" disabled={isPending}>{isPending ? "Saving..." : item ? "Save Work" : "Create Work"} <b>↗</b></button>
     </form>
   );
 }

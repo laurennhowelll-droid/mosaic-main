@@ -6,6 +6,8 @@ import { getSupabaseServerClient } from "../../../lib/supabase/server";
 import { ctaTypes, slugifyTitle, workContentTypes, workStatuses } from "../../../lib/work-content";
 import { requireAdmin } from "../../../lib/supabase/admin";
 
+export type WorkActionState = { error?: string };
+
 function clean(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -33,6 +35,22 @@ async function uploadFeaturedImage(file: File | null) {
 
   const { data } = supabase.storage.from("work-images").getPublicUrl(path);
   return data.publicUrl;
+}
+
+function friendlySupabaseError(message: string) {
+  if (message.includes("work_content_slug_key") || message.toLowerCase().includes("duplicate key")) {
+    return "That slug is already being used. Edit the slug so it is unique, then try again.";
+  }
+
+  if (message.includes("Only 3 published work pieces can be featured")) {
+    return "Only 3 published work pieces can be featured at once. Unfeature one first, then try again.";
+  }
+
+  if (message.includes("work-images")) {
+    return "The featured image could not be uploaded. Confirm the Supabase work-images bucket exists, or save without an image for now.";
+  }
+
+  return message;
 }
 
 async function assertCanFeature(id: string | null, requested: boolean, status: string) {
@@ -86,54 +104,72 @@ function readPayload(formData: FormData, existingImageUrl?: string | null) {
   };
 }
 
-export async function createWorkContent(formData: FormData) {
-  await requireAdmin();
-  const imageUrl = await uploadFeaturedImage(formData.get("featured_image") as File | null);
-  const payload = readPayload(formData, imageUrl);
-  await assertCanFeature(null, payload.is_featured, payload.status);
+export async function createWorkContent(_: WorkActionState, formData: FormData): Promise<WorkActionState> {
+  let createdId: string | null = null;
 
-  const supabase = getSupabaseServerClient();
-  const { data, error } = await supabase.from("work_content").insert(payload).select("id").single();
-  if (error) throw new Error(error.message);
+  try {
+    await requireAdmin();
+    const imageUrl = await uploadFeaturedImage(formData.get("featured_image") as File | null);
+    const payload = readPayload(formData, imageUrl);
+    await assertCanFeature(null, payload.is_featured, payload.status);
 
-  revalidatePath("/work");
-  redirect(`/admin/work/${data.id}`);
+    const supabase = getSupabaseServerClient();
+    const { data, error } = await supabase.from("work_content").insert(payload).select("id").single();
+    if (error) return { error: friendlySupabaseError(error.message) };
+    createdId = data.id;
+
+    revalidatePath("/work");
+  } catch (error) {
+    return { error: friendlySupabaseError(error instanceof Error ? error.message : "Could not create this work piece.") };
+  }
+
+  redirect(`/admin/work/${createdId}`);
 }
 
-export async function updateWorkContent(id: string, formData: FormData) {
-  await requireAdmin();
-  const supabase = getSupabaseServerClient();
-  const { data: existing, error: existingError } = await supabase.from("work_content").select("featured_image_url").eq("id", id).single();
-  if (existingError) throw new Error(existingError.message);
+export async function updateWorkContent(id: string, _: WorkActionState, formData: FormData): Promise<WorkActionState> {
+  try {
+    await requireAdmin();
+    const supabase = getSupabaseServerClient();
+    const { data: existing, error: existingError } = await supabase.from("work_content").select("featured_image_url").eq("id", id).single();
+    if (existingError) return { error: friendlySupabaseError(existingError.message) };
 
-  const imageUrl = await uploadFeaturedImage(formData.get("featured_image") as File | null);
-  const payload = readPayload(formData, imageUrl ?? existing.featured_image_url);
-  await assertCanFeature(id, payload.is_featured, payload.status);
+    const imageUrl = await uploadFeaturedImage(formData.get("featured_image") as File | null);
+    const payload = readPayload(formData, imageUrl ?? existing.featured_image_url);
+    await assertCanFeature(id, payload.is_featured, payload.status);
 
-  const { error } = await supabase.from("work_content").update(payload).eq("id", id);
-  if (error) throw new Error(error.message);
+    const { error } = await supabase.from("work_content").update(payload).eq("id", id);
+    if (error) return { error: friendlySupabaseError(error.message) };
 
-  revalidatePath("/work");
-  revalidatePath(`/admin/work/${id}`);
+    revalidatePath("/work");
+    revalidatePath(`/admin/work/${id}`);
+  } catch (error) {
+    return { error: friendlySupabaseError(error instanceof Error ? error.message : "Could not save this work piece.") };
+  }
+
   redirect(`/admin/work/${id}`);
 }
 
-export async function setWorkPublishState(id: string, publish: boolean) {
-  await requireAdmin();
-  const supabase = getSupabaseServerClient();
-  const patch = publish
-    ? { status: "published", publish_date: new Date().toISOString(), updated_at: new Date().toISOString() }
-    : { status: "draft", is_featured: false, updated_at: new Date().toISOString() };
+export async function setWorkPublishState(id: string, publish: boolean): Promise<WorkActionState> {
+  try {
+    await requireAdmin();
+    const supabase = getSupabaseServerClient();
+    const patch = publish
+      ? { status: "published", publish_date: new Date().toISOString(), updated_at: new Date().toISOString() }
+      : { status: "draft", is_featured: false, updated_at: new Date().toISOString() };
 
-  if (publish) {
-    const { data: item, error: itemError } = await supabase.from("work_content").select("is_featured").eq("id", id).single();
-    if (itemError) throw new Error(itemError.message);
-    await assertCanFeature(id, Boolean(item.is_featured), "published");
+    if (publish) {
+      const { data: item, error: itemError } = await supabase.from("work_content").select("is_featured").eq("id", id).single();
+      if (itemError) return { error: friendlySupabaseError(itemError.message) };
+      await assertCanFeature(id, Boolean(item.is_featured), "published");
+    }
+
+    const { error } = await supabase.from("work_content").update(patch).eq("id", id);
+    if (error) return { error: friendlySupabaseError(error.message) };
+
+    revalidatePath("/work");
+    revalidatePath("/admin/work");
+    return {};
+  } catch (error) {
+    return { error: friendlySupabaseError(error instanceof Error ? error.message : "Could not update publish status.") };
   }
-
-  const { error } = await supabase.from("work_content").update(patch).eq("id", id);
-  if (error) throw new Error(error.message);
-
-  revalidatePath("/work");
-  revalidatePath("/admin/work");
 }

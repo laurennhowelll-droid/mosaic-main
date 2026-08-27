@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Shell } from "../../components";
 import { requireAdmin } from "../../../lib/supabase/admin";
 import { formatWorkDate, getAdminWorkContent, getWorkTypeLabel } from "../../../lib/work-content";
-import { setWorkPublishState } from "./editor-actions";
+import PublishButton from "./PublishButton";
 
 export const dynamic = "force-dynamic";
 
@@ -53,9 +53,7 @@ export default async function AdminWorkPage() {
               <span data-label="Updated">{shortDate(item.updated_at)}</span>
               <Link href={`/admin/work/${item.id}`}>Edit →</Link>
               <Link href={`/admin/work/${item.id}/preview`}>Preview →</Link>
-              <form action={setWorkPublishState.bind(null, item.id, item.status !== "published")}>
-                <button className="text-link" type="submit">{item.status === "published" ? "Unpublish" : "Publish"}</button>
-              </form>
+              <PublishButton id={item.id} publish={item.status !== "published"} />
             </div>
           ))}
         </div>
