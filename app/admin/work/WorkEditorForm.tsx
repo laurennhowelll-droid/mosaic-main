@@ -14,12 +14,14 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
   const [slugTouched, setSlugTouched] = useState(Boolean(item));
   const [contentType, setContentType] = useState<string>(item?.content_type ?? "article");
   const [ctaType, setCtaType] = useState<string>(item?.cta_type ?? "none");
+  const [fileError, setFileError] = useState("");
   const action = useMemo(() => (item ? updateWorkContent.bind(null, item.id) : createWorkContent), [item]);
   const [state, formAction, isPending] = useActionState(action, {});
 
   return (
     <form className="work-editor-form" action={formAction}>
       {state.error ? <p className="admin-form-error">{state.error}</p> : null}
+      {fileError ? <p className="admin-form-error">{fileError}</p> : null}
       <div className="work-editor-grid">
         <label className="wide">Title<input name="title" value={title} onChange={(event) => {
           setTitle(event.target.value);
@@ -44,7 +46,15 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
         <label>Publish Date<input name="publish_date" type="datetime-local" defaultValue={item?.publish_date ? item.publish_date.slice(0, 16) : ""} /></label>
         <label className="work-check"><input name="is_featured" type="checkbox" defaultChecked={item?.is_featured ?? false} /> Featured / Favorite</label>
         <label className="wide">Subtitle / Excerpt<textarea name="excerpt" rows={3} defaultValue={item?.excerpt ?? ""} /></label>
-        <label className="wide">Hero / Featured Image<input name="featured_image" type="file" accept="image/*" /></label>
+        <label className="wide">Hero / Featured Image<input name="featured_image" type="file" accept="image/*" onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file && file.size > 10 * 1024 * 1024) {
+            event.target.value = "";
+            setFileError("Featured images must be under 10 MB. Try exporting a smaller JPG, PNG, or WebP.");
+            return;
+          }
+          setFileError("");
+        }} />Use a JPG, PNG, or WebP under 10 MB.</label>
         {item?.featured_image_url ? <label className="work-check wide"><input name="remove_featured_image" type="checkbox" /> Remove current featured image</label> : null}
         <label className="wide">Body Content<textarea name="body" rows={18} defaultValue={item?.body ?? ""} required placeholder="Paste Markdown here..." /></label>
         <label>SEO Title<input name="seo_title" defaultValue={item?.seo_title ?? ""} /></label>
@@ -71,7 +81,7 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
           </>
         ) : null}
       </div>
-      <button className="button" type="submit" disabled={isPending}>{isPending ? "Saving..." : item ? "Save Work" : "Create Work"} <b>↗</b></button>
+      <button className="button" type="submit" disabled={isPending || Boolean(fileError)}>{isPending ? "Saving..." : item ? "Save Work" : "Create Work"} <b>↗</b></button>
     </form>
   );
 }
