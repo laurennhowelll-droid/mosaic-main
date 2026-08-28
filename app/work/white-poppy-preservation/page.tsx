@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Shell } from "../../components";
 
@@ -149,6 +150,15 @@ export default function WhitePoppyCaseStudy() {
           times its earlier size while the infrastructure behind it
           evolved alongside that growth.
         </p>
+        <div className="case-hero-image">
+          <Image
+            src="/brand/white_poppy.png"
+            alt="Framed floral preservation pieces by White Poppy Preservation"
+            width={1866}
+            height={593}
+            priority
+          />
+        </div>
         <div className="case-hero-metrics" aria-label="White Poppy transformation highlights">
           {heroMetrics.map(([metric, label]) => (
             <div key={label}>
