@@ -45,7 +45,7 @@ export const staticWhitePoppyWork: WorkListItem = {
   content_type: "case_study",
   excerpt:
     "A business transformation case study documenting the systems, operations, reporting, and ecommerce work behind a growing preservation studio.",
-  featured_image_url: null,
+  featured_image_url: "/brand/white_poppy.png",
   status: "published",
   publish_date: "2026-08-01T12:00:00.000Z",
   is_featured: true,
