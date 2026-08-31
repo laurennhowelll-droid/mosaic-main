@@ -179,6 +179,7 @@ export default async function GrowthDashboard({
           </div>
           <div className="growth-nav">
             <Link className="text-link" href="/admin">Leads →</Link>
+            <Link className="text-link" href="/admin/outreach">Outreach →</Link>
             <Link className="text-link" href="/admin/clarity">Clarity Checks →</Link>
           </div>
         </div>

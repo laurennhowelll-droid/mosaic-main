@@ -144,6 +144,54 @@ export type BusinessHealthAssessment = {
   client?: Client | null;
 };
 
+export type OutreachProspect = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  business_name: string;
+  contact_name: string | null;
+  contact_title: string | null;
+  industry: string | null;
+  website: string | null;
+  email: string | null;
+  instagram: string | null;
+  location: string | null;
+  problem_category: string | null;
+  problem_observed: string;
+  observation_notes: string | null;
+  mosaic_opportunity: string;
+  prospect_tier: string;
+  research_notes: string | null;
+  status: string;
+  channel: string | null;
+  first_contacted_at: string | null;
+  last_contacted_at: string | null;
+  next_follow_up_at: string | null;
+  follow_up_count: number;
+  outreach_message: string | null;
+  message_angle: string | null;
+  replied_at: string | null;
+  reply_sentiment: string | null;
+  discovery_booked_at: string | null;
+  discovery_completed_at: string | null;
+  outcome: string;
+  lost_reason: string | null;
+  client_id: string | null;
+  estimated_project_value: number | null;
+  notes: string | null;
+};
+
+export type OutreachActivity = {
+  id: string;
+  prospect_id: string;
+  created_at: string;
+  activity_type: string;
+  channel: string | null;
+  notes: string | null;
+  message: string | null;
+  scheduled_for: string | null;
+};
+
 export function getAuthClient(accessToken?: string) {
   if (!supabaseUrl || !supabasePublishableKey) {
     throw new Error("Supabase public environment variables are not configured.");
@@ -458,5 +506,37 @@ export async function getGrowthDashboardData() {
     content: (content ?? []) as ContentTrackerItem[],
     leads,
     assessments,
+  };
+}
+
+export async function getOutreachProspects() {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("outreach_prospects")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []) as OutreachProspect[];
+}
+
+export async function getOutreachProspect(id: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const [{ data: prospect, error: prospectError }, { data: activities, error: activityError }] = await Promise.all([
+    supabase.from("outreach_prospects").select("*").eq("id", id).single(),
+    supabase.from("outreach_activities").select("*").eq("prospect_id", id).order("created_at", { ascending: false }),
+  ]);
+
+  if (prospectError) throw new Error(prospectError.message);
+  if (activityError) throw new Error(activityError.message);
+
+  return {
+    prospect: prospect as OutreachProspect,
+    activities: (activities ?? []) as OutreachActivity[],
   };
 }

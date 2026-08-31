@@ -77,6 +77,7 @@ export default async function AdminClarityPage({
             <h1>Clarity Checks.</h1>
           </div>
           <div className="growth-nav">
+            <Link className="text-link" href="/admin/outreach">Outreach →</Link>
             <Link className="text-link" href="/admin/growth">Growth Dashboard →</Link>
             <Link className="text-link" href="/admin">Back to Leads →</Link>
           </div>

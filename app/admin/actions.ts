@@ -14,6 +14,19 @@ import {
   requireAdmin,
 } from "../../lib/supabase/admin";
 import { getSupabaseServerClient } from "../../lib/supabase/server";
+import {
+  optionValues,
+  outreachActivityTypes,
+  outreachChannels,
+  outreachLostReasons,
+  outreachMessageAngles,
+  outreachOpportunities,
+  outreachOutcomes,
+  outreachProblemCategories,
+  outreachReplySentiments,
+  outreachStatuses,
+  outreachTiers,
+} from "../../lib/outreach-config";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -42,6 +55,64 @@ function optionalNumber(value: string) {
     throw new Error("Target values must be positive numbers.");
   }
   return number;
+}
+
+function optionalDateTime(value: string) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) throw new Error("Please enter a valid date.");
+  return date.toISOString();
+}
+
+function optionalOption(value: string, values: readonly string[]) {
+  if (!value) return null;
+  if (!values.includes(value)) throw new Error("Invalid option.");
+  return value;
+}
+
+function requiredOption(value: string, values: readonly string[], fallback: string) {
+  const option = value || fallback;
+  if (!values.includes(option)) throw new Error("Invalid option.");
+  return option;
+}
+
+function outreachOutcomeForStatus(status: string) {
+  if (status === "won") return "won";
+  if (status === "lost") return "lost";
+  if (status === "not_a_fit") return "not_a_fit";
+  return "open";
+}
+
+async function addOutreachActivity(
+  prospectId: string,
+  activityType: string,
+  {
+    channel,
+    notes,
+    message,
+    scheduledFor,
+  }: {
+    channel?: string | null;
+    notes?: string | null;
+    message?: string | null;
+    scheduledFor?: string | null;
+  } = {},
+) {
+  if (!optionValues(outreachActivityTypes).includes(activityType)) {
+    throw new Error("Invalid activity type.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase.from("outreach_activities").insert({
+    prospect_id: prospectId,
+    activity_type: activityType,
+    channel: channel ?? null,
+    notes: notes ?? null,
+    message: message ?? null,
+    scheduled_for: scheduledFor ?? null,
+  });
+
+  if (error) throw new Error(error.message);
 }
 
 async function sendMosaicEmail({ to, subject, eyebrow, heading, body, ctaHref, ctaLabel }: { to: string; subject: string; eyebrow: string; heading: string; body: string; ctaHref?: string; ctaLabel?: string }) {
@@ -485,4 +556,192 @@ export async function updateGrowthTargets(campaignId: string, formData: FormData
   }
 
   revalidatePath("/admin/growth");
+}
+
+export async function createOutreachProspect(formData: FormData) {
+  await requireAdmin();
+
+  const businessName = clean(formData.get("business_name"));
+  const problemObserved = clean(formData.get("problem_observed"));
+  const status = requiredOption(clean(formData.get("status")), optionValues(outreachStatuses), "lead");
+  const estimatedValue = optionalNumber(clean(formData.get("estimated_project_value")));
+
+  if (!businessName || !problemObserved) {
+    throw new Error("Business name and problem observed are required.");
+  }
+
+  const payload = {
+    business_name: businessName,
+    contact_name: clean(formData.get("contact_name")) || null,
+    contact_title: clean(formData.get("contact_title")) || null,
+    industry: clean(formData.get("industry")) || null,
+    location: clean(formData.get("location")) || null,
+    website: clean(formData.get("website")) || null,
+    email: clean(formData.get("email")).toLowerCase() || null,
+    instagram: clean(formData.get("instagram")) || null,
+    problem_category: optionalOption(clean(formData.get("problem_category")), optionValues(outreachProblemCategories)),
+    problem_observed: problemObserved,
+    mosaic_opportunity: requiredOption(clean(formData.get("mosaic_opportunity")), optionValues(outreachOpportunities), "unsure"),
+    prospect_tier: requiredOption(clean(formData.get("prospect_tier")), optionValues(outreachTiers), "standard"),
+    research_notes: clean(formData.get("research_notes")) || null,
+    channel: optionalOption(clean(formData.get("channel")), optionValues(outreachChannels)),
+    message_angle: optionalOption(clean(formData.get("message_angle")), optionValues(outreachMessageAngles)),
+    outreach_message: clean(formData.get("outreach_message")) || null,
+    status,
+    outcome: outreachOutcomeForStatus(status),
+    next_follow_up_at: optionalDateTime(clean(formData.get("next_follow_up_at"))),
+    estimated_project_value: estimatedValue,
+    notes: clean(formData.get("notes")) || null,
+  };
+
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase.from("outreach_prospects").insert(payload).select("id").single();
+
+  if (error || !data) throw new Error(error?.message ?? "Could not create prospect.");
+
+  await addOutreachActivity(data.id, "research", {
+    channel: payload.channel,
+    notes: "Prospect added.",
+    message: payload.research_notes,
+    scheduledFor: payload.next_follow_up_at,
+  });
+
+  revalidatePath("/admin/outreach");
+  redirect(`/admin/outreach/${data.id}`);
+}
+
+export async function updateOutreachProspect(prospectId: string, formData: FormData) {
+  await requireAdmin();
+
+  const status = requiredOption(clean(formData.get("status")), optionValues(outreachStatuses), "lead");
+  const outcome = requiredOption(clean(formData.get("outcome")), optionValues(outreachOutcomes), outreachOutcomeForStatus(status));
+  if (outreachOutcomeForStatus(status) !== outcome) throw new Error("Status and outcome do not align.");
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase
+    .from("outreach_prospects")
+    .update({
+      business_name: clean(formData.get("business_name")),
+      contact_name: clean(formData.get("contact_name")) || null,
+      contact_title: clean(formData.get("contact_title")) || null,
+      industry: clean(formData.get("industry")) || null,
+      location: clean(formData.get("location")) || null,
+      website: clean(formData.get("website")) || null,
+      email: clean(formData.get("email")).toLowerCase() || null,
+      instagram: clean(formData.get("instagram")) || null,
+      problem_category: optionalOption(clean(formData.get("problem_category")), optionValues(outreachProblemCategories)),
+      problem_observed: clean(formData.get("problem_observed")),
+      observation_notes: clean(formData.get("observation_notes")) || null,
+      mosaic_opportunity: requiredOption(clean(formData.get("mosaic_opportunity")), optionValues(outreachOpportunities), "unsure"),
+      prospect_tier: requiredOption(clean(formData.get("prospect_tier")), optionValues(outreachTiers), "standard"),
+      research_notes: clean(formData.get("research_notes")) || null,
+      channel: optionalOption(clean(formData.get("channel")), optionValues(outreachChannels)),
+      message_angle: optionalOption(clean(formData.get("message_angle")), optionValues(outreachMessageAngles)),
+      outreach_message: clean(formData.get("outreach_message")) || null,
+      status,
+      outcome,
+      next_follow_up_at: optionalDateTime(clean(formData.get("next_follow_up_at"))),
+      replied_at: optionalDateTime(clean(formData.get("replied_at"))),
+      reply_sentiment: optionalOption(clean(formData.get("reply_sentiment")), optionValues(outreachReplySentiments)),
+      discovery_booked_at: optionalDateTime(clean(formData.get("discovery_booked_at"))),
+      discovery_completed_at: optionalDateTime(clean(formData.get("discovery_completed_at"))),
+      lost_reason: optionalOption(clean(formData.get("lost_reason")), optionValues(outreachLostReasons)),
+      estimated_project_value: optionalNumber(clean(formData.get("estimated_project_value"))),
+      notes: clean(formData.get("notes")) || null,
+    })
+    .eq("id", prospectId);
+
+  if (error) throw new Error(error.message);
+
+  await addOutreachActivity(prospectId, "status_change", { notes: `Updated prospect. Status: ${status}.` });
+  revalidatePath("/admin/outreach");
+  revalidatePath(`/admin/outreach/${prospectId}`);
+}
+
+export async function quickUpdateOutreachProspect(prospectId: string, formData: FormData) {
+  await requireAdmin();
+
+  const action = clean(formData.get("action"));
+  const now = new Date().toISOString();
+  const notes = clean(formData.get("notes")) || null;
+  const message = clean(formData.get("message")) || null;
+  const channel = optionalOption(clean(formData.get("channel")), optionValues(outreachChannels));
+  const patch: Record<string, string | number | null> = {};
+  let activityType = "status_change";
+
+  if (action === "mark_contacted") {
+    patch.first_contacted_at = now;
+    patch.last_contacted_at = now;
+    patch.status = "contacted";
+    patch.outcome = "open";
+    patch.outreach_message = message;
+    patch.channel = channel;
+    patch.next_follow_up_at = optionalDateTime(clean(formData.get("next_follow_up_at")));
+    activityType = "contacted";
+  } else if (action === "schedule_follow_up") {
+    patch.next_follow_up_at = optionalDateTime(clean(formData.get("next_follow_up_at")));
+    if (!patch.next_follow_up_at) throw new Error("Follow-up date is required.");
+    patch.status = "follow_up";
+    patch.outcome = "open";
+    activityType = "follow_up";
+  } else if (action === "mark_replied") {
+    const sentiment = requiredOption(clean(formData.get("reply_sentiment")), optionValues(outreachReplySentiments), "neutral");
+    const status = clean(formData.get("status")) === "interested" ? "interested" : "replied";
+    patch.replied_at = now;
+    patch.reply_sentiment = sentiment;
+    patch.status = status;
+    patch.outcome = "open";
+    activityType = "reply";
+  } else if (action === "mark_interested") {
+    patch.status = "interested";
+    patch.outcome = "open";
+    activityType = "status_change";
+  } else if (action === "book_discovery") {
+    patch.discovery_booked_at = optionalDateTime(clean(formData.get("discovery_booked_at"))) ?? now;
+    patch.status = "discovery_booked";
+    patch.outcome = "open";
+    activityType = "discovery_booked";
+  } else if (action === "complete_discovery") {
+    patch.discovery_completed_at = optionalDateTime(clean(formData.get("discovery_completed_at"))) ?? now;
+    patch.status = "discovery_complete";
+    patch.outcome = "open";
+    activityType = "discovery_completed";
+  } else if (action === "mark_won") {
+    patch.status = "won";
+    patch.outcome = "won";
+    patch.next_follow_up_at = null;
+    activityType = "won";
+  } else if (action === "mark_lost") {
+    patch.status = "lost";
+    patch.outcome = "lost";
+    patch.lost_reason = requiredOption(clean(formData.get("lost_reason")), optionValues(outreachLostReasons), "no_response");
+    patch.next_follow_up_at = null;
+    activityType = "lost";
+  } else if (action === "delete") {
+    const supabase = getSupabaseServerClient();
+    const { error } = await supabase.from("outreach_prospects").delete().eq("id", prospectId);
+    if (error) throw new Error(error.message);
+    revalidatePath("/admin/outreach");
+    redirect("/admin/outreach");
+  } else {
+    throw new Error("Invalid outreach action.");
+  }
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase
+    .from("outreach_prospects")
+    .update({ ...patch, updated_at: now })
+    .eq("id", prospectId);
+
+  if (error) throw new Error(error.message);
+
+  await addOutreachActivity(prospectId, activityType, {
+    channel,
+    notes,
+    message,
+    scheduledFor: typeof patch.next_follow_up_at === "string" ? patch.next_follow_up_at : null,
+  });
+
+  revalidatePath("/admin/outreach");
+  revalidatePath(`/admin/outreach/${prospectId}`);
 }

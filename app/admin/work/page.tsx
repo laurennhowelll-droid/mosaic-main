@@ -27,6 +27,7 @@ export default async function AdminWorkPage() {
         </div>
         <div className="admin-top-nav">
           <Link href="/admin">Leads →</Link>
+          <Link href="/admin/outreach">Outreach →</Link>
           <Link href="/admin/growth">Growth Dashboard →</Link>
           <Link href="/admin/clarity">Clarity Checks →</Link>
         </div>
