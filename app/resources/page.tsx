@@ -35,7 +35,7 @@ export default function FreeResourcesPage() {
               <p className="free-card-description">{resource.shortDescription}</p>
               <p className="free-card-support">{resource.librarySupportingCopy}</p>
               <div className="free-card-foot">
-                <span className="free-card-cta">{resource.ctaLabel}</span>
+                <span className="free-card-cta">View Resource</span>
                 <b>↗</b>
               </div>
             </article>

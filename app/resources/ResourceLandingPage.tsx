@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ResourceDownloadGate from "./ResourceDownloadGate";
 import type { Resource } from "./resources";
 
 const clarityCheckHref = "/clarity-check";
@@ -13,9 +14,9 @@ export default function ResourceLandingPage({ resource }: { resource: Resource }
           <p className="free-resource-subtitle">{resource.shortDescription}</p>
           <p className="free-resource-intro">{resource.longDescription}</p>
           <div className="actions">
-            <Link className="button" href={resource.filePath} target="_blank">
-              {resource.ctaLabel} <b>↗</b>
-            </Link>
+            <a className="button" href="#download">
+              {resource.ctaLabel} <b>↓</b>
+            </a>
             {resource.secondaryCta && (
               <Link className="text-link" href={resource.secondaryCta.href}>
                 {resource.secondaryCta.label} →
@@ -29,6 +30,10 @@ export default function ResourceLandingPage({ resource }: { resource: Resource }
           <span>Category</span>
           <strong>{resource.category}</strong>
         </aside>
+      </section>
+
+      <section className="resource-download-section" id="download">
+        <ResourceDownloadGate resource={resource} />
       </section>
 
       <section className="free-resource-focus">
