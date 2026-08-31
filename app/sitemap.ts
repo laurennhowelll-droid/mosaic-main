@@ -6,7 +6,22 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buildwithmosaic.co"
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticRoutes = ["", "/about", "/brand", "/clarity", "/clarity-check", "/playbook", "/process", "/services", "/start", "/work"];
+  const staticRoutes = [
+    "",
+    "/about",
+    "/brand",
+    "/clarity",
+    "/clarity-check",
+    "/playbook",
+    "/process",
+    "/resources",
+    "/resources/friction",
+    "/resources/systems",
+    "/resources/website",
+    "/services",
+    "/start",
+    "/work",
+  ];
   const workItems = await getPublishedWorkContent();
 
   return [
