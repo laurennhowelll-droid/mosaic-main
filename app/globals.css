@@ -139,4 +139,4 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .home-leave-behind .home-piece-statement{max-width:min(780px,calc(100% - clamp(72px,14vw,220px)));text-align:center}
 @media(max-width:900px){.home-leave-behind .section-intro,.home-leave-list,.home-leave-behind .home-piece-statement{max-width:var(--site-container)}}
 
-@media(min-width:901px){.hero-mark{transform:translateX(clamp(120px,12vw,260px));overflow:visible}}
+@media(min-width:901px){.hero-mark{transform:none;padding-right:clamp(96px,9vw,160px);overflow:visible}}
