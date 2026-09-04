@@ -156,13 +156,17 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .home-leave-behind .home-piece-statement{max-width:min(780px,calc(100% - clamp(72px,14vw,220px)));text-align:center}
 @media(max-width:900px){.home-leave-behind .section-intro,.home-leave-list,.home-leave-behind .home-piece-statement{max-width:var(--site-container)}}
 
-.hero-mark{place-items:center;padding-right:clamp(48px,7vw,120px)}
+.hero-mark{place-items:center end;padding-right:500px}
 .hero-mark-image{width:min(100%,420px)}
-.hero-art-watermark{right:clamp(48px,7vw,120px)}
-.hero-art-label-vision{left:52%;top:12%}
-.hero-art-label-structure{left:52%;bottom:13%}
-.hero-art-label-connection{right:clamp(58px,8vw,140px)}
-.hero-art-label-craft{left:24%;top:51%}
-.hero-art-line-connection{right:clamp(148px,16vw,260px)}
-@media(max-width:1100px){.hero-mark{padding-right:32px}.hero-art-label-structure{bottom:9%}.hero-art-label-connection{right:38px}.hero-art-label-craft{left:10%}.hero-art-line-connection{right:108px}}
+.hero-art-watermark{right:500px}
+.hero-art-label-vision{left:auto;right:620px;top:12%}
+.hero-art-label-structure{left:auto;right:560px;bottom:13%}
+.hero-art-label-connection{right:500px}
+.hero-art-label-craft{left:auto;right:820px;top:51%}
+.hero-art-line-connection{right:590px}
+@media(max-width:1500px){.hero-mark{padding-right:360px}.hero-art-watermark{right:360px}.hero-art-label-vision{right:480px}.hero-art-label-structure{right:420px}.hero-art-label-connection{right:360px}.hero-art-label-craft{right:680px}.hero-art-line-connection{right:450px}}
+@media(max-width:1200px){.hero-mark{padding-right:220px}.hero-art-watermark{right:220px}.hero-art-label-vision{right:340px}.hero-art-label-structure{right:280px}.hero-art-label-connection{right:220px}.hero-art-label-craft{right:540px}.hero-art-line-connection{right:310px}}
+@media(max-width:1100px){.hero-mark{padding-right:120px}.hero-art-watermark{right:120px}.hero-art-label-structure{bottom:9%;right:180px}.hero-art-label-vision{right:240px}.hero-art-label-connection{right:120px}.hero-art-label-craft{left:auto;right:420px}.hero-art-line-connection{right:210px}}
 @media(max-width:800px){.hero-mark{padding-right:20px}.hero-art-label-vision{left:37%;top:2%}.hero-art-label-structure{left:32%;bottom:0}.hero-art-label-connection{right:0}.hero-art-label-craft{left:0}.hero-art-line-connection{right:20%;}}
+
+@media(min-width:901px){.hero-mark-image,.hero-art-watermark,.hero-art-label,.hero-art-line{translate:-180px 0}}
