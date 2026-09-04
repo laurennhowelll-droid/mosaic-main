@@ -31,9 +31,20 @@ export default function ClarityCheckPrompt() {
       return;
     }
 
-    const timer = window.setTimeout(() => setVisible(true), 0);
+    function showAfterHero() {
+      const hero = document.querySelector(".hero");
+      const heroBottom = hero instanceof HTMLElement ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
 
-    return () => window.clearTimeout(timer);
+      if (window.scrollY > heroBottom - 80) {
+        setVisible(true);
+        window.removeEventListener("scroll", showAfterHero);
+      }
+    }
+
+    showAfterHero();
+    window.addEventListener("scroll", showAfterHero, { passive: true });
+
+    return () => window.removeEventListener("scroll", showAfterHero);
   }, [pathname]);
 
   function dismiss() {
