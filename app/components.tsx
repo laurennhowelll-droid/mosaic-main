@@ -13,7 +13,21 @@ export function Logo() {
 }
 
 export function Header() {
-  return <header className="site-header"><Link className="brand" href="/"><Logo /><span className="mobile-wordmark">Mosaic</span></Link><ActiveNav /><Link className="header-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">Book a Discovery Call <b>↗</b></Link><MobileNav /></header>;
+  return (
+    <header className="site-header">
+      <div className="site-header-inner">
+        <Link className="brand" href="/" aria-label="Mosaic home">
+          <Logo />
+          <span className="mobile-wordmark">Mosaic</span>
+        </Link>
+        <ActiveNav />
+        <Link className="header-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
+          Book a Discovery Call <b>↗</b>
+        </Link>
+        <MobileNav />
+      </div>
+    </header>
+  );
 }
 
 export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><Link className="footer-admin-link" href="/admin/login">Admin Sign In →</Link></div><div className="footer-links"><Link href="/services">How We Help</Link><Link href="/process">The Mosaic Method</Link><Link href="/playbook">Playbook</Link><Link href="/client/login">Client Portal</Link></div><p>© 2026 Mosaic Studio LLC<br/>Businesses that work beautifully.</p></footer>; }
