@@ -254,8 +254,11 @@ export default function Home() {
           <p>You get to leave behind:</p>
         </div>
         <div className="home-leave-list">
-          {leaveBehindItems.map((item) => (
-            <p key={item}>{item}</p>
+          {leaveBehindItems.map((item, index) => (
+            <article key={item}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item}</p>
+            </article>
           ))}
         </div>
         <p className="home-piece-statement">

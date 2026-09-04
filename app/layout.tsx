@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import ClarityCheckPrompt from "./ClarityCheckPrompt";
 import "./globals.css";
 import "./brand-assets.css";
 
@@ -30,7 +29,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
-        <ClarityCheckPrompt />
       </body>
     </html>
   );

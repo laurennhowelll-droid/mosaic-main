@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ActiveNav from "./ActiveNav";
+import ClarityCheckPrompt from "./ClarityCheckPrompt";
 import MobileNav from "./MobileNav";
 import PublicMotion from "./PublicMotion";
 
@@ -32,7 +33,17 @@ export function Header() {
 
 export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><Link className="footer-admin-link" href="/admin/login">Admin Sign In →</Link></div><div className="footer-links"><Link href="/services">How We Help</Link><Link href="/process">The Mosaic Method</Link><Link href="/playbook">Playbook</Link><Link href="/client/login">Client Portal</Link></div><p>© 2026 Mosaic Studio LLC<br/>Businesses that work beautifully.</p></footer>; }
 
-export function Shell({ children }: { children: React.ReactNode }) { return <><Header /><main>{children}</main><Footer /><PublicMotion /></>; }
+export function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+      <ClarityCheckPrompt />
+      <Footer />
+      <PublicMotion />
+    </>
+  );
+}
 
 export const services = [
   ["01", "Vision", "Rediscover where you’re going.", "https://buildwithmosaic.co/services/vision"], ["02", "Experience", "Bring your vision to life.", "https://buildwithmosaic.co/services/experience"], ["03", "Connect", "Make your business work beautifully.", "https://buildwithmosaic.co/services/connect"], ["04", "Grow", "Keep moving forward.", "https://buildwithmosaic.co/services/grow"],

@@ -20,6 +20,10 @@ export default function ClarityCheckPrompt() {
       return;
     }
 
+    if (sessionStorage.getItem("mosaic_clarity_dismissed") === "true") {
+      return;
+    }
+
     if (
       hiddenUntil("mosaic_clarity_dismissed_until") > Date.now() ||
       hiddenUntil("mosaic_clarity_completed_until") > Date.now()
@@ -33,6 +37,7 @@ export default function ClarityCheckPrompt() {
   }, [pathname]);
 
   function dismiss() {
+    sessionStorage.setItem("mosaic_clarity_dismissed", "true");
     localStorage.setItem("mosaic_clarity_dismissed_until", String(Date.now() + 3 * 24 * 60 * 60 * 1000));
     setVisible(false);
   }
@@ -46,9 +51,9 @@ export default function ClarityCheckPrompt() {
       </button>
       <h2>Where is your business getting disconnected?</h2>
       <p>Answer 10 quick questions to see where clarity could create the most momentum.</p>
-      <Link href="/clarity-check" onClick={() => setVisible(false)}>
-        Take the 2-Minute Clarity Check →
-      </Link>
+          <Link href="/clarity-check" onClick={dismiss}>
+            Take the 2-Minute Clarity Check →
+          </Link>
     </aside>
   );
 }
