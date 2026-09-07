@@ -61,12 +61,12 @@ export default function AboutPage() {
       <section className="about-hero">
         <div>
           <p className="kicker">About Mosaic</p>
-          <h1>Clarity creates momentum.</h1>
+          <h1>Mosaic is the job I couldn&apos;t find.</h1>
           <p>
-            Mosaic is a Business Systems Studio for growing companies whose ideas, technology, customer experience, and operations no longer feel as connected as they once did.
+            Mosaic is a Business Systems Studio for growing companies whose websites, marketing, customer experience, operations, and systems no longer feel as connected as they should.
           </p>
           <p>
-            We step back, understand the whole picture, and bring every piece back together with purpose.
+            You built the business. I make the pieces work together.
           </p>
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
             Book a Discovery Call <b>↗</b>
@@ -92,10 +92,11 @@ export default function AboutPage() {
           <div className="about-founder-copy">
             <p>Lauren Howell Christensen is the founder of Mosaic.</p>
             <p>Her background sits at the intersection of marketing, operations, ecommerce, customer experience, automation, and business systems.</p>
-            <p>She began her career in marketing but repeatedly found herself moving beyond the boundaries of the role-into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations.</p>
+            <p>She started in marketing, but repeatedly found herself moving beyond the boundaries of the role into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations.</p>
             <p>At White Poppy Preservation, what began as a Social Media Manager role expanded into Director of Marketing & Operations in less than a year as she took on increasingly connected parts of the business.</p>
-            <p>Over the course of that work, the company tripled in size while its ecommerce platform, operational infrastructure, reporting, automation, and customer experience evolved alongside the growth.</p>
-            <p>That experience revealed an opportunity:</p>
+            <p>She helped the company grow roughly 3x while rebuilding many of the systems and processes behind that growth.</p>
+            <p>Then she was laid off. But Mosaic did not begin because of a layoff. The layoff created the moment to build the job she had been moving toward for years.</p>
+            <p>That work revealed an opportunity:</p>
             <p>Most businesses don&apos;t need another specialist looking at one isolated problem.</p>
             <p>They need someone willing to see how all the pieces affect one another.</p>
             <p>That realization became Mosaic.</p>
@@ -120,6 +121,7 @@ export default function AboutPage() {
           <p>Eventually, everything technically works-but nothing feels like it belongs to the same business.</p>
           <p>That is the space Mosaic was created to work in.</p>
           <p>Mosaic exists to understand the whole business, organize the confusion, and make sure every part has a reason for being there.</p>
+          <p>Bring me what&apos;s not working. I&apos;ll help you figure out why — and build the fix.</p>
           <blockquote>“Simplicity is power.”</blockquote>
         </div>
       </section>

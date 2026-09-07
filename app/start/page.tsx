@@ -5,18 +5,18 @@ import StartVisionForm from "./StartVisionForm";
 const nextSteps = [
   {
     number: "1",
-    title: "Share your business.",
-    copy: "Tell us where you are today and what feels disconnected.",
+    title: "Choose the closest starting point.",
+    copy: "Free check, Clarity Session, or Discovery Call. You do not need to diagnose the final engagement.",
   },
   {
     number: "2",
-    title: "We'll review everything.",
-    copy: "We'll personally review your submission to determine whether we're the right partner.",
+    title: "Lauren reviews the problem.",
+    copy: "Mosaic looks at what is happening and what the business around the problem may need.",
   },
   {
     number: "3",
-    title: "Book a Discovery Call.",
-    copy: "If Mosaic may be the right fit, we'll use the conversation to understand what type of help your business needs and whether a paid Vision engagement makes sense.",
+    title: "You get a clearer next step.",
+    copy: "That may be a focused build, Clarity Session, larger Mosaic engagement, or an honest no-fit recommendation.",
   },
 ];
 
@@ -25,7 +25,7 @@ const expectations = [
   "You'll hear directly from Lauren.",
   "No sales pressure.",
   "We'll tell you honestly if we're not the right fit.",
-  "Every engagement begins with understanding-not software.",
+  "Every engagement begins with understanding, not software.",
 ];
 
 export default function StartPage() {
@@ -34,25 +34,26 @@ export default function StartPage() {
       <section className="start-page">
         <div className="start-main">
           <section className="start-intro">
-            <p className="kicker">Book a Discovery Call</p>
-            <h1>Every great business begins with clarity.</h1>
+            <p className="kicker">Start Here</p>
+            <h1>You don&apos;t need to know what service you need.</h1>
             <div className="start-clarity-callout">
-              <h2>Only have one specific question?</h2>
+              <h2>Three simple ways to begin.</h2>
               <p>
-                If you&apos;re trying to solve a single systems, operations, or technology challenge, the Clarity Session may be the better place to begin.
+                Free Clarity Check if you want to see the gaps. Clarity Session if you have a specific problem. Discovery Call if you think you may want to hire Mosaic.
               </p>
-              <Link className="text-link" href="/clarity">
-                Learn about the Clarity Session →
-              </Link>
+              <div className="actions">
+                <Link className="text-link" href="/clarity-check">Take the Free Clarity Check →</Link>
+                <Link className="text-link" href="/clarity">Book a Clarity Session →</Link>
+              </div>
             </div>
             <p>
-              You don&apos;t need to know exactly what needs to change.
+              Bring me what&apos;s not working.
             </p>
             <p>
-              You simply need to know something isn&apos;t working the way it should.
+              I&apos;ll help you figure out why — and build the fix.
             </p>
             <p>
-              Whether your challenge is branding, operations, technology, customer experience, or internal systems, we&apos;ll begin with a complimentary conversation to understand whether Mosaic is the right fit.
+              Whether the issue is your website, marketing, customer experience, workflows, reporting, or internal systems, we&apos;ll begin by understanding the friction before prescribing the engagement.
             </p>
           </section>
 

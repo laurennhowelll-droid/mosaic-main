@@ -8,6 +8,45 @@ const CLARITY_PATH = "/clarity";
 const PROCESS_PATH = "/process";
 const WHITE_POPPY_PATH = "/work/white-poppy-preservation";
 
+const problemEntryPoints = [
+  {
+    label: "Clarity",
+    problem: "I know something needs to change. I'm just not sure what.",
+    fix: "Untangle the messy question and decide what deserves attention first.",
+    href: "/services/inquire/clarity",
+  },
+  {
+    label: "Website",
+    problem: "My website isn't doing its job.",
+    fix: "Clarify the message, journey, conversion path, and experience customers actually use.",
+    href: "/services/inquire/website",
+  },
+  {
+    label: "Systems",
+    problem: "We're doing too much manually.",
+    fix: "Simplify workflows, connect tools, and reduce repeated human effort.",
+    href: "/services/inquire/systems",
+  },
+  {
+    label: "Visibility",
+    problem: "I can't easily tell what's happening.",
+    fix: "Turn scattered information into reporting you can actually use.",
+    href: "/services/inquire/visibility",
+  },
+  {
+    label: "Generate",
+    problem: "We need more of the right customers.",
+    fix: "Connect attention, lead capture, conversion, follow-up, and measurement.",
+    href: "/services/inquire/generate",
+  },
+  {
+    label: "Keep",
+    problem: "We're not doing enough with the customers we already have.",
+    fix: "Improve email, SMS, retention, and post-purchase paths that bring people back.",
+    href: "/services/inquire/keep",
+  },
+];
+
 const philosophyCards = [
   {
     title: "Vision",
@@ -45,15 +84,6 @@ const philosophyCards = [
       "Small improvements repeated across every part of a business create extraordinary outcomes.",
     ],
   },
-];
-
-const recognitionItems = [
-  "You’re copying the same information between Shopify, Airtable, spreadsheets, Slack, and email.",
-  "Your team asks you questions the system should already answer.",
-  "Customers receive one experience online and another after they purchase.",
-  "You’ve added tools and automations, but the business somehow feels more complicated.",
-  "You know something needs to change, but every problem seems connected to three others.",
-  "Important decisions still depend on information only you know.",
 ];
 
 const comparisonColumns = [
@@ -156,22 +186,20 @@ export default function Home() {
         <div>
           <p className="kicker">Business Systems Studio</p>
           <h1>
-            Your business has grown.
-            <br />
-            <em>The way it runs hasn’t caught up.</em>
+            Find what&apos;s making your business harder than it needs to be.
           </h1>
           <p className="lede">
-            Your website, marketing, customer experience, and internal systems were built one decision at a time. Now information lives in too many places, manual work keeps piling up, and you’re holding together processes your team should be able to trust.
+            Mosaic helps growing businesses fix the websites, marketing, systems, workflows, and customer experiences creating unnecessary friction.
           </p>
           <p className="lede">
-            Mosaic helps growing businesses clarify what matters, fix what isn’t working, and build a business that runs as beautifully as it looks.
+            Every business has the pieces. We help them work together.
           </p>
           <div className="actions">
             <Link className="button" href={START_PATH}>
-              Show Me Where to Start <b>↗</b>
+              Tell Me What&apos;s Not Working <b>↗</b>
             </Link>
             <Link className="text-link" href={SERVICES_PATH}>
-              Explore How Mosaic Helps →
+              See How Mosaic Can Help →
             </Link>
           </div>
         </div>
@@ -198,20 +226,50 @@ export default function Home() {
 
       <section className="home-recognition">
         <div className="section-intro">
-          <p className="kicker">Behind the Growth</p>
-          <h2>Maybe your business looks successful from the outside—but behind the scenes…</h2>
+          <p className="kicker">Start With The Problem</p>
+          <h2>What&apos;s making your business harder than it should be?</h2>
+          <p>You don&apos;t need to know which service you need. Start with the problem you already know you have.</p>
         </div>
         <div className="home-recognition-grid">
-          {recognitionItems.map((item, index) => (
-            <article key={item}>
-              <span>0{index + 1}</span>
-              <p>{item}</p>
-            </article>
+          {problemEntryPoints.map((item, index) => (
+            <Link href={item.href} key={item.label}>
+              <span>0{index + 1} / {item.label}</span>
+              <h3>{item.problem}</h3>
+              <p>{item.fix}</p>
+            </Link>
           ))}
         </div>
         <p className="home-section-closing">
-          You don’t need another disconnected fix. You need someone to step back, understand the whole business, and decide what should happen next.
+          Bring me what&apos;s not working. I&apos;ll help you figure out why — and build the fix.
         </p>
+      </section>
+
+      <section className="home-work">
+        <div className="section-intro">
+          <p className="kicker">Proof</p>
+          <h2>What happens when the systems catch up to the growth?</h2>
+          <p>
+            At White Poppy Preservation, Lauren&apos;s work moved across ecommerce, marketing, customer service, inventory, reporting, automation, and operations as the business grew.
+          </p>
+        </div>
+        <article className="home-work-feature">
+          <div className="home-work-summary">
+            <p className="kicker">White Poppy Preservation</p>
+            <h3>≈3× business growth while the infrastructure evolved with it.</h3>
+            <p>
+              Supported by a BigCommerce-to-Shopify migration, connected operational workflows, clearer reporting, and stronger customer recovery systems.
+            </p>
+            <Link href={WHITE_POPPY_PATH}>View the Case Study →</Link>
+          </div>
+          <div className="home-work-metrics">
+            {proofResults.map(([metric, label]) => (
+              <div key={`${metric}-${label}`}>
+                <span>{label}</span>
+                <strong>{metric}</strong>
+              </div>
+            ))}
+          </div>
+        </article>
       </section>
 
       <section className="home-problem">
@@ -268,8 +326,8 @@ export default function Home() {
 
       <section className="home-services">
         <div className="section-intro">
-          <p className="kicker">How Mosaic Helps</p>
-          <h2>Start with the part that needs clarity. Build toward the business you’re ready to run.</h2>
+          <p className="kicker">How Mosaic Can Engage</p>
+          <h2>Sometimes it&apos;s one piece. Sometimes the pieces reveal a bigger problem.</h2>
         </div>
         <div className="home-service-grid">
           {homeServices.map((service) => (
@@ -286,7 +344,7 @@ export default function Home() {
         <div className="home-service-note">
           <p>You don’t need to know which service you need. Bring me the messy version of the problem, and we’ll figure out where to begin.</p>
           <Link className="button" href={START_PATH}>
-            Show Me Where to Start <b>↗</b>
+            Book a Discovery Call <b>↗</b>
           </Link>
         </div>
       </section>
@@ -317,35 +375,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-work">
-        <div className="section-intro">
-          <p className="kicker">Featured Work</p>
-          <h2>What happens when the systems catch up to the growth?</h2>
-          <p>
-            At White Poppy Preservation, rapid growth had created manual work, disconnected reporting, limited inventory visibility, and operational decisions that depended on information scattered across the company.
-          </p>
-          <p>
-            Over two years, Lauren helped connect ecommerce, marketing, customer service, inventory, reporting, and operations into a clearer business infrastructure.
-          </p>
+      <section className="home-founder">
+        <div>
+          <p className="kicker">Meet Lauren</p>
+          <h2>Mosaic is the job I couldn&apos;t find.</h2>
         </div>
-        <article className="home-work-feature">
-          <div className="home-work-summary">
-            <p className="kicker">White Poppy Preservation</p>
-            <h3>3× business growth during the engagement.</h3>
-            <p>
-              A connected order flow, clearer inventory visibility, company-wide systems, and calmer customer handoffs helped support a business ready for its next stage.
-            </p>
-            <Link href={WHITE_POPPY_PATH}>See How the Business Changed →</Link>
-          </div>
-          <div className="home-work-metrics">
-            {proofResults.map(([metric, label]) => (
-              <div key={`${metric}-${label}`}>
-                <span>{label}</span>
-                <strong>{metric}</strong>
-              </div>
-            ))}
-          </div>
-        </article>
+        <div>
+          <p>Lauren&apos;s career crossed marketing, operations, ecommerce, customer experience, automation, systems, websites, reporting, and technology.</p>
+          <p>She kept seeing the same pattern: businesses were not short on tools or ideas. The pieces simply were not working together.</p>
+          <p>After helping support major company growth while rebuilding many of the systems behind it, Mosaic became the place for the work that never fit neatly into one traditional role.</p>
+          <Link className="text-link" href="/about">Read Lauren&apos;s Story →</Link>
+        </div>
       </section>
 
       <section className="home-process">
@@ -375,21 +415,19 @@ export default function Home() {
       <section className="final-cta">
         <p className="kicker">Start Where You Are</p>
         <h2>
-          Your vision is still there.
-          <br />
-          <em>Let’s make it clear again.</em>
+          Bring me what&apos;s not working.
         </h2>
         <div className="home-clarity-prompt">
           <h3>You don’t need to diagnose the business before reaching out.</h3>
           <p>
-            Tell me what feels heavier, slower, or more complicated than it should. I’ll help you understand what is actually causing it—and whether Mosaic is the right fit to solve it.
+            I&apos;ll help you figure out why — and build the fix.
           </p>
           <div className="actions">
             <Link className="button" href={START_PATH}>
-              Tell Me What’s Not Working <b>↗</b>
+              Book a Discovery Call <b>↗</b>
             </Link>
-            <Link className="secondary-button" href={CLARITY_PATH}>
-              Book a Clarity Session
+            <Link className="secondary-button" href="/clarity-check">
+              Take the Clarity Check
             </Link>
           </div>
         </div>

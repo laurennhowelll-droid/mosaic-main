@@ -5,18 +5,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
-  ["Home", "/"],
-  ["How We Help", "/services"],
-  ["Our Process", "/process"],
+  ["Services", "/services"],
   ["Work", "/work"],
-  ["Playbook", "/playbook"],
+  ["Process", "/process"],
   ["About", "/about"],
 ];
 
 const secondaryLinks = [
   ["What Mosaic Means", "/brand"],
-  ["Client Portal", "/portal"],
-  ["Admin Sign In", "/admin/login"],
+  ["Client Portal", "/client/login"],
 ];
 
 export default function MobileNav() {

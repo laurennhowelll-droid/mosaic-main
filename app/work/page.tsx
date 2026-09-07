@@ -5,6 +5,13 @@ import { getPublishedWorkContent, getWorkTypeLabel, getWorkTypePluralLabel, orde
 
 export const dynamic = "force-dynamic";
 
+const proofHighlights = [
+  ["Growth", "≈3× indexed business growth"],
+  ["Ecommerce", "BigCommerce → Shopify"],
+  ["Systems", "Manual workflows → connected automation"],
+  ["Visibility", "Fragmented information → clearer reporting"],
+];
+
 function WorkCard({ item, index }: { item: WorkListItem; index: number }) {
   return (
     <article className={`work-card work-${(index % 3) + 1}`}>
@@ -35,10 +42,31 @@ export default async function WorkPage({
     <Shell>
       <section className="page-hero">
         <p className="kicker">Selected Work</p>
-        <h1>Thoughtful work, built to last.</h1>
+        <h1>Proof that connected work changes how a business runs.</h1>
         <p className="lede">
-          A collection of businesses made clearer through thoughtful strategy, design, systems, and technology.
+          Start with the outcomes. Then see the systems, decisions, and customer experience work underneath them.
         </p>
+      </section>
+
+      <section className="work-proof">
+        <div>
+          <p className="kicker">Primary Case Study</p>
+          <h2>White Poppy Preservation</h2>
+          <p>
+            Lauren helped support major growth while the business rebuilt ecommerce, operations, reporting, automation, and customer experience infrastructure.
+          </p>
+          <Link className="button" href="/work/white-poppy-preservation">
+            View the Case Study <b>↗</b>
+          </Link>
+        </div>
+        <div className="work-proof-grid">
+          {proofHighlights.map(([label, result]) => (
+            <article key={label}>
+              <span>{label}</span>
+              <strong>{result}</strong>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="work-grid">

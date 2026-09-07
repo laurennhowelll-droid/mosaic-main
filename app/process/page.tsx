@@ -4,9 +4,9 @@ import { Shell } from "../components";
 const methodBlocks = [
   {
     number: "01",
-    title: "Discover",
-    lead: "We listen before we recommend.",
-    copy: "Understand the business, the people, and the systems already in place.",
+    title: "Tell me what's not working",
+    lead: "We start with the friction you already feel.",
+    copy: "We learn the business, the problem, and where you're feeling friction.",
     deliverables: [
       "Interviews",
       "Business review",
@@ -16,9 +16,9 @@ const methodBlocks = [
   },
   {
     number: "02",
-    title: "Clarify",
-    lead: "Find what matters.",
-    copy: "Separate symptoms from root problems. Remove unnecessary complexity.",
+    title: "Find the real problem",
+    lead: "The visible issue is not always the real issue.",
+    copy: "We separate the symptom from the root cause and decide what actually needs to change.",
     deliverables: [
       "Priorities",
       "Opportunities",
@@ -27,9 +27,9 @@ const methodBlocks = [
   },
   {
     number: "03",
-    title: "Design",
-    lead: "Design the customer experience and internal systems together.",
-    copy: "Everything should support the same vision.",
+    title: "Build the fix",
+    lead: "The solution follows the problem.",
+    copy: "Website, workflow, marketing, automation, system — whatever actually solves the problem.",
     deliverables: [
       "Website strategy",
       "Process design",
@@ -39,9 +39,9 @@ const methodBlocks = [
   },
   {
     number: "04",
-    title: "Build",
-    lead: "Implement thoughtfully.",
-    copy: "Only introduce technology when it genuinely makes the business simpler.",
+    title: "Connect the pieces",
+    lead: "No more isolated fixes.",
+    copy: "We make sure the fix works with the rest of the business instead of creating another disconnected tool.",
     deliverables: [
       "Websites",
       "Automations",
@@ -52,9 +52,9 @@ const methodBlocks = [
   },
   {
     number: "05",
-    title: "Empower",
-    lead: "Leave the business stronger than we found it.",
-    copy: "Train your team. Document everything. Build systems your business can own long after the project ends.",
+    title: "Hand you the keys",
+    lead: "The business should be able to own what was built.",
+    copy: "Documentation, training, ownership, and a system your team can actually use.",
     deliverables: [
       "SOPs",
       "Team training",
@@ -104,7 +104,7 @@ const faqs = [
   {
     question: "What if I don't know what I need yet?",
     answer:
-      "That is exactly why the process starts with Vision. You do not need the answer before the first conversation.",
+      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a focused project, Clarity Session, or larger engagement.",
   },
   {
     question: "How involved do I need to be?",
@@ -118,16 +118,16 @@ export default function ProcessPage() {
     <Shell>
       <section className="process-hero">
         <p className="kicker">Our Process</p>
-        <h1>Every great system begins with understanding.</h1>
+        <h1>A simple way to move from friction to fix.</h1>
         <div className="process-hero-copy">
           <p>
-            Most businesses don&apos;t need another platform.
+            Bring me what&apos;s not working.
           </p>
           <p>
-            They need someone willing to understand how everything already works before suggesting what should change.
+            I&apos;ll help you figure out why — and build the fix.
           </p>
           <p>
-            That&apos;s where every Mosaic engagement begins.
+            The process is designed to keep the work clear, connected, and usable.
           </p>
         </div>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
@@ -137,7 +137,7 @@ export default function ProcessPage() {
 
       <section className="process-vision">
         <div>
-          <p className="kicker">Why We Start With Vision</p>
+          <p className="kicker">Before We Build</p>
           <h2>
             We don&apos;t start with software.
             <br />
@@ -157,8 +157,8 @@ export default function ProcessPage() {
           <p>
             Because the right solution only becomes obvious after understanding the whole picture.
           </p>
-          <div className="process-clarity-path" aria-label="Vision leads to understanding, then clarity">
-            <span>Vision</span>
+          <div className="process-clarity-path" aria-label="Problem leads to understanding, then clarity">
+            <span>Problem</span>
             <i>↓</i>
             <span>Understanding</span>
             <i>↓</i>
@@ -169,8 +169,8 @@ export default function ProcessPage() {
 
       <section className="process-method">
         <div className="section-intro">
-          <p className="kicker">The Mosaic Method</p>
-          <h2>A clear way to move from uncertainty to ownership.</h2>
+          <p className="kicker">The Process</p>
+          <h2>Simple on the surface. Sophisticated underneath.</h2>
         </div>
         <div className="process-method-list">
           {methodBlocks.map((block) => (
@@ -261,7 +261,7 @@ export default function ProcessPage() {
 
       <section className="process-final-cta">
         <p className="kicker">Begin With Understanding</p>
-        <h2>Let&apos;s understand your business before we change it.</h2>
+        <h2>Tell me what feels heavier than it should.</h2>
         <p>
           Every potential engagement begins with a complimentary Discovery Call.
           <br />

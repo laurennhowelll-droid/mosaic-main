@@ -31,7 +31,7 @@ export function Header() {
   );
 }
 
-export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><Link className="footer-admin-link" href="/admin/login">Admin Sign In →</Link></div><div className="footer-links"><Link href="/services">How We Help</Link><Link href="/process">The Mosaic Method</Link><Link href="/playbook">Playbook</Link><Link href="/client/login">Client Portal</Link></div><p>© 2026 Mosaic Studio LLC<br/>Businesses that work beautifully.</p></footer>; }
+export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><p>Businesses that work beautifully.</p></div><div className="footer-links"><Link href="/services">Services</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/about">About</Link><Link href="/client/login">Client Portal</Link></div><div className="footer-links"><a href="mailto:lauren@buildwithmosaic.co">Email</a><a href="https://www.instagram.com/buildwithmosaic">Instagram</a></div><p>© 2026 Mosaic Studio LLC<br/>Making messy businesses make sense.</p></footer>; }
 
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
