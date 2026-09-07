@@ -1,204 +1,361 @@
 import Link from "next/link";
 import { Shell } from "../components";
 
-const serviceCards = [
+const DISCOVERY_CALL_URL = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
+const CUSTOM_INQUIRY_URL =
+  "mailto:lauren@buildwithmosaic.co?subject=Mosaic%20%E2%80%94%20Custom%20Project%20Inquiry";
+
+const entryPoints = [
+  {
+    label: "Clarity",
+    problem: "I know something needs to change. I'm just not sure what.",
+    copy:
+      "Bring Mosaic the messy question. We'll help you untangle the problem, understand your options, and decide what deserves attention first.",
+    examples: [
+      "Should we change CRMs?",
+      "What should we automate first?",
+      "Why does this workflow feel so complicated?",
+      "Do we actually need custom software?",
+      "What should we fix before we grow?",
+    ],
+    price: "Starting at $500",
+    cta: "Get Clarity ->",
+    href: "/services/inquire/clarity",
+  },
+  {
+    label: "Website",
+    problem: "My website isn't doing its job.",
+    copy:
+      "Make it easier for the right people to understand what you do, trust you, and take the next step.",
+    examples: [
+      "Website / UX audits",
+      "Landing pages",
+      "Custom websites",
+      "Messaging direction",
+      "Lead capture",
+      "E-commerce / Shopify improvements",
+    ],
+    price: "Starting at $500",
+    cta: "Fix My Website ->",
+    href: "/services/inquire/website",
+  },
+  {
+    label: "Systems",
+    problem: "We're doing too much manually.",
+    copy:
+      "Simplify the work behind the business by connecting information, tools, and processes that shouldn't require constant human intervention.",
+    examples: [
+      "Automation",
+      "Workflow builds",
+      "CRM setup / cleanup",
+      "Airtable / database builds",
+      "AI workflows",
+      "Documentation / SOPs",
+    ],
+    price: "Starting at $750",
+    cta: "Simplify My Systems ->",
+    href: "/services/inquire/systems",
+  },
+  {
+    label: "Visibility",
+    problem: "I can't easily tell what's happening in my business.",
+    copy:
+      "Turn scattered information into reporting you can actually use without rebuilding the same spreadsheet every week.",
+    examples: [
+      "Dashboards",
+      "KPI reporting",
+      "Data cleanup",
+      "Reporting workflows",
+      "Connected data",
+      "Operational visibility",
+    ],
+    price: "Starting at $1,000",
+    cta: "See My Business Clearly ->",
+    href: "/services/inquire/visibility",
+  },
+  {
+    label: "Generate",
+    problem: "We need more of the right customers.",
+    copy:
+      "Build a clearer system for turning attention into leads and customers, from the ad or first click through conversion.",
+    examples: [
+      "Digital marketing strategy",
+      "Paid social / Meta Ads",
+      "Lead generation",
+      "Landing pages",
+      "Lead capture",
+      "Conversion tracking",
+    ],
+    price: "Starting at $1,500",
+    cta: "Generate Demand ->",
+    href: "/services/inquire/generate",
+  },
+  {
+    label: "Keep",
+    problem: "We're not doing enough with the customers we already have.",
+    copy:
+      "Turn more first-time visitors, leads, and customers into repeat business through a stronger retention system.",
+    examples: [
+      "Email marketing",
+      "SMS marketing",
+      "Klaviyo",
+      "Welcome flows",
+      "Abandoned cart",
+      "Retention reporting",
+    ],
+    price: "Starting at $1,500",
+    cta: "Keep More Customers ->",
+    href: "/services/inquire/keep",
+  },
+];
+
+const growthFlow = [
+  ["Generate", "Bring the right people in.", "Ads • Lead Generation • Traffic"],
+  ["Convert", "Give them a clear reason to act.", "Website • Landing Pages • Lead Capture • E-commerce"],
+  ["Keep", "Give them a reason to come back.", "Email • SMS • Retention • Post-Purchase"],
+  ["Measure", "Know what's actually working.", "Analytics • Dashboards • Reporting"],
+];
+
+const coreEngagements = [
   {
     number: "01",
-    title: "Vision",
+    name: "Vision",
     price: "Starting at $2,500",
-    purpose: "Find clarity before building.",
-    description:
-      "A focused strategic engagement for businesses that know something needs to change but need a clearer roadmap before investing in a website, system, or technology decision.",
-    label: "Key inclusions",
-    items: [
-      "Vision Workshop",
-      "Business Audit",
-      "Customer Journey",
-      "Systems Audit",
-      "Opportunity Mapping",
-      "90-Day Roadmap",
-    ],
-    timeline: "1-2 weeks",
+    headline: "Figure out what should change before you start building.",
+    copy:
+      "For businesses that need strategy, alignment, and a clear roadmap before making bigger investments.",
+    areas: ["Business strategy", "Customer journey", "Systems", "Opportunity mapping", "90-day roadmap"],
     href: "/services/vision",
   },
   {
     number: "02",
-    title: "Experience",
+    name: "Experience",
     price: "Starting at $4,500",
-    purpose:
-      "Create a customer experience that reflects the vision.",
-    description:
-      "A custom website and customer journey engagement that brings messaging, structure, design, lead capture, and launch details into alignment.",
-    label: "Key inclusions",
-    items: [
-      "Website Strategy",
-      "UX Architecture",
-      "Custom Website",
-      "Messaging Direction",
-      "CRM Integration",
-      "Launch Support",
-    ],
-    timeline: "4-8 weeks",
+    headline: "Build the experience your customers actually interact with.",
+    copy:
+      "For businesses that need their website, messaging, lead capture, and customer journey to work together.",
+    areas: ["Website strategy", "UX", "Custom website", "Messaging", "Lead capture", "CRM integration", "Launch"],
     href: "/services/experience",
   },
   {
     number: "03",
-    title: "Connect",
+    name: "Connect",
     price: "Starting at $5,000",
-    purpose: "Build internal systems that remove friction.",
-    description:
-      "A systems engagement for teams outgrowing manual work, scattered data, repeated entry, or workflows that only one person understands.",
-    label: "Key inclusions",
-    items: [
-      "Process Architecture",
-      "CRM + Databases",
-      "Workflow Automation",
-      "Dashboards + Reporting",
-      "Documentation",
-      "Team Training",
-    ],
-    timeline: "4-10 weeks",
+    headline: "Build the systems behind the business.",
+    copy:
+      "For businesses outgrowing manual work, disconnected information, scattered tools, and processes that only one person understands.",
+    areas: ["Process architecture", "CRM", "Databases", "Automation", "Dashboards", "Documentation", "Training"],
     href: "/services/connect",
   },
   {
     number: "04",
-    title: "Grow",
-    price: "Starting at $750/mo",
-    purpose: "Long-term strategic partnership.",
-    description:
-      "Ongoing support for businesses that want their website, systems, reporting, automations, and operational decisions to keep improving with context.",
-    label: "Includes",
-    items: [
-      "Monthly Strategy",
-      "Website Updates",
-      "Automation Improvements",
+    name: "Grow",
+    price: "Starting at $750/month",
+    headline: "Keep making the business better.",
+    copy:
+      "Ongoing strategic and implementation support after we've built the foundation. Scope depends on your needs and engagement level.",
+    areas: [
+      "Website improvements",
+      "Automation improvements",
       "Reporting",
-      "Team Consulting",
-      "Priority Support",
+      "Digital marketing",
+      "Email / SMS",
+      "Retention",
+      "Team consulting",
+      "Strategy",
     ],
-    timeline: "Ongoing",
     href: "/services/grow",
   },
 ];
 
 const aLaCarteServices = [
-  ["Clarity Call", "Starting at $500"],
-  ["Business Systems Audit", "Starting at $750"],
-  ["Brand Refresh", "Starting at $750"],
+  ["Clarity Session", "Starting at $500"],
   ["Website / UX Audit", "Starting at $500"],
-  ["Landing Page", "Starting at $750"],
-  ["Website", "Starting at $1,500"],
-  ["Website Migration", "Starting at $750"],
+  ["Website Build", "Starting at $1,500"],
   ["Automation Sprint", "Starting at $750"],
-  ["Workflow Build", "Starting at $1,000"],
-  ["Dashboard", "Starting at $1,000"],
-  ["CRM Setup / Cleanup", "Starting at $1,000"],
-  ["Airtable / Database Build", "Starting at $1,500"],
-  ["Client / Team Portal", "Starting at $1,500"],
-  ["AI Workflow Setup", "Starting at $750"],
-  ["Documentation / SOP Package", "Starting at $1,000"],
-  ["Team Training", "Starting at $500"],
-];
-
-const faqs = [
-  {
-    question: "Do I have to do every phase?",
-    answer:
-      "No. Each engagement can stand on its own. After your Discovery Call, we recommend only the engagement—or combination of engagements—that matches your business, timing, and goals.",
-  },
-  {
-    question: "Can Mosaic work with my existing team?",
-    answer:
-      "Yes. We often partner with founders, operators, marketers, designers, developers, and internal teams already doing good work.",
-  },
-  {
-    question: "Do you replace employees?",
-    answer:
-      "No. Mosaic creates clarity, systems, and structure so your people can work with less friction and better direction.",
-  },
-  {
-    question: "Can you work with our current software?",
-    answer:
-      "Yes. We begin by understanding what you already use, then improve, connect, or simplify the tools around the way your business actually works.",
-  },
-  {
-    question: "How long do projects take?",
-    answer:
-      "Vision usually takes 1-2 weeks. Experience and Connect engagements commonly take 4-10 weeks depending on scope.",
-  },
-  {
-    question: "Can we retain Mosaic after launch?",
-    answer:
-      "Yes. Grow retainers keep strategy, websites, automations, reporting, and systems improving after the first project is live.",
-  },
+  ["Systems / Workflow Build", "Starting at $1,000"],
+  ["Dashboard Build", "Starting at $1,000"],
+  ["Retention Setup", "Starting at $1,500"],
 ];
 
 export default function ServicesPage() {
   return (
     <Shell>
-      <section className="services-hero">
+      <section className="services-hero services-simple-hero">
         <div>
-          <p className="kicker">How We Help</p>
-          <h1>
-            Every business has the pieces.
-            <br />
-            We help them work together.
-          </h1>
-          <p className="services-hero-lede">
-            Most businesses don&apos;t need more software.
-            <br />
-            They need more clarity.
+          <p className="kicker">How Mosaic Can Help</p>
+          <h1>Find what&apos;s making your business harder than it needs to be.</h1>
+          <p className="services-hero-copy">
+            Mosaic helps growing businesses fix the websites, marketing, systems, workflows, and customer experiences creating unnecessary friction.
           </p>
           <p className="services-hero-copy">
-            Mosaic helps founders align their vision, brand,
-            website, operations, systems, and technology into one
-            connected business.
+            From one frustrating process to a business-wide transformation, we can start with the piece that needs attention most.
           </p>
+          <p className="services-brand-line">Every business has the pieces. We help them work together.</p>
           <div className="actions">
-            <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-              Book a Discovery Call <b>↗</b>
+            <Link className="button" href="#starting-points">
+              Find Your Starting Point ↓
             </Link>
-            <Link className="text-link" href="/process">
-              Learn About Our Process →
-            </Link>
-            <Link className="text-link" href="#a-la-carte">
-              Explore À La Carte →
+            <Link className="text-link" href={DISCOVERY_CALL_URL}>
+              Book a Discovery Call →
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="services-philosophy">
+      <section className="services-start" id="starting-points">
+        <div className="section-intro">
+          <p className="kicker">Start Here</p>
+          <h2>What&apos;s making your business harder than it should be?</h2>
+          <p>You don&apos;t need to know which Mosaic service you need. Start with the problem you already know you have.</p>
+        </div>
+        <div className="services-entry-grid">
+          {entryPoints.map((entry) => (
+            <article className="services-entry-card" key={entry.label}>
+              <div className="services-entry-head">
+                <span>{entry.label}</span>
+                <p>{entry.price}</p>
+              </div>
+              <h3>{entry.problem}</h3>
+              <p>{entry.copy}</p>
+              <details>
+                <summary>Can include</summary>
+                <ul>
+                  {entry.examples.map((example) => (
+                    <li key={example}>{example}</li>
+                  ))}
+                </ul>
+              </details>
+              <Link href={entry.href}>{entry.cta}</Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="services-customer-system">
+        <div className="section-intro">
+          <p className="kicker">From First Click to Next Purchase</p>
+          <h2>Getting the customer is only half the job.</h2>
+          <p>
+            Marketing works better when the pieces around it work too. Mosaic can connect how people discover your business, what happens when they land on your website, how leads are captured, how customers buy, and what brings them back.
+          </p>
+        </div>
+        <div className="services-flow" aria-label="Generate, convert, keep, and measure">
+          {growthFlow.map(([title, copy, examples]) => (
+            <article key={title}>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+              <span>{examples}</span>
+            </article>
+          ))}
+        </div>
+        <div className="services-generate-keep">
+          <div>
+            <p className="kicker">Need the whole customer growth system?</p>
+            <h3>Generate + Keep</h3>
+          </div>
+          <p>
+            A connected growth engagement for businesses that want to improve how they attract, convert, and retain customers instead of treating ads, websites, email, and reporting as separate projects.
+          </p>
+          <Link className="secondary-button" href={DISCOVERY_CALL_URL}>
+            Ask About Generate + Keep →
+          </Link>
+        </div>
+      </section>
+
+      <section className="services-bigger-problem">
+        <div className="section-intro">
+          <p className="kicker">When One Piece Isn&apos;t the Whole Problem</p>
+          <h2>Sometimes the pieces reveal something bigger.</h2>
+        </div>
+        <div className="services-bigger-copy">
+          <p>A website problem might actually be a positioning problem.</p>
+          <p>A marketing problem might actually be a customer journey problem.</p>
+          <p>An automation problem might actually be a broken process.</p>
+          <p>
+            When the problem crosses multiple parts of the business, Mosaic can step back and work on the bigger picture.
+          </p>
+        </div>
+      </section>
+
+      <section className="services-growth">
+        <div className="section-intro">
+          <p className="kicker">Vision / Experience / Connect / Grow</p>
+          <h2>Built to work together.</h2>
+          <p>
+            Each Mosaic engagement stands on its own. One does not automatically include the services or deliverables of another. But businesses rarely fit neatly into one box.
+          </p>
+          <p>
+            Vision, Experience, Connect, and Grow are designed to work together when your needs cross multiple parts of the business. After your Discovery Call, we&apos;ll recommend the engagement or combination of engagements that makes the most sense.
+          </p>
+        </div>
+        <div className="services-core-list">
+          {coreEngagements.map((service) => (
+            <article key={service.name}>
+              <div className="services-core-meta">
+                <span>{service.number}</span>
+                <strong>{service.name}</strong>
+                <p>{service.price}</p>
+              </div>
+              <div>
+                <h3>{service.headline}</h3>
+                <p>{service.copy}</p>
+                <ul>
+                  {service.areas.map((area) => (
+                    <li key={area}>{area}</li>
+                  ))}
+                </ul>
+              </div>
+              <Link href={service.href}>Explore {service.name} →</Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="services-a-la-carte" id="a-la-carte">
+        <div className="section-intro">
+          <p className="kicker">Focused Work</p>
+          <h2>Need one specific thing?</h2>
+          <p>
+            Not every problem needs a full engagement. Mosaic also takes on focused builds, audits, and one-off projects.
+          </p>
+        </div>
+        <div className="services-a-la-carte-grid services-simple-list">
+          {aLaCarteServices.map(([name, price]) => (
+            <article className="services-a-la-carte-item" key={name}>
+              <h3>{name}</h3>
+              <p>{price}</p>
+            </article>
+          ))}
+        </div>
+        <div className="services-also-available">
+          <p className="kicker">Also Available</p>
+          <p>
+            CRM setup + cleanup • Airtable/database builds • landing pages • website migrations • client/team portals • AI workflows • documentation/SOPs • team training • integrations • email/SMS • e-commerce improvements • custom builds
+          </p>
+        </div>
+        <div className="services-a-la-carte-custom">
+          <h3>Don&apos;t see exactly what you need?</h3>
+          <p>Tell me what&apos;s creating friction and we&apos;ll figure out the right scope.</p>
+          <Link className="button" href={CUSTOM_INQUIRY_URL}>
+            Tell Me What You Need →
+          </Link>
+        </div>
+      </section>
+
+      <section className="services-philosophy services-why">
         <div>
-          <p className="kicker">Our Philosophy</p>
-          <h2>Technology should create clarity.</h2>
+          <p className="kicker">Why Mosaic</p>
+          <h2>The problem is rarely just one tool.</h2>
         </div>
         <div className="services-philosophy-copy">
-          <p>Most businesses grow by adding tools.</p>
+          <p>Most businesses grow by adding things.</p>
+          <p>Another platform. Another spreadsheet. Another campaign. Another automation.</p>
+          <p>Eventually the pieces stop working together.</p>
           <p>
-            Another platform.
-            <br />
-            Another spreadsheet.
-            <br />
-            Another automation.
+            Mosaic looks at the business around the problem, so we don&apos;t build a beautiful website around a confusing customer journey, automate a process that shouldn&apos;t exist, or run ads into a funnel that doesn&apos;t convert.
           </p>
-          <p>Eventually every department works differently.</p>
-          <p>
-            Marketing.
-            <br />
-            Operations.
-            <br />
-            Sales.
-            <br />
-            Customer experience.
-          </p>
-          <p>
-            The business grows, but complexity grows faster.
-          </p>
-          <p>
-            Mosaic exists to reconnect every part of the business
-            back to one clear vision.
-          </p>
+          <p className="services-philosophy-statement">Technology should create clarity.</p>
           <p>
             We don&apos;t sell software.
             <br />
@@ -207,224 +364,21 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="services-offerings">
-        <div className="section-intro">
-          <p className="kicker">Four Services</p>
-          <h2>Choose the right level of clarity.</h2>
-          <p className="services-supporting-copy">
-            Standalone by design. Stackable when it makes sense.
-          </p>
-        </div>
-        <div className="services-card-grid">
-          {serviceCards.map((service) => (
-            <article className="services-card" key={service.title}>
-              <div className="services-card-head">
-                <span>{service.number}</span>
-                <p>{service.price}</p>
-              </div>
-              <h3>{service.title}</h3>
-              <p className="services-purpose">{service.purpose}</p>
-              <p className="services-card-description">{service.description}</p>
-              <div className="services-list-block">
-                <p className="kicker">{service.label}</p>
-                <ul>
-                  {service.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="services-card-foot">
-                <div>
-                  <span>Timeline</span>
-                  <strong>{service.timeline}</strong>
-                </div>
-                <Link href={service.href}>Learn More →</Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="services-growth">
-        <div className="section-intro">
-          <p className="kicker">How Projects Work Together</p>
-          <h2>Built to work together.</h2>
-        </div>
-        <div className="services-timeline" aria-label="Mosaic engagements can build on each other when needed">
-          {serviceCards.map((service) => (
-            <div className="services-phase" key={service.title}>
-              <span>{service.number}</span>
-              <strong>{service.title}</strong>
-            </div>
-          ))}
-        </div>
-        <div className="services-growth-copy">
-          <p>
-            Each Mosaic engagement stands on its own. One does not automatically include the services or deliverables of another.
-          </p>
-          <p>
-            But businesses rarely fit neatly into one box. Vision, Experience, Connect, and Grow are designed to work together when your needs cross multiple parts of the business.
-          </p>
-          <p>
-            After your Discovery Call, we&apos;ll recommend the engagement—or combination of engagements—that makes the most sense for you.
-          </p>
-        </div>
-      </section>
-
-      <section className="services-growth">
-        <div className="section-intro">
-          <p className="kicker">Full Mosaic</p>
-          <h2>I need to rethink the whole thing.</h2>
-        </div>
-        <div className="services-full-mosaic">
-          <div>
-            <span>Full Mosaic</span>
-            <strong>Starting at $11,500</strong>
-          </div>
-          <p>
-            When the disconnect crosses multiple parts of the business, Full Mosaic brings the right engagements together into one coordinated transformation.
-          </p>
-          <p>
-            Full Mosaic is custom-scoped based on what your business actually needs—not a preset package containing every service or deliverable.
-          </p>
-        </div>
-      </section>
-
-      <section className="systems-clarity">
-        <div>
-          <p className="kicker">Focused Entry Point</p>
-          <h2>Not every project starts with a full engagement.</h2>
-          <p>
-            Sometimes you don&apos;t need a complete business roadmap.
-          </p>
-          <p>
-            Sometimes you simply need an experienced partner to help untangle one important question. The Clarity Session is designed for exactly that.
-          </p>
-          <ul className="clarity-question-list">
-            <li>Should we change CRMs?</li>
-            <li>What should we automate first?</li>
-            <li>Is Airtable the right solution?</li>
-            <li>Do we actually need custom software?</li>
-            <li>Why does this workflow feel so complicated?</li>
-            <li>How should these systems connect?</li>
-          </ul>
-        </div>
-        <div className="systems-clarity-panel">
-          <span>Investment</span>
-          <strong>$500</strong>
-          <span>Length</span>
-          <strong>90 minutes</strong>
-          <span>Includes</span>
-          <ul>
-            <li>Short questionnaire</li>
-            <li>Focused strategy session</li>
-            <li>Practical recommendations</li>
-            <li>Written action summary</li>
-            <li>Clear next steps</li>
-          </ul>
-          <p>
-            If you move into a Vision engagement within 30 days, your Clarity Session investment is credited toward your Vision project.
-          </p>
-          <Link className="secondary-button" href="/clarity">
-            Book a Clarity Session →
-          </Link>
-        </div>
-      </section>
-
-      <section className="services-a-la-carte" id="a-la-carte">
-        <div className="section-intro">
-          <p className="kicker">À La Carte</p>
-          <h2>Sometimes you don&apos;t need the whole transformation. You just need one piece.</h2>
-          <p className="services-supporting-copy">
-            For focused needs, Mosaic offers smaller standalone engagements that can solve a specific problem, strengthen an existing system, or give us a place to start.
-          </p>
-          <p className="services-supporting-copy">
-            These engagements can stand alone or become part of something bigger later.
-          </p>
-        </div>
-        <div className="services-a-la-carte-grid">
-          {aLaCarteServices.map(([name, price]) => (
-            <article className="services-a-la-carte-item" key={name}>
-              <h3>{name}</h3>
-              <p>{price}</p>
-            </article>
-          ))}
-        </div>
-        <p className="services-a-la-carte-note">
-          À la carte pricing reflects starting investments. Final scope and pricing may vary based on complexity and project requirements.
-        </p>
-        <div className="services-a-la-carte-bridge">
-          <h3>Need more than one piece?</h3>
-          <p>
-            À la carte work can stand alone, or we can connect multiple needs through a larger Mosaic engagement.
-          </p>
-        </div>
-        <div className="services-a-la-carte-custom">
-          <h3>Don&apos;t see exactly what you need?</h3>
-          <p>
-            Custom builds, integrations, and one-off projects are scoped individually. Tell me what you&apos;re trying to solve and we&apos;ll see if Mosaic is the right fit.
-          </p>
-          <Link className="button" href="mailto:lauren@buildwithmosaic.co?subject=Mosaic%20%E2%80%94%20Custom%20Project%20Inquiry">
-            Tell me what you need →
-          </Link>
-        </div>
-      </section>
-
-      <section className="services-investment">
-        <div>
-          <p className="kicker">Investment</p>
-          <h2>Investment should create momentum.</h2>
-          <p>
-            We intentionally price our work around outcomes instead
-            of hours.
-          </p>
-          <p className="services-supporting-copy">
-            Starting prices reflect individual engagements. Combined engagements are scoped and priced based on the work involved.
-          </p>
-        </div>
-        <div className="services-investment-grid">
-          <div>
-            <span>Clients typically invest between</span>
-            <strong>$2,500</strong>
-            <span>and</span>
-            <strong>$20,000+</strong>
-            <span>depending on scope.</span>
-          </div>
-          <div>
-            <span>Retainers begin at</span>
-            <strong>$750/month</strong>
-            <span>Most long-term clients invest</span>
-            <strong>$1,500-3,000/month.</strong>
-          </div>
-        </div>
-      </section>
-
-      <section className="services-faq">
-        <div className="section-intro">
-          <p className="kicker">FAQ</p>
-          <h2>Questions worth asking early.</h2>
-        </div>
-        <div className="services-faq-list">
-          {faqs.map((faq) => (
-            <details key={faq.question}>
-              <summary>{faq.question}</summary>
-              <p>{faq.answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
       <section className="services-final-cta">
-        <p className="kicker">Not sure where you fit?</p>
-        <h2>
-          You don&apos;t need to diagnose the problem before we talk.
-        </h2>
+        <p className="kicker">Not Sure Where You Fit?</p>
+        <h2>You don&apos;t need to diagnose the whole business before talking to Mosaic.</h2>
         <p>
-          During your Discovery Call, we&apos;ll determine which engagement—or combination—makes the most sense for where you are.
+          Tell me what&apos;s frustrating you, what&apos;s taking too much time, or what isn&apos;t working the way you think it should. We&apos;ll figure out whether it&apos;s one piece or something bigger.
         </p>
-        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a Discovery Call <b>↗</b>
-        </Link>
+        <p className="services-final-note">Bring me the messy version.</p>
+        <div className="actions">
+          <Link className="button" href={DISCOVERY_CALL_URL}>
+            Book a Discovery Call <b>↗</b>
+          </Link>
+          <Link className="text-link" href="/clarity-check">
+            Take the Free Clarity Check →
+          </Link>
+        </div>
       </section>
     </Shell>
   );

@@ -42,6 +42,10 @@ function stage(lead: Lead) {
 function leadType(source: string | null | undefined) {
   if (source === "clarity_session") return "Clarity Session";
   if (source === "website_start_with_vision" || source === "start_with_vision") return "Vision";
+  if (source?.startsWith("service_entry_")) {
+    const label = source.replace("service_entry_", "").replaceAll("_", " ");
+    return `${label.charAt(0).toUpperCase()}${label.slice(1)} Entry`;
+  }
   return source ?? "Lead";
 }
 

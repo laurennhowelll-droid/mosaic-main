@@ -53,6 +53,7 @@ export async function POST(request: Request) {
   const timeline = clean(payload.timeline);
   const source = clean(payload.source);
   const isClaritySession = source === "clarity_session";
+  const isServiceEntry = source.startsWith("service_entry_");
 
   if (!companyName || !contactName || !email || !problems) {
     return NextResponse.json(
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!isClaritySession && (!businessDescription || !success || !budget)) {
+  if (!isClaritySession && !isServiceEntry && (!businessDescription || !success || !budget)) {
     return NextResponse.json(
       { error: "Please complete the required fields." },
       { status: 400 },
@@ -75,7 +76,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!isClaritySession && !budgets.has(budget)) {
+  if (!isClaritySession && !isServiceEntry && !budgets.has(budget)) {
     return NextResponse.json(
       { error: "Please choose an approximate budget." },
       { status: 400 },
@@ -91,10 +92,19 @@ export async function POST(request: Request) {
       phone,
       website,
       problems,
-      budget: isClaritySession ? "Not sure yet" : budget,
-      source: isClaritySession ? "clarity_session" : "website_start_with_vision",
+      budget: isClaritySession || isServiceEntry ? "Not sure yet" : budget,
+      source: isClaritySession ? "clarity_session" : isServiceEntry ? source : "website_start_with_vision",
       status: "new",
-      notes: isClaritySession
+      notes: isServiceEntry
+        ? [
+            `Lead type: ${source.replace("service_entry_", "").replaceAll("_", " ")}`,
+            businessDescription ? `What the business does: ${businessDescription}` : null,
+            success ? `What they want help with: ${success}` : null,
+            timeline ? `Preferred timeline: ${timeline}` : null,
+          ]
+            .filter(Boolean)
+            .join("\n\n")
+        : isClaritySession
         ? [
             "Lead type: Clarity Session",
             timeline ? `Preferred timeline: ${timeline}` : null,
