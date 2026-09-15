@@ -1,181 +1,192 @@
 import Link from "next/link";
 import { Shell } from "../components";
 
-const DISCOVERY_CALL_URL = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
-const CUSTOM_INQUIRY_URL =
-  "mailto:lauren@buildwithmosaic.co?subject=Mosaic%20%E2%80%94%20Custom%20Project%20Inquiry";
+const CLARITY_CALL_URL = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
 
-const entryPoints = [
-  {
-    label: "Clarity",
-    problem: "I know something needs to change. I'm just not sure what.",
-    copy:
-      "Bring Mosaic the messy question. We'll help you untangle the problem, understand your options, and decide what deserves attention first.",
-    examples: [
-      "Should we change CRMs?",
-      "What should we automate first?",
-      "Why does this workflow feel so complicated?",
-      "Do we actually need custom software?",
-      "What should we fix before we grow?",
-    ],
-    price: "Starting at $500",
-    cta: "Get Clarity ->",
-    href: "/services/inquire/clarity",
-  },
-  {
-    label: "Website",
-    problem: "My website isn't doing its job.",
-    copy:
-      "Make it easier for the right people to understand what you do, trust you, and take the next step.",
-    examples: [
-      "Website / UX audits",
-      "Landing pages",
-      "Custom websites",
-      "Messaging direction",
-      "Lead capture",
-      "E-commerce / Shopify improvements",
-    ],
-    price: "Starting at $500",
-    cta: "Fix My Website ->",
-    href: "/services/inquire/website",
-  },
-  {
-    label: "Systems",
-    problem: "We're doing too much manually.",
-    copy:
-      "Simplify the work behind the business by connecting information, tools, and processes that shouldn't require constant human intervention.",
-    examples: [
-      "Automation",
-      "Workflow builds",
-      "CRM setup / cleanup",
-      "Airtable / database builds",
-      "AI workflows",
-      "Documentation / SOPs",
-    ],
-    price: "Starting at $750",
-    cta: "Simplify My Systems ->",
-    href: "/services/inquire/systems",
-  },
-  {
-    label: "Visibility",
-    problem: "I can't easily tell what's happening in my business.",
-    copy:
-      "Turn scattered information into reporting you can actually use without rebuilding the same spreadsheet every week.",
-    examples: [
-      "Dashboards",
-      "KPI reporting",
-      "Data cleanup",
-      "Reporting workflows",
-      "Connected data",
-      "Operational visibility",
-    ],
-    price: "Starting at $1,000",
-    cta: "See My Business Clearly ->",
-    href: "/services/inquire/visibility",
-  },
-  {
-    label: "Generate",
-    problem: "We need more of the right customers.",
-    copy:
-      "Build a clearer system for turning attention into leads and customers, from the ad or first click through conversion.",
-    examples: [
-      "Digital marketing strategy",
-      "Paid social / Meta Ads",
-      "Lead generation",
-      "Landing pages",
-      "Lead capture",
-      "Conversion tracking",
-    ],
-    price: "Starting at $1,500",
-    cta: "Generate Demand ->",
-    href: "/services/inquire/generate",
-  },
-  {
-    label: "Keep",
-    problem: "We're not doing enough with the customers we already have.",
-    copy:
-      "Turn more first-time visitors, leads, and customers into repeat business through a stronger retention system.",
-    examples: [
-      "Email marketing",
-      "SMS marketing",
-      "Klaviyo",
-      "Welcome flows",
-      "Abandoned cart",
-      "Retention reporting",
-    ],
-    price: "Starting at $1,500",
-    cta: "Keep More Customers ->",
-    href: "/services/inquire/keep",
-  },
-];
-
-const growthFlow = [
-  ["Generate", "Bring the right people in.", "Ads • Lead Generation • Traffic"],
-  ["Convert", "Give them a clear reason to act.", "Website • Landing Pages • Lead Capture • E-commerce"],
-  ["Keep", "Give them a reason to come back.", "Email • SMS • Retention • Post-Purchase"],
-  ["Measure", "Know what's actually working.", "Analytics • Dashboards • Reporting"],
-];
-
-const coreEngagements = [
+const serviceCategories = [
   {
     number: "01",
-    name: "Vision",
-    price: "Starting at $2,500",
-    headline: "Figure out what should change before you start building.",
+    name: "Advisory",
+    headline: "Figure out what needs to change before investing in the wrong solution.",
     copy:
-      "For businesses that need strategy, alignment, and a clear roadmap before making bigger investments.",
-    areas: ["Business strategy", "Customer journey", "Systems", "Opportunity mapping", "90-day roadmap"],
-    href: "/services/vision",
+      "Use Mosaic as a strategic systems partner before you commit to a CRM, dashboard, website, automation, marketing project, or larger implementation.",
+    services: [
+      "Systems Clarity Audits",
+      "Marketing and funnel audits",
+      "CRM and dashboard strategy",
+      "Customer-journey mapping",
+      "Technology recommendations",
+      "Automation planning",
+      "Fractional systems consulting",
+    ],
+    investment: "Starting at $750",
+    scope: [
+      "Focused consulting: $250 per session",
+      "Systems Clarity Audits: $750-$1,500",
+      "Strategy Sprints: $1,500-$3,000",
+      "Fractional advisory: starting at $1,250/month",
+    ],
+    pricingCopy:
+      "Choose a defined audit or strategy engagement when the question is clear, or reserve ongoing advisory capacity when priorities need room to evolve.",
+    href: "/services/inquire/clarity",
+    cta: "Start With Advisory",
   },
   {
     number: "02",
-    name: "Experience",
-    price: "Starting at $4,500",
-    headline: "Build the experience your customers actually interact with.",
+    name: "CRM & Systems",
+    headline: "Build the foundation that captures, organizes, and measures growth.",
     copy:
-      "For businesses that need their website, messaging, lead capture, and customer journey to work together.",
-    areas: ["Website strategy", "UX", "Custom website", "Messaging", "Lead capture", "CRM integration", "Launch"],
-    href: "/services/experience",
+      "Design and build the operating layer behind the business: the CRM, dashboards, workflows, automations, and internal tools your team uses every day.",
+    services: [
+      "Custom CRMs",
+      "Dashboards and reporting",
+      "Lead capture and booking workflows",
+      "Follow-up systems",
+      "Automation and integrations",
+      "Client portals",
+      "Internal tools",
+      "AI-enabled workflows",
+    ],
+    investment: "Projects starting at $2,000",
+    scope: [
+      "Dashboard builds: $2,000-$5,000",
+      "CRM foundations: $3,000-$6,000",
+      "Connected CRM and dashboard systems: $5,000-$10,000",
+      "Advanced systems, portals, migrations, and custom builds: scoped after discovery",
+      "Flexible implementation capacity: starting at $1,250",
+    ],
+    pricingCopy:
+      "Defined builds work best when requirements are clear. Complicated systems, migrations, custom tools, and evolving workflows may begin with discovery and continue through flexible capacity.",
+    href: "/services/inquire/systems",
+    cta: "Discuss CRM & Systems",
+    featured: true,
   },
   {
     number: "03",
-    name: "Connect",
-    price: "Starting at $5,000",
-    headline: "Build the systems behind the business.",
+    name: "Websites & Customer Experience",
+    headline: "Create a clear path from interest to inquiry.",
     copy:
-      "For businesses outgrowing manual work, disconnected information, scattered tools, and processes that only one person understands.",
-    areas: ["Process architecture", "CRM", "Databases", "Automation", "Dashboards", "Documentation", "Training"],
-    href: "/services/connect",
+      "Improve the public-facing journey so the right people understand what you do, take the next step, and enter a follow-up system that can support them.",
+    services: [
+      "Service-business websites",
+      "Landing pages",
+      "Conversion improvements",
+      "Inquiry forms",
+      "Booking experiences",
+      "Customer journeys",
+      "Website messaging and structure",
+    ],
+    investment: "Projects starting at $1,500",
+    scope: [
+      "Landing pages and lead flows: $1,500-$3,500",
+      "Service-business websites: $3,500-$8,000",
+      "Larger websites, copy, custom integrations, and complete customer journeys: custom scope",
+      "Ongoing website improvement: available through flexible capacity",
+    ],
+    pricingCopy:
+      "A focused landing page can be a defined project. A larger website or customer journey may be fixed after discovery or developed through an evolving partnership.",
+    href: "/services/inquire/website",
+    cta: "Improve the Experience",
   },
   {
     number: "04",
-    name: "Grow",
-    price: "Starting at $750/month",
-    headline: "Keep making the business better.",
+    name: "Marketing & Growth",
+    headline: "Bring the right people into a system built to convert them.",
     copy:
-      "Ongoing strategic and implementation support after we've built the foundation. Scope depends on your needs and engagement level.",
-    areas: [
-      "Website improvements",
-      "Automation improvements",
-      "Reporting",
-      "Digital marketing",
-      "Email / SMS",
-      "Retention",
-      "Team consulting",
-      "Strategy",
+      "Support demand generation, nurturing, retention, and measurement without treating marketing as separate from what happens after the lead arrives.",
+    services: [
+      "Meta Ads",
+      "Google Ads",
+      "SEO",
+      "Email marketing",
+      "SMS marketing",
+      "Lead nurturing",
+      "Retention campaigns",
+      "Conversion tracking",
+      "Marketing attribution",
     ],
-    href: "/services/grow",
+    investment: "Engagements starting at $750/month",
+    scope: [
+      "Paid advertising setup or audit: $1,000-$2,500",
+      "Meta Ads management: starting at $850/month",
+      "Google Ads management: starting at $1,000/month",
+      "Email and SMS setup: $1,500-$4,000",
+      "Email and SMS management: starting at $1,250/month",
+      "SEO foundations: $1,500-$3,000",
+      "Ongoing local SEO: starting at $1,000/month",
+      "Lead Generation System: setup starting at $3,500 and ongoing management starting at $1,500/month",
+    ],
+    pricingCopy:
+      "Mosaic can manage an individual growth channel or connect advertising, SEO, website conversion, CRM tracking, email, SMS, and reporting into one measurable lead-generation system.",
+    href: "/services/inquire/generate",
+    cta: "Talk About Growth",
   },
 ];
 
-const aLaCarteServices = [
-  ["Clarity Session", "Starting at $500"],
-  ["Website / UX Audit", "Starting at $500"],
-  ["Website Build", "Starting at $1,500"],
-  ["Automation Sprint", "Starting at $750"],
-  ["Systems / Workflow Build", "Starting at $1,000"],
-  ["Dashboard Build", "Starting at $1,000"],
-  ["Retention Setup", "Starting at $1,500"],
+const projectExamples = [
+  "CRM Foundation",
+  "Business Visibility Dashboard",
+  "Lead Capture and Follow-Up System",
+  "Customer Journey Automation",
+  "Lead Generation System",
+  "Service-Business Website",
+  "Email and SMS Lifecycle System",
+  "Meta or Google Ads Management",
+  "SEO Foundation",
+  "Fractional Systems Support",
+];
+
+const journeySteps = [
+  ["Demand", "Ads, SEO, referrals, content, and campaigns create interest."],
+  ["Capture", "The website, landing pages, forms, and booking paths collect the right context."],
+  ["Organize", "The CRM gives every lead, customer, owner, stage, and next step a clear home."],
+  ["Nurture", "Email, SMS, follow-up, and retention workflows keep the relationship moving."],
+  ["Measure", "Dashboards show what became booked work, revenue, or lost opportunity."],
+];
+
+const engagementModels = [
+  {
+    title: "Defined Project",
+    copy: "A fixed scope, timeline, investment, and set of deliverables.",
+    bestFor: [
+      "The workflow is understood",
+      "Requirements are documented",
+      "Tools and integrations are confirmed",
+      "The outcome can be clearly defined",
+      "Mosaic can confidently define what done means",
+    ],
+  },
+  {
+    title: "Flexible Partnership",
+    copy: "Prepaid or recurring capacity applied to an agreed, prioritized backlog.",
+    bestFor: [
+      "The process is complicated or undocumented",
+      "Multiple tools or departments are involved",
+      "Requirements will evolve through discovery",
+      "Data quality is unknown",
+      "The work involves continuous optimization",
+    ],
+  },
+];
+
+const workModes = [
+  {
+    title: "Consulting",
+    copy:
+      "Mosaic can advise your team, audit your systems, map the customer journey, recommend tools, define requirements, and help you decide what should happen next.",
+  },
+  {
+    title: "Direct Implementation",
+    copy:
+      "Mosaic can also build the CRM, dashboard, website, automation, campaign structure, reporting layer, or connected workflow directly.",
+  },
+];
+
+const flexibleCapacity = [
+  ["5-hour Discovery Block", "$625"],
+  ["10-hour Project Block", "$1,250"],
+  ["20-hour Project Block", "$2,400"],
+  ["40-hour Project Block", "$4,600"],
 ];
 
 export default function ServicesPage() {
@@ -183,197 +194,214 @@ export default function ServicesPage() {
     <Shell>
       <section className="services-hero services-simple-hero">
         <div>
-          <p className="kicker">How Mosaic Can Help</p>
-          <h1>Find what&apos;s making your business harder than it needs to be.</h1>
+          <p className="kicker">Services</p>
+          <h1>CRMs, dashboards, websites, and growth systems for service businesses.</h1>
           <p className="services-hero-copy">
-            Mosaic helps growing businesses fix the websites, marketing, systems, workflows, and customer experiences creating unnecessary friction.
+            Mosaic helps service businesses create a clearer path from first click to repeat customer. That may mean advising your team, building a CRM, creating a dashboard, improving a website, automating follow-up, or managing the marketing that brings people into the system.
           </p>
-          <p className="services-hero-copy">
-            From one frustrating process to a business-wide transformation, we can start with the piece that needs attention most.
-          </p>
-          <p className="services-brand-line">Every business has the pieces. We help them work together.</p>
+          <p className="services-brand-line">You can hire Mosaic to improve one part or connect the entire journey.</p>
           <div className="actions">
-            <Link className="button" href="#starting-points">
-              Find Your Starting Point ↓
+            <Link className="button" href={CLARITY_CALL_URL}>
+              Book a FREE Clarity Call <b>↗</b>
             </Link>
-            <Link className="text-link" href={DISCOVERY_CALL_URL}>
-              Book a Discovery Call →
+            <Link className="text-link" href="/clarity-check">
+              Take the Free Clarity Check →
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="services-start" id="starting-points">
+      <section className="services-growth services-architecture" id="categories">
         <div className="section-intro">
-          <p className="kicker">Start Here</p>
-          <h2>What&apos;s making your business harder than it should be?</h2>
-          <p>You don&apos;t need to know which Mosaic service you need. Start with the problem you already know you have.</p>
+          <p className="kicker">Four Ways In</p>
+          <h2>Start with the piece that needs attention most.</h2>
+          <p>
+            A business interested only in Google Ads, SEO, email, or a website does not need to buy a CRM first. Mosaic will still assess whether lead capture, follow-up, tracking, and the customer journey can support the work.
+          </p>
         </div>
-        <div className="services-entry-grid">
-          {entryPoints.map((entry) => (
-            <article className="services-entry-card" key={entry.label}>
-              <div className="services-entry-head">
-                <span>{entry.label}</span>
-                <p>{entry.price}</p>
+        <div className="services-category-grid">
+          {serviceCategories.map((category) => (
+            <Link href={category.href} className={category.featured ? "services-category-card featured" : "services-category-card"} key={category.name}>
+              <div className="services-category-head">
+                <span>{category.number}</span>
+                {category.featured ? <strong>Core specialty</strong> : null}
               </div>
-              <h3>{entry.problem}</h3>
-              <p>{entry.copy}</p>
-              <details>
-                <summary>Can include</summary>
-                <ul>
-                  {entry.examples.map((example) => (
-                    <li key={example}>{example}</li>
+              <div className="services-category-title">
+                <h3>{category.name}</h3>
+                <p className="services-category-headline">{category.headline}</p>
+              </div>
+              <p className="services-category-copy">{category.copy}</p>
+              <ul>
+                {category.services.map((service) => (
+                  <li key={service}>{service}</li>
+                ))}
+              </ul>
+              <div className="services-investment-card">
+                <span>Investment</span>
+                <strong>{category.investment}</strong>
+                <p>{category.pricingCopy}</p>
+                <div>
+                  {category.scope.map((item) => (
+                    <small key={item}>{item}</small>
                   ))}
-                </ul>
-              </details>
-              <Link href={entry.href}>{entry.cta}</Link>
-            </article>
+                </div>
+              </div>
+              <span className="services-category-cta">{category.cta} →</span>
+            </Link>
           ))}
         </div>
       </section>
 
       <section className="services-customer-system">
         <div className="section-intro">
-          <p className="kicker">From First Click to Next Purchase</p>
-          <h2>Getting the customer is only half the job.</h2>
+          <p className="kicker">Connected Journey</p>
+          <h2>Marketing works better when the system around it works too.</h2>
           <p>
-            Marketing works better when the pieces around it work too. Mosaic can connect how people discover your business, what happens when they land on your website, how leads are captured, how customers buy, and what brings them back.
+            Mosaic connects the full path from demand to revenue visibility, while still allowing focused work on one part when that is the responsible scope.
           </p>
         </div>
-        <div className="services-flow" aria-label="Generate, convert, keep, and measure">
-          {growthFlow.map(([title, copy, examples]) => (
+        <div className="services-flow" aria-label="Demand to revenue visibility">
+          {journeySteps.map(([title, copy]) => (
             <article key={title}>
               <h3>{title}</h3>
               <p>{copy}</p>
-              <span>{examples}</span>
             </article>
           ))}
         </div>
-        <div className="services-generate-keep">
-          <div>
-            <p className="kicker">Need the whole customer growth system?</p>
-            <h3>Generate + Keep</h3>
+      </section>
+
+      <section className="services-a-la-carte" id="common-projects">
+        <div className="section-intro">
+          <p className="kicker">Common Projects</p>
+          <h2>Concrete work, scoped around the business in front of us.</h2>
+          <p>
+            Project pricing depends on complexity, existing systems, data quality, integrations, and engagement model. Mosaic will recommend the most responsible scope after discovery.
+          </p>
+        </div>
+        <div className="services-project-reel" aria-label="Common Mosaic project examples">
+          <div className="services-project-track">
+            {[...projectExamples, ...projectExamples].map((project, index) => (
+              <article className="services-a-la-carte-item" key={`${project}-${index}`} aria-hidden={index >= projectExamples.length}>
+                <h3>{project}</h3>
+              </article>
+            ))}
           </div>
-          <p>
-            A connected growth engagement for businesses that want to improve how they attract, convert, and retain customers instead of treating ads, websites, email, and reporting as separate projects.
-          </p>
-          <Link className="secondary-button" href={DISCOVERY_CALL_URL}>
-            Ask About Generate + Keep →
-          </Link>
         </div>
       </section>
 
-      <section className="services-bigger-problem">
+      <section className="services-bigger-problem services-work-modes">
         <div className="section-intro">
-          <p className="kicker">When One Piece Isn&apos;t the Whole Problem</p>
-          <h2>Sometimes the pieces reveal something bigger.</h2>
+          <p className="kicker">Consulting + Implementation</p>
+          <h2>Advice, direct build work, or both.</h2>
         </div>
-        <div className="services-bigger-copy">
-          <p>A website problem might actually be a positioning problem.</p>
-          <p>A marketing problem might actually be a customer journey problem.</p>
-          <p>An automation problem might actually be a broken process.</p>
-          <p>
-            When the problem crosses multiple parts of the business, Mosaic can step back and work on the bigger picture.
-          </p>
-        </div>
-      </section>
-
-      <section className="services-growth">
-        <div className="section-intro">
-          <p className="kicker">Vision / Experience / Connect / Grow</p>
-          <h2>Built to work together.</h2>
-          <p>
-            Each Mosaic engagement stands on its own. One does not automatically include the services or deliverables of another. But businesses rarely fit neatly into one box.
-          </p>
-          <p>
-            Vision, Experience, Connect, and Grow are designed to work together when your needs cross multiple parts of the business. After your Discovery Call, we&apos;ll recommend the engagement or combination of engagements that makes the most sense.
-          </p>
-        </div>
-        <div className="services-core-list">
-          {coreEngagements.map((service) => (
-            <article key={service.name}>
-              <div className="services-core-meta">
-                <span>{service.number}</span>
-                <strong>{service.name}</strong>
-                <p>{service.price}</p>
-              </div>
-              <div>
-                <h3>{service.headline}</h3>
-                <p>{service.copy}</p>
-                <ul>
-                  {service.areas.map((area) => (
-                    <li key={area}>{area}</li>
-                  ))}
-                </ul>
-              </div>
-              <Link href={service.href}>Explore {service.name} →</Link>
+        <div className="services-mode-grid">
+          {workModes.map((mode) => (
+            <article key={mode.title}>
+              <h3>{mode.title}</h3>
+              <p>{mode.copy}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="services-a-la-carte" id="a-la-carte">
+      <section className="services-growth services-engagements">
         <div className="section-intro">
-          <p className="kicker">Focused Work</p>
-          <h2>Need one specific thing?</h2>
+          <p className="kicker">Engagement Models</p>
+          <h2>Clear scope when we know the path. Flexible capacity when the work needs room to evolve.</h2>
           <p>
-            Not every problem needs a full engagement. Mosaic also takes on focused builds, audits, and one-off projects.
+            Dynamic work is not unlimited or undefined. Clients receive reserved capacity, a prioritized backlog, clear communication, progress visibility, regular recommendations, and the ability to adjust priorities as more is learned.
           </p>
         </div>
-        <div className="services-a-la-carte-grid services-simple-list">
-          {aLaCarteServices.map(([name, price]) => (
-            <article className="services-a-la-carte-item" key={name}>
-              <h3>{name}</h3>
-              <p>{price}</p>
+        <div className="services-engagement-grid">
+          {engagementModels.map((model) => (
+            <article key={model.title}>
+              <h3>{model.title}</h3>
+              <p>{model.copy}</p>
+              <ul>
+                {model.bestFor.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </article>
           ))}
         </div>
-        <div className="services-also-available">
-          <p className="kicker">Also Available</p>
-          <p>
-            CRM setup + cleanup • Airtable/database builds • landing pages • website migrations • client/team portals • AI workflows • documentation/SOPs • team training • integrations • email/SMS • e-commerce improvements • custom builds
-          </p>
-        </div>
-        <div className="services-a-la-carte-custom">
-          <h3>Don&apos;t see exactly what you need?</h3>
-          <p>Tell me what&apos;s creating friction and we&apos;ll figure out the right scope.</p>
-          <Link className="button" href={CUSTOM_INQUIRY_URL}>
-            Tell Me What You Need →
-          </Link>
-        </div>
       </section>
 
-      <section className="services-philosophy services-why">
+      <section className="services-flexible-capacity">
+        <div className="section-intro">
+          <p className="kicker">Flexible Capacity</p>
+          <h2>Need room to figure it out as we build?</h2>
+          <p>
+            Some projects can be clearly scoped before work begins. Others reveal new requirements as we inspect the process, data, and existing technology. Flexible Partnerships provide reserved Mosaic capacity applied to a shared, prioritized backlog.
+          </p>
+        </div>
+        <div className="services-capacity-grid">
+          {flexibleCapacity.map(([label, price]) => (
+            <article key={label}>
+              <h3>{label}</h3>
+              <strong>{price}</strong>
+            </article>
+          ))}
+        </div>
+        <p className="services-pricing-note">
+          Capacity is prepaid. Scope, communication, expiration, and progress reporting are defined before work begins.
+        </p>
+      </section>
+
+      <section className="services-pricing-disclaimer">
         <div>
-          <p className="kicker">Why Mosaic</p>
-          <h2>The problem is rarely just one tool.</h2>
+          <p className="kicker">Pricing Notes</p>
+          <h2>Starting prices are intended to provide useful guidance.</h2>
         </div>
-        <div className="services-philosophy-copy">
-          <p>Most businesses grow by adding things.</p>
-          <p>Another platform. Another spreadsheet. Another campaign. Another automation.</p>
-          <p>Eventually the pieces stop working together.</p>
+        <div>
           <p>
-            Mosaic looks at the business around the problem, so we don&apos;t build a beautiful website around a confusing customer journey, automate a process that shouldn&apos;t exist, or run ads into a funnel that doesn&apos;t convert.
+            Final investment depends on scope, complexity, existing systems, data readiness, integrations, required content, and ongoing support needs.
           </p>
-          <p className="services-philosophy-statement">Technology should create clarity.</p>
           <p>
-            We don&apos;t sell software.
-            <br />
-            We build businesses that work beautifully.
+            Ad spend is separate from Mosaic&apos;s management fee. Software subscriptions, SMS usage, media spend, stock assets, and outside vendor costs are not included unless explicitly stated.
           </p>
+          <p>
+            Final proposals define included campaigns, platforms, deliverables, revisions, reporting, communication, and timelines. Larger advertising accounts may be priced using a custom monthly fee or percentage of ad spend with a minimum fee.
+          </p>
+        </div>
+      </section>
+
+      <section className="systems-clarity">
+        <div>
+          <p className="kicker">Free vs Paid Clarity</p>
+          <h2>The Clarity Check is a starting point, not a full audit.</h2>
+          <p>
+            The free Clarity Check gives you a preliminary self-assessment. A paid Systems Clarity Audit is a deeper review of your actual process, tools, data, and team requirements.
+          </p>
+        </div>
+        <div className="systems-clarity-panel">
+          <span>Best next step</span>
+          <strong>Start with the free check or book a call.</strong>
+          <ul>
+            <li>Use the Clarity Check if you want a quick self-diagnosis.</li>
+            <li>Book a FREE Clarity Call if you already know the work is a priority.</li>
+            <li>Mosaic will recommend advisory, implementation, or a responsible blend of both.</li>
+          </ul>
+          <div className="actions">
+            <Link className="button" href={CLARITY_CALL_URL}>
+              Book a FREE Clarity Call <b>↗</b>
+            </Link>
+            <Link className="text-link" href="/clarity-check">
+              Take the Free Clarity Check →
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="services-final-cta">
         <p className="kicker">Not Sure Where You Fit?</p>
-        <h2>You don&apos;t need to diagnose the whole business before talking to Mosaic.</h2>
+        <h2>You do not need to know whether this is a CRM, website, automation, dashboard, or marketing problem yet.</h2>
         <p>
-          Tell me what&apos;s frustrating you, what&apos;s taking too much time, or what isn&apos;t working the way you think it should. We&apos;ll figure out whether it&apos;s one piece or something bigger.
+          Tell me where leads, information, or responsibilities are getting lost. I will help you determine what needs to be clarified, connected, or improved.
         </p>
-        <p className="services-final-note">Bring me the messy version.</p>
         <div className="actions">
-          <Link className="button" href={DISCOVERY_CALL_URL}>
-            Book a Discovery Call <b>↗</b>
+          <Link className="button" href={CLARITY_CALL_URL}>
+            Book a FREE Clarity Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/clarity-check">
             Take the Free Clarity Check →

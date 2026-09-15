@@ -23,7 +23,7 @@ export function Header() {
         </Link>
         <ActiveNav />
         <Link className="header-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a Discovery Call <b>↗</b>
+          Book a FREE Clarity Call <b>↗</b>
         </Link>
         <MobileNav />
       </div>
@@ -31,7 +31,7 @@ export function Header() {
   );
 }
 
-export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><p>Businesses that work beautifully.</p></div><div className="footer-links"><Link href="/services">Services</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/about">About</Link><Link href="/client/login">Client Portal</Link></div><div className="footer-links"><a href="mailto:lauren@buildwithmosaic.co">Email</a><a href="https://www.instagram.com/buildwithmosaic">Instagram</a></div><p>© 2026 Mosaic Studio LLC<br/>Making messy businesses make sense.</p></footer>; }
+export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><p>Clear up the mess. Connect the pieces. Grow with confidence.</p></div><div className="footer-links"><Link href="/">Home</Link><Link href="/services">Services</Link><Link href="/process">How It Works</Link><Link href="/work">Work</Link><Link href="/about">About</Link><Link href="/playbook">Playbook</Link><Link href="/client/login">Client Portal</Link></div><div className="footer-links"><a href="mailto:lauren@buildwithmosaic.co">Email</a><a href="https://www.instagram.com/buildwithmosaic">Instagram</a></div><p>© 2026 Mosaic Studio LLC<br/>Business systems for growing service businesses.</p></footer>; }
 
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -46,5 +46,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
 }
 
 export const services = [
-  ["01", "Vision", "Rediscover where you’re going.", "https://buildwithmosaic.co/services/vision"], ["02", "Experience", "Bring your vision to life.", "https://buildwithmosaic.co/services/experience"], ["03", "Connect", "Make your business work beautifully.", "https://buildwithmosaic.co/services/connect"], ["04", "Grow", "Keep moving forward.", "https://buildwithmosaic.co/services/grow"],
+  ["01", "Advisory", "Find the right order of operations.", "/services/inquire/clarity"],
+  ["02", "CRM & Systems", "Connect the operating layer behind the business.", "/services/inquire/systems"],
+  ["03", "Websites & Customer Experience", "Improve the path from interest to inquiry.", "/services/inquire/website"],
+  ["04", "Marketing & Growth", "Build demand on top of a stronger journey.", "/services/inquire/generate"],
 ];

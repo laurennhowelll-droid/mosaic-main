@@ -22,7 +22,7 @@ const pillars: Record<string, Pillar> = {
     expectFromMosaic: [
       "Lauren will personally review your submission.",
       "If Mosaic can help, you will hear back with a recommended next step.",
-      "That may be a Clarity Session, a focused build, or a larger engagement later.",
+      "That may be a Clarity Call, Systems Clarity Audit, focused build, or larger engagement later.",
     ],
     expectFromClient: [
       "Share the honest, messy version of the problem.",
@@ -38,8 +38,8 @@ const pillars: Record<string, Pillar> = {
     formPrompt: "What is not working about the website right now?",
     expectFromMosaic: [
       "Lauren will review the site and your notes.",
-      "You will hear whether the best next step is an audit, focused fix, landing page, or larger Experience engagement.",
-      "Mosaic will look at the customer journey around the website, not only the pages.",
+      "You will hear whether the best next step is an audit, focused fix, landing page, website build, or connected customer experience engagement.",
+      "Mosaic will look at the customer journey, lead capture, handoff, and reporting around the website, not only the pages.",
     ],
     expectFromClient: [
       "Include the website URL if you have one.",
@@ -55,7 +55,7 @@ const pillars: Record<string, Pillar> = {
     formPrompt: "What are you doing manually that should feel simpler?",
     expectFromMosaic: [
       "Lauren will review the workflow and look for the simplest useful starting point.",
-      "You will hear whether Mosaic recommends an automation sprint, workflow build, database, or larger Connect engagement.",
+      "You will hear whether Mosaic recommends a CRM cleanup, automation sprint, workflow build, dashboard, database, or larger systems engagement.",
       "Mosaic will clarify the process before recommending tools.",
     ],
     expectFromClient: [
@@ -89,7 +89,7 @@ const pillars: Record<string, Pillar> = {
     formPrompt: "What are you trying to generate, and what have you already tried?",
     expectFromMosaic: [
       "Lauren will review the offer, audience, website path, lead capture, and measurement context.",
-      "You will hear whether Mosaic recommends a campaign setup, landing page, tracking fix, or connected Generate + Keep conversation.",
+      "You will hear whether Mosaic recommends Google Ads, Meta Ads, SEO, email/SMS, a landing page, a tracking fix, or a broader growth systems conversation.",
       "Mosaic will not promise lead volume, revenue, ROAS, or ad outcomes.",
     ],
     expectFromClient: [
@@ -106,7 +106,7 @@ const pillars: Record<string, Pillar> = {
     formPrompt: "What should happen after someone joins, buys, or inquires?",
     expectFromMosaic: [
       "Lauren will review the current retention path and follow-up touchpoints.",
-      "You will hear whether Mosaic recommends email/SMS setup, Klaviyo flows, lead capture, reporting, or a connected Generate + Keep conversation.",
+      "You will hear whether Mosaic recommends email/SMS setup, Klaviyo flows, lead capture, CRM follow-up, reporting, or a connected growth systems conversation.",
       "Mosaic will not promise retention, revenue, or performance outcomes.",
     ],
     expectFromClient: [
@@ -180,7 +180,7 @@ export default async function PillarInquiryPage({
             <li>Start with one visible problem.</li>
             <li>Let Mosaic look at the business around it.</li>
             <li>Receive a practical recommendation before anything bigger is scoped.</li>
-            <li>If the issue points to Vision, Experience, Connect, or Grow later, we will say so clearly.</li>
+            <li>If the issue points to Advisory, CRM & Systems, Websites & Customer Experience, or Marketing & Growth later, we will say so clearly.</li>
           </ul>
         </aside>
       </section>

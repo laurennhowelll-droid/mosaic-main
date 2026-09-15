@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
+  ["Home", "/"],
   ["Services", "/services"],
+  ["How It Works", "/process"],
   ["Work", "/work"],
-  ["Process", "/process"],
   ["About", "/about"],
+  ["Playbook", "/playbook"],
 ];
 
 const secondaryLinks = [
@@ -78,7 +80,7 @@ export default function MobileNav() {
           </nav>
 
           <Link className="button mobile-menu-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6" onClick={() => setOpen(false)}>
-            Book a Discovery Call <b>↗</b>
+            Book a FREE Clarity Call <b>↗</b>
           </Link>
 
           <div className="mobile-menu-secondary">

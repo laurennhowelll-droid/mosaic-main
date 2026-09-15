@@ -6,8 +6,8 @@ type ComparisonColumn = [string, string[]];
 
 const heroMetrics = [
   ["≈3×", "Business Growth"],
-  ["<1 Year", "Social Media → Director"],
-  ["2024 → 2026", "Business Transformation"],
+  ["<1 Year", "Marketing → Operations Leadership"],
+  ["2024 → 2026", "Systems Behind Growth"],
 ];
 
 const transformation: ComparisonColumn[] = [
@@ -137,17 +137,18 @@ export default function WhitePoppyCaseStudy() {
     <Shell>
       <section className="case-hero">
         <p className="kicker">White Poppy Preservation · 2024 → 2026</p>
-        <h1>What happens when growth and infrastructure evolve together?</h1>
+        <h1>Growth works better when the systems underneath it grow too.</h1>
         <p>Lauren joined White Poppy in 2024 to manage social media.</p>
         <p>
           Less than a year later, her role had expanded into Director of
           Marketing & Operations as the work moved across ecommerce,
-          customer experience, operations, reporting, automation, and
-          internal systems.
+          customer experience, operations, reporting, automation, dashboards,
+          Airtable infrastructure, and internal systems.
         </p>
         <p>
           Over the two-year engagement, the company grew to roughly three
-          times its earlier size while the infrastructure behind it
+          times its earlier size while the infrastructure behind inquiries,
+          orders, inventory, reporting, recovery, and leadership visibility
           evolved alongside that growth.
         </p>
         <div className="case-hero-image">
@@ -172,7 +173,7 @@ export default function WhitePoppyCaseStudy() {
       <section className="case-transform">
         <div className="section-intro">
           <p className="kicker">The Transformation at a Glance</p>
-          <h2>A clearer business, two years later.</h2>
+          <h2>A clearer operating layer, two years later.</h2>
         </div>
         <div className="case-transform-grid">
           {transformation.map(([year, items]) => (
@@ -191,7 +192,7 @@ export default function WhitePoppyCaseStudy() {
       <section className="case-role-evolution case-warm">
         <div>
           <p className="kicker">Role Expansion Timeline</p>
-          <h2>The work kept revealing the next connected problem.</h2>
+          <h2>The work kept revealing the next connected system.</h2>
           <p>
             Promoted from Social Media Manager to Director of Marketing &
             Operations in less than one year.
@@ -218,7 +219,8 @@ export default function WhitePoppyCaseStudy() {
           <p>
             The important challenge wasn&apos;t simply generating growth. It
             was making sure ecommerce, operations, reporting, customer
-            experience, and internal systems could continue evolving with it.
+            experience, and internal systems could keep up with the volume
+            and complexity growth created.
           </p>
         </div>
         <div className="case-growth-index" aria-label="Indexed business growth, 2024 to 2026">
@@ -286,7 +288,7 @@ export default function WhitePoppyCaseStudy() {
       <section className="case-system-map">
         <div className="section-intro">
           <p className="kicker">Connected Business Architecture</p>
-          <h2>Connecting the business behind the storefront.</h2>
+          <h2>Connecting the operating system behind the storefront.</h2>
         </div>
         <div className="case-system-flow" aria-label="Connected business architecture flow">
           <div className="case-system-node">Customer</div>
@@ -459,12 +461,13 @@ export default function WhitePoppyCaseStudy() {
           ))}
         </div>
         <p>
-          The transformation wasn&apos;t one website, one automation, or one
-          campaign.
+          The transformation wasn&apos;t one website, one automation, one
+          dashboard, or one campaign.
         </p>
         <p>
           It was the cumulative effect of making more of the business work
-          together.
+          together: ecommerce, workflows, data, dashboards, customer recovery,
+          and the decisions leadership needed to make.
         </p>
       </section>
 
@@ -474,7 +477,7 @@ export default function WhitePoppyCaseStudy() {
           scenes as it does in front of customers.
         </h2>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a Discovery Call <b>↗</b>
+          Book a FREE Clarity Call <b>↗</b>
         </Link>
       </section>
     </Shell>

@@ -235,7 +235,7 @@ export default function BrandPage() {
         <p>Great businesses rarely need more. They usually need greater clarity about what already exists.</p>
         <div className="actions">
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a Discovery Call <b>↗</b>
+            Book a FREE Clarity Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/process">
             Explore The Mosaic Method →

@@ -43,11 +43,11 @@ const thinking = [
 const mission = [
   {
     title: "Mission",
-    copy: "Help leaders rediscover a clear vision for the business they always wanted to build.",
+    copy: "Help service businesses replace scattered tools, manual follow-up, and unclear reporting with systems that make growth easier to manage.",
   },
   {
     title: "Vision",
-    copy: "Businesses that work beautifully because every piece has a purpose.",
+    copy: "Businesses that work beautifully because leads, customers, teams, and decisions are supported by one connected operating layer.",
   },
   {
     title: "Promise",
@@ -63,13 +63,13 @@ export default function AboutPage() {
           <p className="kicker">About Mosaic</p>
           <h1>Mosaic is the job I couldn&apos;t find.</h1>
           <p>
-            Mosaic is a Business Systems Studio for growing companies whose websites, marketing, customer experience, operations, and systems no longer feel as connected as they should.
+            Mosaic is a Business Systems Studio for service businesses whose CRMs, dashboards, websites, marketing, follow-up, and internal workflows no longer feel as connected as they should.
           </p>
           <p>
-            You built the business. I make the pieces work together.
+            You built the business. I make the customer journey and the systems behind it work together.
           </p>
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a Discovery Call <b>↗</b>
+            Book a FREE Clarity Call <b>↗</b>
           </Link>
         </div>
       </section>
@@ -91,10 +91,10 @@ export default function AboutPage() {
           <h2>Meet Lauren.</h2>
           <div className="about-founder-copy">
             <p>Lauren Howell Christensen is the founder of Mosaic.</p>
-            <p>Her background sits at the intersection of marketing, operations, ecommerce, customer experience, automation, and business systems.</p>
-            <p>She started in marketing, but repeatedly found herself moving beyond the boundaries of the role into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations.</p>
+            <p>Her background sits at the intersection of marketing, operations, ecommerce, customer experience, automation, CRM design, dashboards, and business systems.</p>
+            <p>She started in marketing, but repeatedly found herself moving beyond the boundaries of the role into websites, reporting, fulfillment, inventory, technology, automation, pricing, and internal operations because the visible work kept depending on the systems underneath it.</p>
             <p>At White Poppy Preservation, what began as a Social Media Manager role expanded into Director of Marketing & Operations in less than a year as she took on increasingly connected parts of the business.</p>
-            <p>She helped the company grow roughly 3x while rebuilding many of the systems and processes behind that growth.</p>
+            <p>She helped the company grow roughly 3x while rebuilding the operational systems, ecommerce infrastructure, dashboards, automations, and processes behind that growth.</p>
             <p>Then she was laid off. But Mosaic did not begin because of a layoff. The layoff created the moment to build the job she had been moving toward for years.</p>
             <p>That work revealed an opportunity:</p>
             <p>Most businesses don&apos;t need another specialist looking at one isolated problem.</p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
           <p>Eventually, everything technically works-but nothing feels like it belongs to the same business.</p>
           <p>That is the space Mosaic was created to work in.</p>
           <p>Mosaic exists to understand the whole business, organize the confusion, and make sure every part has a reason for being there.</p>
-          <p>Bring me what&apos;s not working. I&apos;ll help you figure out why — and build the fix.</p>
+          <p>Bring me what&apos;s not working. I&apos;ll help you find the break in the journey, then build the system, site, workflow, dashboard, or campaign support that fixes it.</p>
           <blockquote>“Simplicity is power.”</blockquote>
         </div>
       </section>
@@ -132,7 +132,7 @@ export default function AboutPage() {
         <div className="about-columns-copy">
           <p>Most specialists are hired to improve one part of a business.</p>
           <p>And often, they are very good at it.</p>
-          <p>But a new website affects customer service. Marketing affects operations. Operations affect the customer experience.</p>
+          <p>But a new website affects lead capture. Marketing affects follow-up. Follow-up affects revenue visibility. Operations affect the customer experience.</p>
           <p>Technology affects the way employees work. Pricing affects fulfillment. Every decision creates another decision somewhere else.</p>
           <p>Mosaic approaches the business as one connected system.</p>
           <p>The goal is not simply to improve individual pieces. It is to make sure the pieces make sense together.</p>
@@ -227,7 +227,7 @@ export default function AboutPage() {
           <p>A mosaic is made from individual pieces that become more meaningful when viewed together.</p>
           <p>That idea reflects how we see businesses.</p>
           <div className="about-piece-list">
-            <span>Vision.</span>
+            <span>Clarity.</span>
             <span>Structure.</span>
             <span>Connection.</span>
             <span>Craft.</span>
@@ -254,7 +254,7 @@ export default function AboutPage() {
         <p>Let&apos;s make them work together.</p>
         <div className="actions">
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a Discovery Call <b>↗</b>
+            Book a FREE Clarity Call <b>↗</b>
           </Link>
           <Link className="text-link" href="/services">
             Explore How We Help →

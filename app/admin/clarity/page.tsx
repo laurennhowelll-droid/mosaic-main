@@ -4,8 +4,8 @@ import { categoryLabel, type ClarityCategory } from "../../../lib/clarity-check"
 import { getAdminClarityAssessments, type ClarityAssessment } from "../../../lib/supabase/admin";
 
 const bandFilters = ["Connected", "Growing Friction", "Disconnected", "Reactive"] as const;
-const serviceFilters = ["Clarity Session", "Vision", "Experience", "Connect", "Grow"] as const;
-const gapFilters = ["Vision", "Experience", "Systems", "Operations", "Growth"] as const;
+const serviceFilters = ["Advisory", "CRM & Systems", "Websites & Customer Experience", "Marketing & Growth"] as const;
+const gapFilters = ["Capture", "Follow-Up", "Connection", "Visibility"] as const;
 
 function date(value: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -112,7 +112,7 @@ export default async function AdminClarityPage({
           <div>
             <Link className={gap === "all" ? "active" : ""} href={`/admin/clarity?filter=${filter}&service=${service}&gap=all&sort=${sort}`}>All Gaps</Link>
             {gapFilters.map((item) => (
-              <Link className={gap === item.toLowerCase() ? "active" : ""} href={`/admin/clarity?filter=${filter}&service=${service}&gap=${item.toLowerCase()}&sort=${sort}`} key={item}>
+              <Link className={gap === normalize(item) ? "active" : ""} href={`/admin/clarity?filter=${filter}&service=${service}&gap=${normalize(item)}&sort=${sort}`} key={item}>
                 {item}
               </Link>
             ))}
@@ -145,7 +145,7 @@ export default async function AdminClarityPage({
               <span data-label="Name">{assessment.first_name}</span>
               <span data-label="Company">{assessment.company_name ?? "Not provided"}</span>
               <span data-label="Email">{assessment.email}</span>
-              <span data-label="Score">{assessment.total_score} / 50</span>
+              <span data-label="Score">{assessment.total_score} / 105</span>
               <span data-label="Result Band">{assessment.result_band}</span>
               <span data-label="Strongest Area">{categoryLabel(assessment.strongest_category as ClarityCategory)}</span>
               <span data-label="Primary Gap">{categoryLabel(primaryGapCategory(assessment) as ClarityCategory)}</span>

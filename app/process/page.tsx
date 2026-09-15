@@ -6,7 +6,7 @@ const methodBlocks = [
     number: "01",
     title: "Tell me what's not working",
     lead: "We start with the friction you already feel.",
-    copy: "We learn the business, the problem, and where you're feeling friction.",
+    copy: "We learn the business, the customer journey, the tools involved, and where leads, customers, or team members are feeling friction.",
     deliverables: [
       "Interviews",
       "Business review",
@@ -18,7 +18,7 @@ const methodBlocks = [
     number: "02",
     title: "Find the real problem",
     lead: "The visible issue is not always the real issue.",
-    copy: "We separate the symptom from the root cause and decide what actually needs to change.",
+    copy: "We separate the symptom from the root cause and decide whether the answer is advisory, CRM and systems work, website and customer experience work, marketing and growth work, or a combination.",
     deliverables: [
       "Priorities",
       "Opportunities",
@@ -29,7 +29,7 @@ const methodBlocks = [
     number: "03",
     title: "Build the fix",
     lead: "The solution follows the problem.",
-    copy: "Website, workflow, marketing, automation, system — whatever actually solves the problem.",
+    copy: "CRM, dashboard, workflow, website, lead capture path, automation, campaign structure, or reporting layer: whatever actually solves the problem.",
     deliverables: [
       "Website strategy",
       "Process design",
@@ -65,11 +65,11 @@ const methodBlocks = [
 ];
 
 const timeline = [
-  ["Week 1", "Vision Session"],
-  ["Weeks 2-3", "Discovery + Audit"],
-  ["Weeks 3-4", "Strategic Roadmap"],
-  ["Implementation", "Project dependent"],
-  ["Long-Term", "Ongoing support if needed"],
+  ["Step 1", "Clarity Call"],
+  ["Step 2", "Discovery, audit, or systems review"],
+  ["Step 3", "Scope and priorities"],
+  ["Build", "Project dependent"],
+  ["Optimize", "Ongoing support if needed"],
 ];
 
 const principles = [
@@ -104,7 +104,7 @@ const faqs = [
   {
     question: "What if I don't know what I need yet?",
     answer:
-      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a focused project, Clarity Session, or larger engagement.",
+      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a free Clarity Check, a paid Systems Clarity Audit, a focused project, or a larger engagement.",
   },
   {
     question: "How involved do I need to be?",
@@ -131,7 +131,7 @@ export default function ProcessPage() {
           </p>
         </div>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a Discovery Call <b>↗</b>
+          Book a FREE Clarity Call <b>↗</b>
         </Link>
       </section>
 
@@ -148,11 +148,11 @@ export default function ProcessPage() {
           <p>Technology is never the first recommendation.</p>
           <p>Before changing anything, we learn how your business works today.</p>
           <div className="process-question-list">
-            <span>Your goals.</span>
+            <span>Your leads.</span>
             <span>Your customers.</span>
             <span>Your team.</span>
-            <span>Your bottlenecks.</span>
-            <span>Your vision.</span>
+            <span>Your tools.</span>
+            <span>Your reporting.</span>
           </div>
           <p>
             Because the right solution only becomes obvious after understanding the whole picture.
@@ -263,14 +263,14 @@ export default function ProcessPage() {
         <p className="kicker">Begin With Understanding</p>
         <h2>Tell me what feels heavier than it should.</h2>
         <p>
-          Every potential engagement begins with a complimentary Discovery Call.
+          Every potential engagement begins with a complimentary Clarity Call.
           <br />
           Not a consulting session.
           <br />
           A conversation about where you are today, where you&apos;d like to go, and whether Mosaic is the right partner.
         </p>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a Discovery Call <b>↗</b>
+          Book a FREE Clarity Call <b>↗</b>
         </Link>
       </section>
     </Shell>

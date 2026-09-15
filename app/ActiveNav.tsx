@@ -4,10 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
+  ["Home", "/"],
   ["Services", "/services"],
+  ["How It Works", "/process"],
   ["Work", "/work"],
-  ["Process", "/process"],
   ["About", "/about"],
+  ["Playbook", "/playbook"],
 ] as const;
 
 function isActive(pathname: string, href: string) {
@@ -19,6 +21,7 @@ function toneFor(href: string) {
   if (href === "/services") return "olive";
   if (href === "/process") return "slate";
   if (href === "/work") return "terra";
+  if (href === "/playbook") return "slate";
   if (href === "/about") return "olive";
   return "neutral";
 }

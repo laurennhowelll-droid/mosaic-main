@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logLeadNotificationFailure, sendLeadNotification } from "../../../lib/lead-notifications";
 import { getSupabaseServerClient } from "../../../lib/supabase/server";
 
 const budgets = new Set([
@@ -85,7 +86,7 @@ export async function POST(request: Request) {
 
   try {
     const supabase = getSupabaseServerClient();
-    const { error } = await supabase.from("leads").insert({
+    const leadInsert = await supabase.from("leads").insert({
       company_name: companyName,
       contact_name: contactName,
       email,
@@ -118,14 +119,43 @@ export async function POST(request: Request) {
           ]
             .filter(Boolean)
             .join("\n\n"),
-    });
+    }).select("id").single();
 
-    if (error) {
-      console.error("Lead insert failed", error);
+    if (leadInsert.error || !leadInsert.data) {
+      console.error("Lead insert failed", leadInsert.error);
       return NextResponse.json(
         { error: "We couldn't save your submission. Please try again." },
         { status: 500 },
       );
+    }
+
+    try {
+      const service = isServiceEntry ? source.replace("service_entry_", "").replaceAll("_", " ") : null;
+      const notification = await sendLeadNotification({
+        type: isClaritySession ? "clarity_call" : isServiceEntry ? "service_inquiry" : "lead",
+        name: contactName,
+        businessName: companyName,
+        email,
+        phone,
+        website,
+        selectedService: service,
+        timeline,
+        primaryChallenge: problems,
+        openResponses: [
+          businessDescription ? `What the business does: ${businessDescription}` : "",
+          problems ? `Primary challenge: ${problems}` : "",
+          success ? `Desired outcome: ${success}` : "",
+          timeline ? `Timeline: ${timeline}` : "",
+          budget ? `Budget: ${budget}` : "",
+        ],
+        leadId: leadInsert.data.id,
+      });
+
+      if (notification.attempted && !notification.accepted) {
+        await logLeadNotificationFailure("lead notification rejected", notification.reason);
+      }
+    } catch (error) {
+      await logLeadNotificationFailure("lead notification exception", error);
     }
   } catch (error) {
     console.error("Lead submission failed", error);

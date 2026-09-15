@@ -5,6 +5,7 @@ import {
   categoryLabel,
   clarityQuestions,
   interpretCategory,
+  maxScoreForCategory,
   primaryGapCopy,
   scoreForCategory,
   strongestAreaCopy,
@@ -14,7 +15,7 @@ import {
 import { getAdminClarityAssessment, getPlanLabel, getStageLabel } from "../../../../lib/supabase/admin";
 import { updateClarityAssessmentStatus } from "../../actions";
 
-const categories: ClarityCategory[] = ["vision", "experience", "systems", "operations", "growth"];
+const categories: ClarityCategory[] = ["capture", "follow_up", "connection", "visibility"];
 
 function date(value: string | null | undefined) {
   if (!value) return "Not available";
@@ -47,7 +48,8 @@ export default async function AdminClarityDetail({
 }) {
   const { id } = await params;
   const assessment = await getAdminClarityAssessment(id);
-  const answers = assessment.answers as ClarityAnswer[];
+  const answerPayload = assessment.answers as ClarityAnswer[] | { scored?: ClarityAnswer[] };
+  const answers = Array.isArray(answerPayload) ? answerPayload : answerPayload.scored ?? [];
   const result = calculateClarityResult(answers);
   const updateStatus = updateClarityAssessmentStatus.bind(null, assessment.id);
 
@@ -72,7 +74,7 @@ export default async function AdminClarityDetail({
         <div className="admin-clarity-score-grid">
           <article>
             <span>Overall Clarity Score</span>
-            <strong>{assessment.total_score} / 50</strong>
+            <strong>{assessment.total_score} / {result.maxScore}</strong>
           </article>
           <article>
             <span>Result Band</span>
@@ -98,13 +100,14 @@ export default async function AdminClarityDetail({
             <div className="clarity-category-grid admin-category-grid">
               {categories.map((category) => {
                 const score = scoreForCategory(result, category);
+                const maxScore = maxScoreForCategory(category);
 
                 return (
                   <article className={`clarity-category-card clarity-category-${category}`} key={category}>
                     <span>{categoryLabel(category)}</span>
-                    <strong>{score} / 10</strong>
+                    <strong>{score} / {maxScore}</strong>
                     <i aria-hidden="true">
-                      <b style={{ width: `${score * 10}%` }} />
+                      <b style={{ width: `${(score / maxScore) * 100}%` }} />
                     </i>
                     <p>{interpretCategory(category, score)}</p>
                   </article>

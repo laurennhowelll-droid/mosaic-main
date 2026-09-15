@@ -27,8 +27,8 @@ const leaveWith = [
 
 const faqs = [
   {
-    question: "Is this the same as Vision?",
-    answer: "No. Vision looks at the whole business. The Clarity Session focuses on one defined question.",
+    question: "Is this the same as the free Clarity Check?",
+    answer: "No. The free Clarity Check is a self-assessment. The Clarity Session is a paid working session focused on one decision, workflow, or systems question.",
   },
   {
     question: "What happens after the session?",
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: "Can this lead into a larger engagement?",
-    answer: "Yes. If you move into Vision within 30 days, your Clarity Session investment is credited toward your Vision project.",
+    answer: "Yes. If the question points to advisory, CRM and systems, website, or growth work, Mosaic will recommend the next step clearly.",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function ClarityPage() {
             Sometimes the biggest obstacle isn&apos;t doing the work.
           </p>
           <p className="service-detail-intro">
-            It&apos;s knowing what the right next step should be. The Clarity Session is a focused 90-minute strategy session designed to help you confidently move forward.
+            It&apos;s knowing what the right next step should be. The Clarity Session is a focused 90-minute strategy session for a specific CRM, workflow, tool, website, reporting, or growth systems decision.
           </p>
           <Link className="button" href="#book">
             Book a Clarity Session <b>↗</b>
@@ -126,7 +126,7 @@ export default function ClarityPage() {
         </div>
         <div>
           <p className="service-detail-intro">
-            If you move into a Vision engagement within 30 days, your Clarity Session investment is credited toward your Vision project.
+            If you need a deeper review of your actual tools, data, process, and team requirements, Mosaic may recommend a Systems Clarity Audit before implementation.
           </p>
         </div>
       </section>

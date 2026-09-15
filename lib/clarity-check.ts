@@ -1,4 +1,4 @@
-export type ClarityCategory = "vision" | "experience" | "systems" | "operations" | "growth";
+export type ClarityCategory = "capture" | "follow_up" | "connection" | "visibility";
 
 export type ClarityAnswer = {
   id: string;
@@ -6,186 +6,147 @@ export type ClarityAnswer = {
   score: number;
 };
 
+export type ClarityResultBand = "FOUNDATION" | "WORKAROUNDS" | "PARTIALLY_CONNECTED" | "OPTIMIZE";
+
+export type RecommendedService = "Advisory" | "CRM & Systems" | "Websites & Customer Experience" | "Marketing & Growth";
+
 export type ClarityResult = {
   totalScore: number;
-  resultBand: "CONNECTED" | "GROWING FRICTION" | "DISCONNECTED" | "REACTIVE";
-  visionScore: number;
-  experienceScore: number;
-  systemsScore: number;
-  operationsScore: number;
-  growthScore: number;
+  maxScore: number;
+  resultBand: ClarityResultBand;
+  captureScore: number;
+  followUpScore: number;
+  connectionScore: number;
+  visibilityScore: number;
   strongestCategory: ClarityCategory;
   weakestCategory: ClarityCategory;
   primaryGap: string;
-  recommendedService: "Vision" | "Experience" | "Connect" | "Grow" | "Clarity Session";
+  recommendedService: RecommendedService;
   recommendation: string;
   priorities: Array<{ title: string; copy: string; category: ClarityCategory }>;
   nextStepHref: string;
 };
 
+export const clarityCategories: ClarityCategory[] = ["capture", "follow_up", "connection", "visibility"];
+
 export const clarityQuestions = [
-  {
-    id: "vision_direction",
-    category: "vision",
-    question: "We have a clear direction for where the business is going next.",
-  },
-  {
-    id: "vision_decisions",
-    category: "vision",
-    question: "Our decisions connect back to a larger business vision.",
-  },
-  {
-    id: "experience_message",
-    category: "experience",
-    question: "Our website and messaging clearly explain what we do and who we help.",
-  },
-  {
-    id: "experience_journey",
-    category: "experience",
-    question: "The customer journey feels clear, thoughtful, and easy to move through.",
-  },
-  {
-    id: "systems_tools",
-    category: "systems",
-    question: "Our tools and platforms work together instead of creating extra work.",
-  },
-  {
-    id: "systems_data",
-    category: "systems",
-    question: "Important information lives in reliable places and is easy to find.",
-  },
-  {
-    id: "operations_process",
-    category: "operations",
-    question: "Our internal workflows are documented, repeatable, and not dependent on memory.",
-  },
-  {
-    id: "operations_capacity",
-    category: "operations",
-    question: "Our team has enough operational clarity to work without constant re-explaining.",
-  },
-  {
-    id: "growth_measurement",
-    category: "growth",
-    question: "We can see what is working and make improvements with confidence.",
-  },
-  {
-    id: "growth_momentum",
-    category: "growth",
-    question: "Our website, systems, and operations can support the next stage of growth.",
-  },
+  { id: "capture_central_system", category: "capture", question: "Every new inquiry enters one central system." },
+  { id: "capture_lead_source", category: "capture", question: "We can see where each lead came from." },
+  { id: "capture_form_context", category: "capture", question: "Our inquiry forms collect the information our team actually needs." },
+  { id: "capture_immediate_response", category: "capture", question: "New leads receive an immediate and intentional response." },
+  { id: "capture_source_distinction", category: "capture", question: "Leads from ads, organic search, referrals, email, and social media can be distinguished." },
+  { id: "follow_stage", category: "follow_up", question: "Every lead has a clear stage and next step." },
+  { id: "follow_memory", category: "follow_up", question: "Follow-up does not depend on someone remembering." },
+  { id: "follow_owner", category: "follow_up", question: "Our team can see who owns each lead." },
+  { id: "follow_nurture", category: "follow_up", question: "We have a process for leads who are not ready to book immediately." },
+  { id: "follow_lost_reason", category: "follow_up", question: "We know why leads do not move forward." },
+  { id: "connection_tool_sharing", category: "connection", question: "Our website, forms, CRM, booking platform, email, and SMS share information reliably." },
+  { id: "connection_no_copying", category: "connection", question: "Customer information does not need to be copied manually between several places." },
+  { id: "connection_history", category: "connection", question: "Our team can see a customer's history without checking multiple systems." },
+  { id: "connection_handoffs", category: "connection", question: "Internal handoffs are clear and consistent." },
+  { id: "connection_automation", category: "connection", question: "Our automations reduce work without making the process harder to understand." },
+  { id: "visibility_booked", category: "visibility", question: "We can see how many leads become booked customers." },
+  { id: "visibility_revenue_source", category: "visibility", question: "We can connect marketing sources to revenue." },
+  { id: "visibility_dashboard", category: "visibility", question: "We have a dashboard showing the numbers that matter." },
+  { id: "visibility_reports", category: "visibility", question: "Our reports are updated without repeatedly rebuilding them by hand." },
+  { id: "visibility_trust", category: "visibility", question: "We trust the data used to make business decisions." },
+  { id: "visibility_capacity", category: "visibility", question: "We know whether our current process could reliably handle more leads." },
 ] as const;
 
 const categoryLabels: Record<ClarityCategory, string> = {
-  vision: "Vision",
-  experience: "Experience",
-  systems: "Systems",
-  operations: "Operations",
-  growth: "Growth",
+  capture: "Capture",
+  follow_up: "Follow-Up",
+  connection: "Connection",
+  visibility: "Visibility",
 };
 
 const gapByCategory: Record<ClarityCategory, string> = {
-  vision: "Business direction and decision clarity",
-  experience: "Customer experience and website clarity",
-  systems: "Connected systems and reliable information",
-  operations: "Internal workflow and process clarity",
-  growth: "Sustainable growth rhythm and visibility",
+  capture: "Lead capture and source tracking",
+  follow_up: "Lead follow-up and ownership",
+  connection: "Tool connection and customer handoffs",
+  visibility: "Reporting, attribution, and growth visibility",
 };
 
-const serviceByCategory: Record<ClarityCategory, ClarityResult["recommendedService"]> = {
-  vision: "Vision",
-  experience: "Experience",
-  systems: "Connect",
-  operations: "Connect",
-  growth: "Grow",
+const serviceByCategory: Record<ClarityCategory, RecommendedService> = {
+  capture: "Websites & Customer Experience",
+  follow_up: "CRM & Systems",
+  connection: "CRM & Systems",
+  visibility: "CRM & Systems",
 };
 
-const hrefByService: Record<ClarityResult["recommendedService"], string> = {
-  Vision: "/services/vision",
-  Experience: "/services/experience",
-  Connect: "/services/connect",
-  Grow: "/services/grow",
-  "Clarity Session": "/clarity",
+const hrefByService: Record<RecommendedService, string> = {
+  Advisory: "/services/inquire/clarity",
+  "CRM & Systems": "/services/inquire/systems",
+  "Websites & Customer Experience": "/services/inquire/website",
+  "Marketing & Growth": "/services/inquire/generate",
 };
 
-const recommendationByService: Record<ClarityResult["recommendedService"], string> = {
-  Vision:
-    "I would start by clarifying the business direction before making another design, software, or operations decision. When the vision is clear, the next investment becomes much easier to choose.",
-  Experience:
-    "I would look first at how customers understand, trust, and move through the business. A clearer website and customer journey can turn scattered interest into more confident action.",
-  Connect:
-    "I would look first at the systems and workflows behind the scenes. When information, tools, and process are connected, the business gets calmer and easier to operate.",
-  Grow:
-    "I would look first at the rhythm of ongoing improvement. The foundation is there, but the business needs consistent attention so momentum does not create new complexity.",
-  "Clarity Session":
-    "I would start with one focused question rather than a full engagement. A Clarity Session can help you untangle the decision in front of you and leave with practical next steps.",
+const recommendationByService: Record<RecommendedService, string> = {
+  Advisory: "Start by clarifying the customer journey, systems, and priorities before committing to a build.",
+  "CRM & Systems": "Start with the operating layer: CRM structure, follow-up, dashboards, workflows, and integrations.",
+  "Websites & Customer Experience": "Start with the path from first interest to inquiry so better leads enter the system cleanly.",
+  "Marketing & Growth": "Start with growth only after confirming the capture, follow-up, and visibility path can support more demand.",
 };
 
 const priorityByCategory: Record<ClarityCategory, string> = {
-  vision: "Clarify priorities",
-  experience: "Review customer journey",
-  systems: "Reduce manual handoffs",
-  operations: "Define clear sources of truth",
-  growth: "Identify what will break first at higher volume",
+  capture: "Create one reliable lead entry point",
+  follow_up: "Define stages, owners, and next steps",
+  connection: "Reduce manual handoffs between tools",
+  visibility: "Build reporting leaders can trust",
 };
 
 const priorityCopyByCategory: Record<ClarityCategory, string> = {
-  vision: "Your answers suggest it may be worth defining what should happen next before investing in more execution.",
-  experience: "One useful next step may be reviewing how clearly people understand, trust, and move through the business.",
-  systems: "This may indicate that software overlap, repeated entry, or high-friction workflows deserve a closer look.",
-  operations: "One area worth examining is where ownership, documentation, or reporting visibility could be clearer.",
-  growth: "Based on this snapshot, it may be useful to look at the processes or bottlenecks most likely to strain under more volume.",
+  capture: "Look at where inquiries enter the business, what context is collected, and whether lead sources are preserved.",
+  follow_up: "Clarify the process that moves a lead from inquiry to booked work, including ownership and stalled-lead recovery.",
+  connection: "Identify where customer information is copied, recreated, or lost between website, CRM, booking, email, SMS, and team tools.",
+  visibility: "Focus on the numbers needed to connect marketing activity, lead movement, booked work, and revenue.",
 };
 
 const categoryInterpretation: Record<ClarityCategory, (score: number) => string> = {
-  vision: (score) =>
-    score >= 8 ? "Direction appears relatively clear." : score >= 5 ? "Direction may be present, but some decisions may still feel harder than they should." : "This may be where decisions are carrying the most uncertainty.",
-  experience: (score) =>
-    score >= 8 ? "The customer-facing experience appears to have useful clarity." : score >= 5 ? "The customer journey may be working, but there may still be places where trust or movement slows down." : "This may suggest the outside experience no longer fully reflects the business.",
-  systems: (score) =>
-    score >= 8 ? "Your tools and information flow may be supporting the business well." : score >= 5 ? "Some systems may be helping, while others may still create extra effort." : "This may indicate friction around tools, handoffs, or reliable information.",
-  operations: (score) =>
-    score >= 8 ? "Internal workflows may be relatively steady and repeatable." : score >= 5 ? "Operations may be functioning, but still relying on explanation, memory, or informal process." : "This may suggest internal clarity is where the business is carrying extra weight.",
-  growth: (score) =>
-    score >= 8 ? "The business may have a strong foundation for continued improvement." : score >= 5 ? "Growth may be possible, but some parts may need more structure before momentum increases." : "This may point to capacity, visibility, or bottlenecks that could limit the next stage.",
+  capture: (score) => score >= 20 ? "Lead capture appears consistent." : score >= 13 ? "Lead capture may work in places, but source context or intake quality may still be uneven." : "Lead capture may be one of the first places to stabilize.",
+  follow_up: (score) => score >= 20 ? "Follow-up appears structured and visible." : score >= 13 ? "Follow-up may be happening, but ownership or next steps may still depend on people remembering." : "Follow-up may be carrying too much manual effort and memory.",
+  connection: (score) => score >= 20 ? "Tools and handoffs appear relatively connected." : score >= 13 ? "Some systems may be connected while other handoffs still create repeated work." : "Disconnected tools may be creating avoidable friction.",
+  visibility: (score) => score >= 24 ? "Reporting may already support confident decisions." : score >= 15 ? "Visibility may exist, but attribution, trust, or reporting speed may still need work." : "Visibility may be the clearest opportunity for better decisions.",
 };
 
 const strongestInterpretation: Record<ClarityCategory, string> = {
-  vision: "Based on your answers, direction may be one of the steadier parts of the business. That clarity can become an anchor for future decisions.",
-  experience: "Based on your answers, the customer-facing experience may already have meaningful clarity. That gives the business something solid to build from.",
-  systems: "Based on your answers, some of the behind-the-scenes systems may already be supporting the business well. That foundation can make future improvements easier to prioritize.",
-  operations: "Based on your answers, internal operations may have more structure than other areas. That steadiness can help the business absorb change with less friction.",
-  growth: "Based on your answers, growth readiness may be one of the stronger signals. That suggests there may already be useful momentum to protect and refine.",
+  capture: "Your answers suggest inquiry capture may be one of the steadier parts of the journey.",
+  follow_up: "Your answers suggest the sales or booking process may already have useful structure.",
+  connection: "Your answers suggest some of the tools and handoffs may already be supporting the team.",
+  visibility: "Your answers suggest the business may already have useful reporting signals to build from.",
 };
 
 const gapInterpretation: Record<ClarityCategory, string> = {
-  vision: "Your answers suggest the next layer of clarity may be strategic. One place I’d look first is whether priorities, decisions, and investments are all pointing in the same direction.",
-  experience: "Your answers suggest the customer-facing experience may deserve a closer look. This may indicate that messaging, website structure, or the path to inquiry could be creating small moments of hesitation.",
-  systems: "Your answers suggest systems may be carrying unnecessary friction. One place I’d look first is where information moves manually, tools overlap, or the team has to recreate context.",
-  operations: "Your answers suggest operational clarity may be the biggest opportunity. This may indicate that ownership, documentation, reporting, or repeatable process could create more calm inside the business.",
-  growth: "Your answers suggest growth may need more support before the next stage. One place I’d look first is what might become fragile if volume, complexity, or team demands increase.",
+  capture: "I would look first at whether every inquiry lands in one place with the right source and context attached.",
+  follow_up: "I would look first at stages, ownership, next follow-up, and how leads are handled when they are not ready yet.",
+  connection: "I would look first at where tools fail to share information and where the team has to recreate context manually.",
+  visibility: "I would look first at whether leadership can connect sources, activity, bookings, revenue, and lost opportunities.",
 };
 
 export function categoryLabel(category: ClarityCategory) {
   return categoryLabels[category];
 }
 
-export function resultBandLabel(resultBand: ClarityResult["resultBand"]) {
-  return resultBand
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" ");
+export function resultBandLabel(resultBand: ClarityResultBand) {
+  return {
+    FOUNDATION: "Building the Foundation",
+    WORKAROUNDS: "Growing Through Workarounds",
+    PARTIALLY_CONNECTED: "Partially Connected",
+    OPTIMIZE: "Ready to Optimize",
+  }[resultBand];
 }
 
 export function scoreForCategory(result: ClarityResult, category: ClarityCategory) {
   return {
-    vision: result.visionScore,
-    experience: result.experienceScore,
-    systems: result.systemsScore,
-    operations: result.operationsScore,
-    growth: result.growthScore,
+    capture: result.captureScore,
+    follow_up: result.followUpScore,
+    connection: result.connectionScore,
+    visibility: result.visibilityScore,
   }[category];
+}
+
+export function maxScoreForCategory(category: ClarityCategory) {
+  return category === "visibility" ? 30 : 25;
 }
 
 export function interpretCategory(category: ClarityCategory, score: number) {
@@ -201,33 +162,32 @@ export function primaryGapCopy(category: ClarityCategory) {
 }
 
 export function calculateClarityResult(answers: ClarityAnswer[]): ClarityResult {
-  const scores = {
-    vision: 0,
-    experience: 0,
-    systems: 0,
-    operations: 0,
-    growth: 0,
-  };
+  const scores = { capture: 0, follow_up: 0, connection: 0, visibility: 0 };
 
   for (const answer of answers) {
-    scores[answer.category] += answer.score;
+    if (answer.category in scores) {
+      scores[answer.category] += answer.score;
+    }
   }
 
   const totalScore = Object.values(scores).reduce((sum, score) => sum + score, 0);
-  const sortedCategories = (Object.keys(scores) as ClarityCategory[]).sort((a, b) => scores[a] - scores[b]);
+  const sortedCategories = (Object.keys(scores) as ClarityCategory[]).sort((a, b) => {
+    const aRatio = scores[a] / maxScoreForCategory(a);
+    const bRatio = scores[b] / maxScoreForCategory(b);
+    return aRatio - bRatio;
+  });
   const weakestCategory = sortedCategories[0];
   const strongestCategory = sortedCategories[sortedCategories.length - 1];
-  const recommendedService =
-    totalScore >= 40 && scores[weakestCategory] >= 8 ? "Clarity Session" : serviceByCategory[weakestCategory];
+  const recommendedService = totalScore >= 88 ? "Advisory" : serviceByCategory[weakestCategory];
 
   return {
     totalScore,
-    resultBand: totalScore >= 40 ? "CONNECTED" : totalScore >= 30 ? "GROWING FRICTION" : totalScore >= 20 ? "DISCONNECTED" : "REACTIVE",
-    visionScore: scores.vision,
-    experienceScore: scores.experience,
-    systemsScore: scores.systems,
-    operationsScore: scores.operations,
-    growthScore: scores.growth,
+    maxScore: 105,
+    resultBand: totalScore >= 88 ? "OPTIMIZE" : totalScore >= 68 ? "PARTIALLY_CONNECTED" : totalScore >= 45 ? "WORKAROUNDS" : "FOUNDATION",
+    captureScore: scores.capture,
+    followUpScore: scores.follow_up,
+    connectionScore: scores.connection,
+    visibilityScore: scores.visibility,
     strongestCategory,
     weakestCategory,
     primaryGap: gapByCategory[weakestCategory],

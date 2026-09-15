@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logLeadNotificationFailure, sendLeadNotification } from "../../../lib/lead-notifications";
 import { getSupabaseServerClient } from "../../../lib/supabase/server";
 import { getResource } from "../../resources/resources";
 
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
 
   try {
     const supabase = getSupabaseServerClient();
-    const { error } = await supabase.from("leads").insert({
+    const leadInsert = await supabase.from("leads").insert({
       company_name: companyName,
       contact_name: name,
       email,
@@ -62,11 +63,35 @@ export async function POST(request: Request) {
       ]
         .filter(Boolean)
         .join("\n\n"),
-    });
+    }).select("id").single();
 
-    if (error) {
-      console.error("Resource download lead insert failed", error);
+    if (leadInsert.error || !leadInsert.data) {
+      console.error("Resource download lead insert failed", leadInsert.error);
       return NextResponse.json({ error: "We couldn't save your email. Please try again." }, { status: 500 });
+    }
+
+    try {
+      const notification = await sendLeadNotification({
+        type: "resource_download",
+        name,
+        businessName: companyName,
+        email,
+        selectedService: "Resource download",
+        primaryChallenge: `Requested resource: ${resource.title}`,
+        openResponses: [
+          `Resource: ${resource.title}`,
+          `Resource URL: /resources/${resource.slug}`,
+          pageUrl ? `Page URL: ${pageUrl}` : "",
+          referrer ? `Referrer: ${referrer}` : "",
+        ],
+        leadId: leadInsert.data.id,
+      });
+
+      if (notification.attempted && !notification.accepted) {
+        await logLeadNotificationFailure("resource download notification rejected", notification.reason);
+      }
+    } catch (error) {
+      await logLeadNotificationFailure("resource download notification exception", error);
     }
   } catch (error) {
     console.error("Resource download submission failed", error);
