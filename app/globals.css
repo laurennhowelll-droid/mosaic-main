@@ -237,6 +237,8 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .home-engagement-grid p{margin:0 0 24px}
 .home-engagement-grid ul{list-style:none;margin:auto 0 0;padding:18px 0 0;border-top:1px solid #20212420}
 .home-engagement-grid li{padding:10px 0;border-bottom:1px solid #20212418;color:#42433f}
+.home-engagement-cta{margin-top:clamp(34px,4vw,54px);padding-top:clamp(24px,3vw,36px);border-top:1px solid #20212424;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.home-engagement-cta p{margin:0;font:500 clamp(1.65rem,2.5vw,3rem)/1.08 var(--serif);letter-spacing:-.04em}
 .home-recognition-grid article{display:grid;gap:16px;padding:28px 30px;border-top:1px solid #20212424;color:inherit}
 .home-recognition-grid article h3{font:500 clamp(1.35rem,1.8vw,2rem)/1.14 var(--serif);letter-spacing:-.035em;margin:0;color:#202124}
 .home-recognition-grid article span{font-size:10px;color:var(--olive);letter-spacing:.14em;text-transform:uppercase}
@@ -245,7 +247,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .home-meaning{background:#f8f7f3}
 .final-cta .secondary-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #20212430;padding:13px 18px;font-size:11px;text-transform:uppercase;letter-spacing:.12em}
 @media(max-width:1100px){.home-build-grid{grid-template-columns:repeat(2,1fr)}.home-dashboard-metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:900px){.home-builds,.home-transform,.home-system-demo,.home-engagements{padding:80px 0}.home-build-grid,.home-transform-grid,.home-engagement-grid,.home-dashboard-metrics{grid-template-columns:1fr}.home-build-grid article,.home-transform-grid article,.home-engagement-grid article{min-height:0}.home-dashboard-header{display:grid}.home-dashboard{padding:22px}.home-dashboard-table div{min-width:760px}.home-recognition-grid article:nth-child(odd){border-right:0}.home-services .home-service-card:nth-child(2)::before{left:24px}.home-services .home-service-card:nth-child(2) span{margin-top:30px}}
+@media(max-width:900px){.home-builds,.home-transform,.home-system-demo,.home-engagements{padding:80px 0}.home-build-grid,.home-transform-grid,.home-engagement-grid,.home-dashboard-metrics{grid-template-columns:1fr}.home-build-grid article,.home-transform-grid article,.home-engagement-grid article{min-height:0}.home-dashboard-header{display:grid}.home-dashboard{padding:22px}.home-dashboard-table div{min-width:760px}.home-recognition-grid article:nth-child(odd){border-right:0}.home-services .home-service-card:nth-child(2)::before{left:24px}.home-services .home-service-card:nth-child(2) span{margin-top:30px}.home-engagement-cta{align-items:flex-start;flex-direction:column}.home-engagement-cta .button{width:auto}}
 @media(max-width:520px){.home-builds,.home-transform,.home-system-demo,.home-engagements{padding:72px 0}.home-dashboard-table div{min-width:680px}.home-dashboard-header strong{font-size:2rem}.home-dashboard-metrics article{min-height:118px}.home-build-grid article,.home-transform-grid article,.home-engagement-grid article{padding:24px}.home-build-grid h3,.home-transform-grid h3,.home-engagement-grid h3{margin-top:32px}}
 
 .services-category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--grid-gap)}

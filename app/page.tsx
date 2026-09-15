@@ -445,6 +445,12 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <div className="home-engagement-cta">
+          <p>Not sure which model fits yet?</p>
+          <Link className="button" href={CLARITY_CALL_URL}>
+            Book a FREE Discovery Call <b>↗</b>
+          </Link>
+        </div>
       </section>
 
       <section className="home-meaning">
