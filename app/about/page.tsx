@@ -142,7 +142,10 @@ export default function AboutPage() {
       <section className="about-beliefs">
         <div className="section-intro">
           <p className="kicker">What We Believe</p>
-          <h2>The beliefs behind a business that works beautifully.</h2>
+          <h2 className="about-beliefs-title">
+            <span>The beliefs behind a business</span>
+            <span>that works beautifully.</span>
+          </h2>
         </div>
         <div className="about-belief-list">
           {beliefs.map((belief, index) => (

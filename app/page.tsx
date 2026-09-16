@@ -291,7 +291,8 @@ export default function Home() {
           <p className="kicker">What Mosaic Builds</p>
           <h2>Build the system behind your growth.</h2>
           <p>
-            Mosaic builds practical operating layers that help leads, customers, responsibilities, communication, and reporting move through the business with less friction.
+            Mosaic builds practical operating layers that help leads, customers, responsibilities, communication, and reporting move through the business with less friction.{" "}
+            Each path is a clear way into the same work: making the business clearer, lighter, and easier to operate.
           </p>
         </div>
         <div className="home-build-grid">
@@ -309,7 +310,9 @@ export default function Home() {
         <div className="section-intro">
           <p className="kicker">Services</p>
           <h2>One studio for the pieces that shape the customer journey.</h2>
-          <p>Mosaic can help with one component or connect the entire path from demand to revenue visibility.</p>
+          <p>
+            Mosaic can help with one component or connect the entire path from demand to revenue visibility. Each path is a clear way into the same work: making the business clearer, lighter, and easier to operate.
+          </p>
         </div>
         <div className="home-service-grid">
           {homeServices.map((service) => (
