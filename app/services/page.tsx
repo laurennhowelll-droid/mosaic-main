@@ -302,6 +302,18 @@ export default function ServicesPage() {
             </article>
           ))}
         </div>
+        <div className="services-guidance-cta">
+          <div>
+            <p className="kicker">Start Here</p>
+            <h3>Before any consulting or implementation begins, we talk through what is actually needed.</h3>
+            <p>
+              The free discovery call comes first. We will use that conversation to understand the problem, clarify whether Mosaic is the right fit, and recommend advisory, implementation, or a responsible blend of both.
+            </p>
+          </div>
+          <Link className="button" href={CLARITY_CALL_URL}>
+            Chat With Me on a FREE Discovery Call <b>↗</b>
+          </Link>
+        </div>
       </section>
 
       <section className="services-growth services-engagements">
@@ -324,6 +336,18 @@ export default function ServicesPage() {
               </ul>
             </article>
           ))}
+        </div>
+        <div className="services-guidance-cta">
+          <div>
+            <p className="kicker">First Step</p>
+            <h3>A free discovery call happens before choosing an engagement model.</h3>
+            <p>
+              We will talk through the work, constraints, timing, and budget first. After that, Mosaic can recommend whether the right next step is a fixed scope, a flexible partnership, or something smaller.
+            </p>
+          </div>
+          <Link className="button" href={CLARITY_CALL_URL}>
+            Chat With Me on a FREE Discovery Call <b>↗</b>
+          </Link>
         </div>
       </section>
 
