@@ -46,6 +46,12 @@ export default async function WorkPage({
         <p className="lede">
           Start with the outcomes. Then see the systems, decisions, and customer experience work underneath them.
         </p>
+<Link
+  className="button"
+  href="https://examples.buildwithmosaic.co/examples"
+>
+  Explore Interactive Examples <b>↗</b>
+</Link>
       </section>
 
       <section className="work-proof">
