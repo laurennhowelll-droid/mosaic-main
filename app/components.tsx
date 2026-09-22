@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ActiveNav from "./ActiveNav";
-import ClarityCheckPrompt from "./ClarityCheckPrompt";
 import MobileNav from "./MobileNav";
-import PublicMotion from "./PublicMotion";
 
 export function Mark({ small = false }: { small?: boolean }) {
   return <Image className={`mark ${small ? "mark-small" : ""}`} src="/brand-reference/main-icon.svg" alt="Mosaic icon" width={210} height={210} />;
@@ -23,7 +21,7 @@ export function Header() {
         </Link>
         <ActiveNav />
         <Link className="header-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a FREE Clarity Call <b>↗</b>
+          Explore What We Could Build <b>↗</b>
         </Link>
         <MobileNav />
       </div>
@@ -31,18 +29,18 @@ export function Header() {
   );
 }
 
-export function Footer() { return <footer><div><Link className="brand" href="/"><Mark /></Link><p>Business Systems Studio</p><p>Clear up the mess. Connect the pieces. Grow with confidence.</p></div><div className="footer-links"><Link href="/">Home</Link><Link href="/services">Services</Link><Link href="/process">How It Works</Link><Link href="/work">Work</Link><Link href="/about">About</Link><Link href="/playbook">Playbook</Link><Link href="/client/login">Client Portal</Link></div><div className="footer-links"><a href="mailto:lauren@buildwithmosaic.co">Email</a><a href="https://www.instagram.com/buildwithmosaic">Instagram</a></div><p>© 2026 Mosaic Studio LLC<br/>Business systems for growing service businesses.</p></footer>; }
+export function Footer() {
+  return <footer className="mosaic-footer">
+    <div className="mosaic-footer-main"><div><Link className="brand" href="/" aria-label="Mosaic home"><Logo /></Link><p>Thoughtful systems.<br />More room for what matters.</p></div>
+    <div className="mosaic-footer-links"><Link href="/services">Services</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/about">About</Link></div>
+    <div className="mosaic-footer-links"><Link href="/resources">Resources</Link><Link href="/playbook">Playbook</Link><Link href="/brand">The Mosaic identity</Link><Link href="/client/login">Client portal</Link></div>
+    <div className="mosaic-footer-links"><a href="mailto:lauren@buildwithmosaic.co">Say hello ↗</a><a href="https://www.instagram.com/buildwithmosaic">Instagram ↗</a><a href="https://examples.buildwithmosaic.co/examples">Explore examples ↗</a></div></div>
+    <div className="mosaic-footer-bottom"><span>© 2026 Mosaic Studio LLC</span><span>Business systems, thoughtfully connected.</span></div>
+  </footer>;
+}
 
 export function Shell({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <Header />
-      <main>{children}</main>
-      <ClarityCheckPrompt />
-      <Footer />
-      <PublicMotion />
-    </>
-  );
+  return <div className="mosaic-site"><a className="mosaic-skip" href="#main-content">Skip to content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><Footer /></div>;
 }
 
 export const services = [

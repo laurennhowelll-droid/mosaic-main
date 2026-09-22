@@ -1,507 +1,59 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mark, Shell } from "./components";
+import { Shell } from "./components";
+import { Arrow, BOOKING_URL, EXAMPLES_URL, ExampleCards, Invitation, SectionHeading, SystemPreview } from "./studio";
+import styles from "./studio.module.css";
 
-const SERVICES_PATH = "/services";
-const WHITE_POPPY_PATH = "/work/white-poppy-preservation";
-const CLARITY_CALL_URL = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
-
-const customerJourney = [
-  ["Ads + SEO", "create demand."],
-  ["Your website", "captures it."],
-  ["Your CRM", "organizes it."],
-  ["Email + SMS", "nurture it."],
-  ["Your dashboard", "shows what became revenue."],
-];
-
-const problemEntryPoints = [
-  {
-    label: "Inquiries",
-    problem: "Inquiries arrive through forms, email, DMs, ads, and referrals, but there is no central place to track them.",
-  },
-  {
-    label: "Follow-Up",
-    problem: "Follow-up depends on someone remembering what happens next.",
-  },
-  {
-    label: "Pipeline",
-    problem: "You cannot easily see which leads booked, which went cold, or why.",
-  },
-  {
-    label: "Tools",
-    problem: "Your booking platform, inbox, CRM, and email marketing do not communicate.",
-  },
-  {
-    label: "Attribution",
-    problem: "Ads are producing interest, but you cannot connect that activity to actual revenue.",
-  },
-  {
-    label: "Ownership",
-    problem: "Your team asks you questions the system should already answer.",
-  },
-  {
-    label: "Reporting",
-    problem: "You rebuild the same report whenever you need information.",
-  },
-  {
-    label: "Records",
-    problem: "Important customer details live across spreadsheets, inboxes, and people's heads.",
-  },
-];
-
-const philosophyCards = [
-  {
-    title: "Vision",
-    accent: "home-card-vision",
-    copy: [
-      "Everything begins with clarity.",
-      "Without vision, businesses slowly become collections of disconnected decisions.",
-      "Vision gives every future decision direction.",
-    ],
-  },
-  {
-    title: "Structure",
-    accent: "home-card-structure",
-    copy: [
-      "Systems create consistency.",
-      "Good processes remove friction and give people confidence.",
-      "Technology should support the business, not complicate it.",
-    ],
-  },
-  {
-    title: "Connection",
-    accent: "home-card-connection",
-    copy: [
-      "Departments should never operate independently.",
-      "Marketing. Operations. Sales. Customer experience. Technology.",
-      "Everything affects everything else. Connection is where momentum happens.",
-    ],
-  },
-  {
-    title: "Craft",
-    accent: "home-card-craft",
-    copy: [
-      "Details matter.",
-      "Beautiful execution builds trust.",
-      "Small improvements repeated across every part of a business create extraordinary outcomes.",
-    ],
-  },
-];
-
-const systemOutcomes = [
-  {
-    title: "Custom CRM Systems",
-    copy: "A central place to manage leads, customers, bookings, follow-up, responsibilities, and next steps.",
-  },
-  {
-    title: "Business Dashboards",
-    copy: "Clear reporting that shows where leads come from, what converts, what creates revenue, and where opportunities are being lost.",
-  },
-  {
-    title: "Connected Customer Workflows",
-    copy: "Automated handoffs between your website, inquiry forms, booking platform, CRM, email, SMS, and team.",
-  },
-  {
-    title: "Marketing and Customer Experience",
-    copy: "Websites, Meta Ads, Google Ads, SEO, email, and SMS connected to the systems tracking what happens next.",
-  },
-];
-
-const homeServices = [
-  {
-    number: "01",
-    service: "Advisory",
-    title: "Figure out what needs to change before investing in the wrong solution.",
-    description:
-      "Map the customer journey, audit the systems, and decide what deserves attention first.",
-    outcome:
-      "You leave with clearer priorities, practical recommendations, and a responsible next step.",
-    href: "/services",
-  },
-  {
-    number: "02",
-    service: "Systems",
-    title: "Build the foundation that captures, organizes, and measures growth.",
-    description:
-      "Create CRMs, dashboards, lead workflows, automations, integrations, portals, and internal tools.",
-    outcome:
-      "You leave with one clearer operating layer for leads, customers, responsibilities, and reporting.",
-    href: "/services",
-  },
-  {
-    number: "03",
-    service: "Experience",
-    title: "Create a clear path from interest to inquiry.",
-    description:
-      "Improve service-business websites, landing pages, forms, booking experiences, and customer journeys.",
-    outcome:
-      "You leave with a public experience that captures better information and connects to what happens next.",
-    href: "/services",
-  },
-  {
-    number: "04",
-    service: "Growth",
-    title: "Bring the right people into a system built to convert them.",
-    description:
-      "Support Meta Ads, Google Ads, SEO, email, SMS, lead nurturing, conversion tracking, and attribution.",
-    outcome:
-      "You leave with marketing connected to lead capture, follow-up, and the numbers that matter.",
-    href: "/services",
-  },
-];
-
-const proofResults = [
-  ["3×", "business growth supported during the engagement"],
-  ["Airtable", "operational infrastructure and reporting"],
-  ["Shopify", "connected ecommerce workflows"],
-  ["Executive", "dashboards and cross-department visibility"],
-  ["Automation", "less repetitive operational work"],
-  ["Inventory", "clearer visibility and handoffs"],
-];
-
-const transformationSteps = [
-  {
-    title: "Clear",
-    copy: "Understand how leads, customers, information, and responsibilities currently move through the business.",
-  },
-  {
-    title: "Connect",
-    copy: "Build the CRM, dashboards, workflows, and automations that bring the journey together.",
-  },
-  {
-    title: "Grow",
-    copy: "Improve the website, marketing, retention, and customer experience around a reliable foundation.",
-  },
-];
-
-const dashboardRows = [
-  ["Maya Chen", "Google Ads", "Booked", "Today", "Jules", "$4,800"],
-  ["Brightline Dental", "Referral", "Proposal", "Tomorrow", "Lauren", "$9,200"],
-  ["North Peak Studio", "Website", "New Lead", "Overdue", "Sam", "$3,400"],
-  ["Harbor Wellness", "Meta Ads", "Nurture", "Friday", "Jules", "$6,100"],
-];
-
-const dashboardMetrics = [
-  ["42%", "Lead-to-booking conversion"],
-  ["$86K", "Revenue by tracked source"],
-  ["11", "Overdue actions"],
-  ["SEO", "Top converting source"],
-];
-
-const engagementModels = [
-  {
-    title: "Defined Project",
-    copy: "Best for a clearly understood outcome with agreed deliverables, timeline, and investment.",
-    examples: ["Documented requirements", "Confirmed tools", "Clear finish line"],
-  },
-  {
-    title: "Flexible Partnership",
-    copy: "Best for complicated systems, evolving priorities, ongoing optimization, or work that requires discovery as we build.",
-    examples: ["Reserved capacity", "Prioritized backlog", "Progress visibility"],
-  },
+const services = [
+  ["01", "Advisory", "A clearer place to start.", "Understand what’s getting in the way and make a practical plan for what comes next.", "/services/inquire/clarity"],
+  ["02", "CRM & systems", "Bring the moving parts together.", "Custom CRMs, dashboards, and automations that give your business a connected foundation.", "/services/inquire/systems"],
+  ["03", "Websites & experience", "Make the next step feel easy.", "Thoughtful websites, forms, and booking journeys that turn interest into connection.", "/services/inquire/website"],
+  ["04", "Marketing & growth", "Give good work room to grow.", "Ads, SEO, email, and SMS connected to the journey that turns new leads into customers.", "/services/inquire/generate"],
 ];
 
 export default function Home() {
-  return (
-    <Shell>
-      <section className="hero">
-        <div>
-          <p className="kicker">Business Systems Studio</p>
-          <h1>
-            Your business has grown.
-            <br />
-            The way it runs hasn&apos;t caught up.
-          </h1>
-          <p className="lede">
-            Mosaic builds custom CRMs and dashboards for service businesses that have outgrown spreadsheets, manual follow-up, and disconnected tools. We organize your leads, connect booking and communication, automate repetitive work, and give you a clear view of what is driving growth.
-          </p>
-          <p className="home-service-line">
-            CRM · Dashboards · Automation · Websites · Marketing
-          </p>
-          <div className="actions">
-            <Link className="button" href={CLARITY_CALL_URL}>
-              Book a FREE Clarity Call <b>↗</b>
-            </Link>
-            <Link className="text-link" href={SERVICES_PATH}>
-              See What We Build →
-            </Link>
-          </div>
+  return <Shell>
+    <div className={styles.studio}>
+      <section className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}><span className={styles.greenDot} /> Business systems, thoughtfully connected</p>
+          <h1>A more connected business.<br /><em>More room to grow.</em></h1>
+          <p>Custom CRMs, dashboards, websites, and workflows for service businesses ready to bring the pieces together.</p>
+          <div className={styles.actions}><Link className="button" href={BOOKING_URL}>Explore What We Could Build <Arrow /></Link><Link className={styles.textLink} href={EXAMPLES_URL}>Explore examples <Arrow /></Link></div>
+          <span className={styles.heroNote}>Less busywork. A clearer view. A business that feels like yours.</span>
         </div>
-        <div className="hero-mark" aria-label="Connected business illustration">
-          <span className="hero-art-watermark" aria-hidden="true" />
-          <span className="hero-art-line hero-art-line-vision" aria-hidden="true" />
-          <span className="hero-art-line hero-art-line-structure" aria-hidden="true" />
-          <span className="hero-art-line hero-art-line-connection" aria-hidden="true" />
-          <span className="hero-art-line hero-art-line-craft" aria-hidden="true" />
-          <span className="hero-art-label hero-art-label-vision">Vision</span>
-          <span className="hero-art-label hero-art-label-structure">Structure</span>
-          <span className="hero-art-label hero-art-label-connection">Connection</span>
-          <span className="hero-art-label hero-art-label-craft">Craft</span>
-          <Image
-            className="hero-mark-image"
-            src="/brand/mosaic-hero.svg"
-            alt="Mosaic tile mark showing connected parts of a business"
-            width={738}
-            height={700}
-            priority
-          />
+        <div className={styles.heroVisual}><SystemPreview /><span className={styles.visualCaption}>A glimpse of what connected can feel like. <span>Fictional demo data</span></span></div>
+      </section>
+
+      <section className={styles.section}>
+        <SectionHeading eyebrow="The Mosaic library" title="See what’s possible." copy="Step inside a working concept. Imagine what a little more connection could do for your business." href={EXAMPLES_URL} link="Explore the library" />
+        <ExampleCards />
+        <p className={styles.smallNote}>Interactive concept demos use fictional data.</p>
+      </section>
+
+      <section className={styles.section}>
+        <SectionHeading eyebrow="Four ways in" title="Start with the piece that needs attention." copy="One focused improvement or a more connected business. We’ll find the right place to begin." href="/services" link="Explore services" />
+        <div className={styles.serviceGrid}>{services.map(([number, title, headline, copy, href]) => <Link className={styles.serviceCard} href={href} key={number}><div className={styles.cardTop}><span>{number}</span><Arrow /></div><h3>{title}</h3><strong>{headline}</strong><p>{copy}</p></Link>)}</div>
+      </section>
+
+      <section className={styles.section}>
+        <SectionHeading eyebrow="Connected work, in practice" title="Good systems make room for what’s next." href="/work" link="Selected work" />
+        <div className={styles.feature}>
+          <Link className={styles.featureArt} href="/work/white-poppy-preservation" aria-label="Read the White Poppy Preservation case study"><Image src="/brand/white_poppy.png" alt="White Poppy Preservation" width={800} height={650} sizes="(max-width: 760px) 90vw, 45vw" /><span>White Poppy Preservation · Case study</span></Link>
+          <div className={styles.featureCopy}><p className={styles.eyebrow}>Ecommerce · Operations · Reporting</p><h3>A growing business.<br />A stronger foundation.</h3><p>As White Poppy grew, Lauren helped connect the systems behind it: Shopify, Airtable, reporting, inventory, and everyday workflows.</p><div className={styles.result}><strong>≈3×</strong><span>business growth supported<br />during the engagement</span></div><p className={styles.smallNote}>Better infrastructure supported the growth. No single system is credited with every outcome.</p><Link className={styles.textLink} href="/work/white-poppy-preservation">Read the story <Arrow /></Link></div>
         </div>
       </section>
 
-      <section className="home-journey">
-        <div className="section-intro">
-          <p className="kicker">Connected Growth</p>
-          <h2>Growth works better when every step is connected.</h2>
-          <p>
-            Mosaic can improve one part of this journey or connect the entire experience. You do not need to hire us for every piece.
-          </p>
-        </div>
-        <div className="home-journey-flow" aria-label="Connected customer journey">
-          {customerJourney.map(([step, copy], index) => (
-            <article key={step}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{step}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
+      <section className={styles.section}>
+        <SectionHeading eyebrow="The way we work" title="From “this feels complicated” to a clear next step." href="/process" link="Our process" />
+        <div className={styles.steps}>{[["01", "Understand the business.", "We listen, map the moving parts, and find what’s really getting in the way."], ["02", "Build what belongs.", "We create the right solution and connect it to the tools and people around it."], ["03", "Make it yours.", "Documentation, training, and a clear handoff give your team the confidence to keep going."]].map(([number, title, copy]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
       </section>
 
-      <section className="home-recognition">
-        <div className="section-intro">
-          <p className="kicker">Recognizable Problems</p>
-          <h2>Your business may have outgrown its systems if...</h2>
-          <p>Service businesses rarely become messy all at once. The warning signs usually show up in lead tracking, follow-up, handoffs, and reporting first.</p>
-        </div>
-        <div className="home-recognition-grid">
-          {problemEntryPoints.map((item, index) => (
-            <article key={item.label}>
-              <span>0{index + 1} / {item.label}</span>
-              <h3>{item.problem}</h3>
-            </article>
-          ))}
-        </div>
-        <p className="home-section-closing">
-          Mosaic brings those pieces into one system your team can understand and your business can grow with.
-        </p>
+      <section className={`${styles.section} ${styles.founder}`}>
+        <Image src="/brand-reference/founder-photo-web.jpg" alt="Lauren Howell Christensen, founder of Mosaic" width={1066} height={1600} sizes="(max-width: 760px) 80vw, 25vw" />
+        <div><p className={styles.eyebrow}>A person behind the pieces</p><h2>Hi, I’m Lauren.<br /><em>I see how it all connects.</em></h2><p>I built Mosaic for the work that lives between strategy, systems, and the customer experience. I help you see the whole picture, then build the pieces that make your business easier to run.</p><Link className={styles.textLink} href="/about">A little more about Mosaic <Arrow /></Link></div>
       </section>
-
-      <section className="home-builds">
-        <div className="section-intro">
-          <p className="kicker">What Mosaic Builds</p>
-          <h2>Build the system behind your growth.</h2>
-          <p>
-            Mosaic builds practical operating layers that help leads, customers, responsibilities, communication, and reporting move through the business with less friction.{" "}
-            Each path is a clear way into the same work: making the business clearer, lighter, and easier to operate.
-          </p>
-        </div>
-        <div className="home-build-grid">
-          {systemOutcomes.map((item, index) => (
-            <article key={item.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="home-services">
-        <div className="section-intro">
-          <p className="kicker">Services</p>
-          <h2>One studio for the pieces that shape the customer journey.</h2>
-          <p>
-            Mosaic can help with one component or connect the entire path from demand to revenue visibility. Each path is a clear way into the same work: making the business clearer, lighter, and easier to operate.
-          </p>
-        </div>
-        <div className="home-service-grid">
-          {homeServices.map((service) => (
-            <Link href={service.href} className="home-service-card" key={service.service}>
-              <span>{service.number}</span>
-              <p>{service.service}</p>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <strong>{service.outcome}</strong>
-              <b>↗</b>
-            </Link>
-          ))}
-        </div>
-        <div className="home-service-note">
-          <p>You can hire Mosaic for advice, implementation, or both. A website, CRM, dashboard, email program, SEO project, or ad account may be fixed or flexible depending on scope certainty.</p>
-          <Link className="button" href={SERVICES_PATH}>
-            Explore Services <b>↗</b>
-          </Link>
-        </div>
-      </section>
-
-      <section className="home-transform">
-        <div className="section-intro">
-          <p className="kicker">Clear / Connect / Grow</p>
-          <h2>Clear up the mess. Connect the pieces. Grow with confidence.</h2>
-        </div>
-        <div className="home-transform-grid">
-          {transformationSteps.map((step, index) => (
-            <article key={step.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{step.title}</h3>
-              <p>{step.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="home-system-demo">
-        <div className="section-intro">
-          <p className="kicker">System Example</p>
-          <h2>See your entire customer journey in one place.</h2>
-          <p>This representative mockup uses fictional data to show the kind of visibility a Mosaic CRM or dashboard can create.</p>
-        </div>
-        <div className="home-dashboard" aria-label="Representative fictional CRM and dashboard mockup">
-          <div className="home-dashboard-header">
-            <div>
-              <span>Pipeline Dashboard</span>
-              <strong>Service Growth System</strong>
-            </div>
-            <p>Fictional demo data</p>
-          </div>
-          <div className="home-dashboard-metrics">
-            {dashboardMetrics.map(([metric, label]) => (
-              <article key={label}>
-                <strong>{metric}</strong>
-                <span>{label}</span>
-              </article>
-            ))}
-          </div>
-          <div className="home-dashboard-table" role="table" aria-label="Lead pipeline">
-            <div role="row">
-              <span role="columnheader">Lead</span>
-              <span role="columnheader">Source</span>
-              <span role="columnheader">Stage</span>
-              <span role="columnheader">Next Follow-Up</span>
-              <span role="columnheader">Owner</span>
-              <span role="columnheader">Value</span>
-            </div>
-            {dashboardRows.map(([lead, source, stage, followUp, owner, value]) => (
-              <div role="row" key={lead}>
-                <span role="cell">{lead}</span>
-                <span role="cell">{source}</span>
-                <span role="cell">{stage}</span>
-                <span role="cell">{followUp}</span>
-                <span role="cell">{owner}</span>
-                <span role="cell">{value}</span>
-              </div>
-            ))}
-          </div>
-          <div className="home-dashboard-foot">
-            <span>Lost-lead reasons</span>
-            <span>Booking status</span>
-            <span>Revenue by source</span>
-            <span>Overdue actions</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="home-work">
-        <div className="section-intro">
-          <p className="kicker">Proof</p>
-          <h2>How connected systems and reporting supported 3× business growth.</h2>
-          <p>
-            White Poppy&apos;s growth had outpaced the systems behind it. Lauren&apos;s work helped centralize operational information, strengthen Airtable infrastructure, connect Shopify workflows, build dashboards, improve inventory visibility, and reduce repetitive work.
-          </p>
-        </div>
-        <article className="home-work-feature">
-          <div className="home-work-summary">
-            <p className="kicker">White Poppy Preservation</p>
-            <h3>Growth supported by clearer infrastructure.</h3>
-            <p>
-              Mosaic does not claim one system caused every outcome. The point is that better infrastructure made growth easier to understand, support, and continue improving.
-            </p>
-            <Link href={WHITE_POPPY_PATH}>View the Case Study →</Link>
-          </div>
-          <div className="home-work-metrics">
-            {proofResults.map(([metric, label]) => (
-              <div key={`${metric}-${label}`}>
-                <span>{label}</span>
-                <strong>{metric}</strong>
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="home-engagements">
-        <div className="section-intro">
-          <p className="kicker">Engagement Models</p>
-          <h2>Clear scope when we know the path. Flexible capacity when the work needs room to evolve.</h2>
-          <p>You do not need to determine which model you need. Mosaic will recommend the most responsible fit after learning about your business.</p>
-        </div>
-        <div className="home-engagement-grid">
-          {engagementModels.map((model) => (
-            <article key={model.title}>
-              <h3>{model.title}</h3>
-              <p>{model.copy}</p>
-              <ul>
-                {model.examples.map((example) => (
-                  <li key={example}>{example}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-        <div className="home-engagement-cta">
-          <p>Not sure which model fits yet?</p>
-          <Link className="button" href={CLARITY_CALL_URL}>
-            Book a FREE Discovery Call <b>↗</b>
-          </Link>
-        </div>
-      </section>
-
-      <section className="home-meaning">
-        <div className="home-meaning-intro">
-          <p className="kicker">Mosaic Philosophy</p>
-          <h2>Every tool should earn its place.</h2>
-          <p>
-            Technology should reduce complexity. The whole picture matters. You should never be more confused after working with Mosaic than you were before.
-          </p>
-        </div>
-        <div className="home-meaning-layout">
-          <div className="home-museum-mark" aria-label="Mosaic icon">
-            <Mark />
-          </div>
-          <div className="home-philosophy-cards">
-            {philosophyCards.map((card, index) => (
-              <article className={`home-philosophy-card ${card.accent}`} key={card.title}>
-                <span>0{index + 1}</span>
-                <h3>{card.title}</h3>
-                {card.copy.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="final-cta">
-        <p className="kicker">Start Where The Pieces Feel Loose</p>
-        <h2>
-          Your business already has the pieces. Let&apos;s make them work together.
-        </h2>
-        <div className="home-clarity-prompt">
-          <h3>Tell me where leads, information, or responsibilities are getting lost.</h3>
-          <p>
-            I&apos;ll help you determine what needs to be clarified, connected, or improved.
-          </p>
-          <div className="actions">
-            <Link className="button" href={CLARITY_CALL_URL}>
-              Book a FREE Clarity Call <b>↗</b>
-            </Link>
-            <Link className="secondary-button" href="/clarity-check">
-              Take the Free Clarity Check
-            </Link>
-          </div>
-        </div>
-      </section>
-    </Shell>
-  );
+      <Invitation />
+    </div>
+  </Shell>;
 }

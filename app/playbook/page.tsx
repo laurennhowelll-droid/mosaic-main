@@ -281,7 +281,7 @@ export default function PlaybookPage() {
         </p>
         <div className="actions">
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a FREE Clarity Call <b>↗</b>
+            Explore What We Could Build <b>↗</b>
           </Link>
           <Link className="text-link" href="/services">
             Explore How We Help →

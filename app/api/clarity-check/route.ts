@@ -94,7 +94,7 @@ async function sendReportEmail({
             <p><strong>Greatest opportunity:</strong> ${result.primaryGap}</p>
             <p><strong>Recommended starting point:</strong> ${result.recommendedService}</p>
             <p>${result.recommendation}</p>
-            <p><a href="${discoveryCallUrl}" style="display:inline-block;background:#7a8266;color:white;padding:13px 18px;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-size:12px;">Book a FREE Clarity Call</a></p>
+            <p><a href="${discoveryCallUrl}" style="display:inline-block;background:#7a8266;color:white;padding:13px 18px;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-size:12px;">Explore What We Could Build</a></p>
           </div>
         </div>
       `,

@@ -4,12 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  ["Home", "/"],
   ["Services", "/services"],
-  ["How It Works", "/process"],
   ["Work", "/work"],
+  ["Process", "/process"],
   ["About", "/about"],
-  ["Playbook", "/playbook"],
+  ["Resources", "/resources"],
 ] as const;
 
 function isActive(pathname: string, href: string) {

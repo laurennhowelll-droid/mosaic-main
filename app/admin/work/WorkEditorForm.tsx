@@ -62,7 +62,7 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
         <label>CTA Type<select name="cta_type" value={ctaType} onChange={(event) => setCtaType(event.target.value)}>
           <option value="none">None</option>
           <option value="clarity_check">Clarity Check</option>
-          <option value="discovery_call">Book a FREE Clarity Call</option>
+          <option value="discovery_call">Explore What We Could Build</option>
           <option value="email">Email Mosaic</option>
           <option value="custom">Custom</option>
         </select></label>

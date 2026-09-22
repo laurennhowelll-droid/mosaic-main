@@ -477,7 +477,7 @@ export default function WhitePoppyCaseStudy() {
           scenes as it does in front of customers.
         </h2>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a FREE Clarity Call <b>↗</b>
+          Explore What We Could Build <b>↗</b>
         </Link>
       </section>
     </Shell>

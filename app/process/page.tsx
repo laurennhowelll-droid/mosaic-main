@@ -131,7 +131,7 @@ export default function ProcessPage() {
           </p>
         </div>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a FREE Clarity Call <b>↗</b>
+          Explore What We Could Build <b>↗</b>
         </Link>
       </section>
 
@@ -270,7 +270,7 @@ export default function ProcessPage() {
           A conversation about where you are today, where you&apos;d like to go, and whether Mosaic is the right partner.
         </p>
         <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Book a FREE Clarity Call <b>↗</b>
+          Explore What We Could Build <b>↗</b>
         </Link>
       </section>
     </Shell>

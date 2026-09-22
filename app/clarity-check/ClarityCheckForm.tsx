@@ -301,7 +301,7 @@ export default function ClarityCheckForm() {
             )}
             {message && <p className="admin-form-error" role="status">{message}</p>}
             <div className="actions">
-              <Link className="button" href={clarityCallUrl}>Book a FREE Clarity Call <b>↗</b></Link>
+              <Link className="button" href={clarityCallUrl}>Explore What We Could Build <b>↗</b></Link>
               <Link className="text-link" href="/services">Explore Services →</Link>
             </div>
           </div>

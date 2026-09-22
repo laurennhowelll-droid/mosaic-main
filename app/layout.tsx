@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./brand-assets.css";
+import "./mosaic-theme.css";
 
 export const metadata: Metadata = {
   title: "Mosaic | CRMs, Dashboards & Growth Systems for Service Businesses",

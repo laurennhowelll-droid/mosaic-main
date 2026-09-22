@@ -69,7 +69,7 @@ export default function AboutPage() {
             You built the business. I make the customer journey and the systems behind it work together.
           </p>
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a FREE Clarity Call <b>↗</b>
+            Explore What We Could Build <b>↗</b>
           </Link>
         </div>
       </section>
@@ -257,7 +257,7 @@ export default function AboutPage() {
         <p>Let&apos;s make them work together.</p>
         <div className="actions">
           <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Book a FREE Clarity Call <b>↗</b>
+            Explore What We Could Build <b>↗</b>
           </Link>
           <Link className="text-link" href="/services">
             Explore How We Help →

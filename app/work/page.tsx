@@ -1,110 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Shell } from "../components";
+import { Arrow, ExampleCards, EXAMPLES_URL, Invitation, SectionHeading } from "../studio";
+import styles from "../studio.module.css";
 import { getPublishedWorkContent, getWorkTypeLabel, getWorkTypePluralLabel, orderPublicWork, type WorkListItem, workContentTypes } from "../../lib/work-content";
 
 export const dynamic = "force-dynamic";
 
-const proofHighlights = [
-  ["Growth", "≈3× indexed business growth"],
-  ["Ecommerce", "BigCommerce → Shopify"],
-  ["Systems", "Manual workflows → connected automation"],
-  ["Visibility", "Fragmented information → clearer reporting"],
-];
-
-function WorkCard({ item, index }: { item: WorkListItem; index: number }) {
-  return (
-    <article className={`work-card work-${(index % 3) + 1}`}>
-      <div className="work-art">
-        {item.featured_image_url ? (
-          <Image src={item.featured_image_url} alt="" width={900} height={620} sizes="(max-width: 800px) 86vw, 28vw" />
-        ) : null}
-      </div>
-      <p className="kicker">{getWorkTypeLabel(item.content_type)}</p>
-      <h3>{item.title}</h3>
-      {item.excerpt ? <p>{item.excerpt}</p> : null}
-      <Link href={`/work/${item.slug}`}>Read more →</Link>
-    </article>
-  );
+function WorkCard({ item }: { item: WorkListItem }) {
+  return <Link className={styles.exampleCard} href={`/work/${item.slug}`}>
+    {item.featured_image_url ? <Image className={styles.workImage} src={item.featured_image_url} alt="" width={900} height={620} sizes="(max-width: 760px) 90vw, 45vw" /> : <div className={styles.workImage} aria-hidden="true" />}
+    <div className={styles.cardCopy}><span className={styles.sageBadge}>{getWorkTypeLabel(item.content_type)}</span><h3 style={{ marginTop: 22 }}>{item.title}<Arrow /></h3>{item.excerpt && <p>{item.excerpt}</p>}<span className={styles.cardMeta}>Read the story →</span></div>
+  </Link>;
 }
 
-export default async function WorkPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>;
-}) {
-  const [{ type = "all" }, items] = await Promise.all([searchParams, getPublishedWorkContent()]);
-  const filteredItems = type === "all" ? items : items.filter((item) => item.content_type === type);
+export default async function WorkPage({ searchParams }: { searchParams: Promise<{ type?: string }> }) {
+  const [params, items] = await Promise.all([searchParams, getPublishedWorkContent()]);
+  const type = workContentTypes.some(value => value === params.type) ? params.type : "all";
+  const filteredItems = type === "all" ? items : items.filter(item => item.content_type === type);
   const { top, newest } = orderPublicWork(filteredItems);
-  const hasMore = newest.length > 0;
 
-  return (
-    <Shell>
-      <section className="page-hero">
-        <p className="kicker">Selected Work</p>
-        <h1>Proof that connected work changes how a business runs.</h1>
-        <p className="lede">
-          Start with the outcomes. Then see the systems, decisions, and customer experience work underneath them.
-        </p>
-<Link
-  className="button"
-  href="https://examples.buildwithmosaic.co/examples"
->
-  Explore Interactive Examples <b>↗</b>
-</Link>
-      </section>
-
-      <section className="work-proof">
-        <div>
-          <p className="kicker">Primary Case Study</p>
-          <h2>White Poppy Preservation</h2>
-          <p>
-            Lauren helped support major growth while the business rebuilt ecommerce, operations, reporting, automation, and customer experience infrastructure.
-          </p>
-          <Link className="button" href="/work/white-poppy-preservation">
-            View the Case Study <b>↗</b>
-          </Link>
-        </div>
-        <div className="work-proof-grid">
-          {proofHighlights.map(([label, result]) => (
-            <article key={label}>
-              <span>{label}</span>
-              <strong>{result}</strong>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="work-grid">
-        <div className="work-filters" aria-label="Filter work">
-          <Link className={type === "all" ? "active" : ""} href="/work">All</Link>
-          {workContentTypes.map((contentType) => (
-            <Link className={type === contentType ? "active" : ""} href={`/work?type=${contentType}`} key={contentType}>
-              {getWorkTypePluralLabel(contentType)}
-            </Link>
-          ))}
-        </div>
-
-        {top.map((item, index) => (
-          <WorkCard item={item} index={index} key={item.id} />
-        ))}
-
-        {top.length === 0 ? (
-          <p className="work-empty">No published work is available yet.</p>
-        ) : null}
-      </section>
-
-      {hasMore ? (
-        <section className="work-grid work-grid-secondary">
-          <div className="section-intro">
-            <p className="kicker">Newest First</p>
-            <h2>More from Mosaic.</h2>
-          </div>
-          {newest.map((item, index) => (
-            <WorkCard item={item} index={index} key={item.id} />
-          ))}
-        </section>
-      ) : null}
-    </Shell>
-  );
+  return <Shell><div className={styles.studio}>
+    <section className={styles.pageIntro}><p className={styles.eyebrow}>Selected work & possibilities</p><h1>Thoughtful systems.<br /><em>Real room to grow.</em></h1><p>The businesses, decisions, and connected pieces behind the work. Explore a client story, or step inside a working concept.</p></section>
+    <section className={styles.section}>
+      <SectionHeading eyebrow="From the studio" title="The stories behind the systems." />
+      <nav className={styles.filters} aria-label="Filter work"><Link aria-current={type === "all" ? "page" : undefined} href="/work">All work</Link>{workContentTypes.map(contentType => <Link aria-current={type === contentType ? "page" : undefined} href={`/work?type=${contentType}`} key={contentType}>{getWorkTypePluralLabel(contentType)}</Link>)}</nav>
+      <div className={styles.workGrid}>{[...top, ...newest].map(item => <WorkCard item={item} key={item.id} />)}</div>
+      {top.length === 0 && <div className={styles.empty}><p>No published stories in this category yet. <Link href="/work">Explore all work</Link> or try a concept below.</p></div>}
+    </section>
+    <section className={styles.section}><SectionHeading eyebrow="The Mosaic library" title="Imagine what’s possible." copy="These interactive concepts show how a more connected business could work. Click around and make yourself at home." href={EXAMPLES_URL} link="Explore the library" /><ExampleCards /><p className={styles.smallNote}>Concept demos use fictional data. Client stories above describe real work.</p></section>
+    <Invitation />
+  </div></Shell>;
 }

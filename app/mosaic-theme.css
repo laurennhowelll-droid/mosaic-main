@@ -1,0 +1,67 @@
+/* Shared Mosaic identity. Page-specific layouts live in CSS modules. */
+:root { --ivory: #faf9f5; --ink: #2d4438; --olive: #344c3e; --sans: Arial, Helvetica, sans-serif; --mosaic-border: #e0e4d8; --mosaic-muted: #63705b; }
+body { background: #faf9f5; color: #2d4438; -webkit-font-smoothing: antialiased; }
+.mosaic-site { background: #faf9f5; min-height: 100vh; }
+.mosaic-site a:focus-visible,.mosaic-site button:focus-visible,.mosaic-site summary:focus-visible,.mosaic-site input:focus-visible,.mosaic-site textarea:focus-visible,.mosaic-site select:focus-visible { outline: 2px solid #344c3e; outline-offset: 4px; }
+.mosaic-site main:focus { outline: none; }
+.mosaic-skip { position: fixed; z-index: 300; top: 10px; left: 20px; padding: 14px 20px; color: white; background: #344c3e; border-radius: 6px; transform: translateY(-160%); }
+.mosaic-skip:focus { transform: translateY(0); }
+.mosaic-site .site-header { position: relative; height: 92px; padding: 0 48px; background: #faf9f5; border-bottom: 1px solid #e0e4d8; box-shadow: none; }
+.mosaic-site .site-header-inner { width: 100%; max-width: 1184px; margin: auto; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
+.mosaic-site .brand { width: auto; min-width: 0; padding: 0; background: none; }
+.mosaic-site .header-logo-lockup { display: inline-flex; align-items: center; gap: 9px; }
+.mosaic-site .header-logo-icon { width: 34px; height: 34px; }
+.mosaic-site .header-logo-wordmark { font: 600 30px/1 Arial,Helvetica,sans-serif; letter-spacing: -1.5px; text-transform: lowercase; color: #344c3e; }
+.mosaic-site .mobile-wordmark { display: none; }
+.mosaic-site .site-header nav { gap: 22px; margin-left: auto; }
+.mosaic-site .site-header nav .nav-link { color: #63705b; padding: 12px 0; border: 0; border-radius: 0; background: transparent; font-size: 12px; letter-spacing: 0; transform: none; box-shadow: none; }
+.mosaic-site .site-header nav .nav-link:hover,.mosaic-site .site-header nav .nav-link[aria-current="page"] { color: #344c3e; background: transparent; border-bottom: 1px solid #344c3e; }
+.mosaic-site .header-cta { color: #344c3e; background: transparent; border: 1px solid #cbd4bf; padding: 13px 17px; border-radius: 6px; font: 400 12px/1.5 Arial,sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; box-shadow: none; }
+.mosaic-site .header-cta b { color: inherit; margin-left: 12px; }
+.mosaic-site .header-cta:hover { background: #edf1e5; }
+.mosaic-site .button,.mosaic-site .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: 14px; width: auto; min-height: 46px; padding: 12px 18px; font: 400 13px/1.5 Arial,Helvetica,sans-serif; letter-spacing: 0; text-transform: none; border-radius: 6px; box-shadow: none; transform: none; border: 1px solid #344c3e; background: #344c3e; color: white; transition: background .2s,border-color .2s; }
+.mosaic-site .button:hover { background: #263c30; border-color: #263c30; transform: none; box-shadow: none; }
+.mosaic-site .button b { color: inherit; }
+.mosaic-site .secondary-button { background: transparent; color: #344c3e; border-color: #cbd4bf; }
+.mosaic-site .secondary-button:hover { background: #e7eddc; }
+.mosaic-site .button::before,.mosaic-site .button::after { content: none; }
+.mosaic-site .mosaic-footer { display: block; padding: 45px 48px 24px; background: #faf9f5; color: #344c3e; border-top: 1px solid #e0e4d8; }
+.mosaic-footer-main { max-width: 1184px; margin: auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 40px; }
+.mosaic-site .mosaic-footer p { color: #63705b; font: 400 12px/1.9 Arial,sans-serif; margin: 20px 0 0; }
+.mosaic-footer-links { display: flex; flex-direction: column; align-items: start; gap: 16px; font-size: 12px; }
+.mosaic-footer-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.mosaic-footer-bottom { max-width: 1184px; margin: 40px auto 0; border-top: 1px solid #e0e4d8; padding-top: 22px; display: flex; justify-content: space-between; gap: 20px; font-size: 10px; color: #63705b; }
+/* Align existing editorial pages with the shared identity during migration. */
+.mosaic-site main > section { background-color: #faf9f5; border-color: #e0e4d8; }
+.mosaic-site main > section::before,.mosaic-site main > section::after { display: none; }
+.mosaic-site main > section h1 { font: 400 clamp(38px,4.8vw,64px)/1.12 Arial,Helvetica,sans-serif; letter-spacing: -2.2px; color: #2d4438; max-width: 1000px; }
+.mosaic-site main > section h2 { font: 400 clamp(28px,3vw,42px)/1.2 Arial,Helvetica,sans-serif; letter-spacing: -1.1px; color: #2d4438; }
+.mosaic-site main > section h3 { line-height: 1.25; }
+.mosaic-site main > section .kicker { color: #63705b; font: 600 10px/1.6 Arial,sans-serif; letter-spacing: 1.8px; }
+.mosaic-site main > section p:not(.kicker) { font-size: 16px; line-height: 1.8; }
+.mosaic-site main > section .section-intro { max-width: 780px; }
+.mosaic-site :is(.about-hero,.process-hero,.page-hero,.free-hero,.start-hero,.clarity-hero,.brand-hero,.playbook-hero) { padding-top: 72px; padding-bottom: 65px; }
+.mosaic-site :is(.about-founder,.about-whole,.about-thinking,.about-personal,.about-name,.process-vision,.process-method,.process-expect,.process-feeling,.playbook-principles,.playbook-frameworks,.playbook-guides,.playbook-why,.brand-why,.brand-colors,.brand-type,.brand-practice,.free-library) { padding-top: 64px; padding-bottom: 64px; }
+.mosaic-site :is(.final-cta,.services-final-cta,.process-final,.about-final,.playbook-final,.brand-final) { background: #eee8f2; padding-top: 60px; padding-bottom: 60px; }
+.mosaic-site :is(.free-card,.playbook-guide-card,.playbook-framework-card,.about-thinking-grid article,.process-method-block,.start-form,.clarity-form,.client-assessment-card,.admin-metrics article) { border-color: #e0e4d8; border-radius: 12px; box-shadow: none; }
+.mosaic-site input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),.mosaic-site textarea,.mosaic-site select { border: 1px solid #cbd4bf; border-radius: 6px; background: white; color: #2d4438; min-height: 44px; padding: 12px; font: 400 16px/1.5 Arial,sans-serif; }
+.mosaic-site :is(.admin-page,.client-page,.admin-login,.client-login) h1 { font-size: 38px; }
+.mosaic-site :is(.admin-page,.client-page) h2 { font-size: 26px; }
+@media(max-width:1050px) { .mosaic-site .site-header nav { gap: 16px; }.mosaic-site .site-header-inner { gap: 20px; } }
+@media(max-width:900px) {
+  .mosaic-site .site-header { height: 78px; padding: 0 24px; }.mosaic-site .site-header-inner > nav { display: none; }.mosaic-site .mobile-nav { display: block; }.mosaic-site .header-cta { margin-left: auto; }.mosaic-site .header-logo-wordmark { font-size: 28px; }.mosaic-site .header-logo-icon { width: 29px; height: 29px; }.mosaic-site .mobile-menu { background: #faf9f5; color: #344c3e; }.mosaic-site .site-header .mobile-menu-links { display: grid; margin-left: 0; }.mosaic-site .mobile-menu-links a { font-family: Arial,sans-serif; font-size: 30px; letter-spacing: -1px; }.mosaic-site .mobile-menu-cta { width: 100%; }.mosaic-site .mosaic-footer { padding: 35px 24px 24px; }.mosaic-footer-main { grid-template-columns: 1.5fr 1fr; gap: 36px; }
+}
+@media(max-width:520px) {
+  .mosaic-site .site-header { padding: 0 20px; }.mosaic-site .site-header-inner { gap: 14px; }.mosaic-site .site-header-inner > .header-cta { display: none; }.mosaic-site .mobile-nav { margin-left: auto; }.mosaic-site .header-logo-lockup { gap: 8px; }.mosaic-site .mobile-menu-button { min-height: 44px; border-radius: 6px; text-transform: none; letter-spacing: 0; font-size: 12px; }.mosaic-footer-main { gap: 30px; }.mosaic-footer-main > div:first-child { grid-column: 1/-1; }.mosaic-footer-bottom { flex-direction: column; gap: 10px; }.mosaic-site :is(.about-hero,.process-hero,.page-hero,.free-hero,.start-hero,.clarity-hero,.brand-hero,.playbook-hero) { padding-top: 48px; padding-bottom: 44px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; }.mosaic-site * { animation: none !important; transition: none !important; } }
+/* Previously dark editorial panels now use the quieter sage treatment. */
+.mosaic-site main > :is(.about-nonnegotiable,.process-decisions,.brand-principle,.playbook-why) { background: #edf1e5; color: #344c3e; }
+.mosaic-site :is(.about-nonnegotiable,.process-decisions,.brand-principle,.playbook-why) :is(p,blockquote) { color: #344c3e; }
+.mosaic-site main > :is(.about-final-cta,.process-final-cta,.brand-final-cta,.playbook-final-cta,.case-final-cta) { background: #eee8f2; padding-top: 60px; padding-bottom: 60px; }
+.mosaic-site .site-header .mobile-menu-links { gap: 0; width: 100%; }
+.mosaic-site .site-header .mobile-menu-links a { padding: 20px 0; text-align: left; }
+.mosaic-site .process-principles > span { background: #faf9f5; color: #344c3e; }
+.mosaic-site main > section .kicker { color: #53614b; }
+.mosaic-site .brand-color-terra > p { color: #000; }
+.mosaic-site .case-recovery-path > div > span { color: #53614b; }
