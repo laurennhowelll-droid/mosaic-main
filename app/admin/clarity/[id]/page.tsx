@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Shell } from "../../../components";
 import {
-  calculateClarityResult,
+  calculateClarityResult, assessmentDisplay,
   categoryLabel,
   clarityQuestions,
   interpretCategory,
-  maxScoreForCategory,
   primaryGapCopy,
-  scoreForCategory,
   strongestAreaCopy,
   type ClarityAnswer,
   type ClarityCategory,
@@ -51,15 +49,16 @@ export default async function AdminClarityDetail({
   const answerPayload = assessment.answers as ClarityAnswer[] | { scored?: ClarityAnswer[] };
   const answers = Array.isArray(answerPayload) ? answerPayload : answerPayload.scored ?? [];
   const result = calculateClarityResult(answers);
+  const display = assessmentDisplay(assessment);
   const updateStatus = updateClarityAssessmentStatus.bind(null, assessment.id);
 
   return (
     <Shell>
       <section className="admin-detail-page admin-clarity-detail">
-        <Link className="text-link" href="/admin/clarity">← Back to Clarity Checks</Link>
+        <Link className="text-link" href="/admin/clarity">← Back to Systems Scores</Link>
         <div className="admin-detail-head">
           <div>
-            <p className="kicker">Clarity Check Detail</p>
+            <p className="kicker">Systems Score Detail</p>
             <h1>{assessment.first_name}</h1>
             <p>{assessment.company_name || "Company not provided"} · {assessment.email}</p>
             <p>Submitted {date(assessment.created_at)}</p>
@@ -73,12 +72,12 @@ export default async function AdminClarityDetail({
 
         <div className="admin-clarity-score-grid">
           <article>
-            <span>Overall Clarity Score</span>
-            <strong>{assessment.total_score} / {result.maxScore}</strong>
+            <span>Overall Systems Score</span>
+            <strong>{display.overall} / {display.max}</strong>
           </article>
           <article>
             <span>Result Band</span>
-            <strong>{assessment.result_band}</strong>
+            <strong>{display.band}</strong>
           </article>
           <article>
             <span>Recommended Service</span>
@@ -98,9 +97,10 @@ export default async function AdminClarityDetail({
           <section className="admin-lead-info">
             <p className="kicker">Category Breakdown</p>
             <div className="clarity-category-grid admin-category-grid">
-              {categories.map((category) => {
-                const score = scoreForCategory(result, category);
-                const maxScore = maxScoreForCategory(category);
+              {(display.categories ? categories : ["vision", "experience", "systems", "operations", "growth"]).map((key) => {
+                const category = key as ClarityCategory;
+                const score = display.categories ? display.categories[category] : Number(assessment[`${key}_score` as keyof typeof assessment]);
+                const maxScore = display.categories ? 100 : 10;
 
                 return (
                   <article className={`clarity-category-card clarity-category-${category}`} key={category}>
@@ -109,13 +109,13 @@ export default async function AdminClarityDetail({
                     <i aria-hidden="true">
                       <b style={{ width: `${(score / maxScore) * 100}%` }} />
                     </i>
-                    <p>{interpretCategory(category, score)}</p>
+                    {display.categories && <p>{interpretCategory(category, result[({ capture: "captureScore", follow_up: "followUpScore", connection: "connectionScore", visibility: "visibilityScore" } as const)[category]])}</p>}
                   </article>
                 );
               })}
             </div>
 
-            <div className="clarity-result-insights admin-clarity-insights">
+            {display.categories && <><div className="clarity-result-insights admin-clarity-insights">
               <article>
                 <p className="kicker">What&apos;s Working</p>
                 <h3>{categoryLabel(result.strongestCategory)}</h3>
@@ -145,6 +145,7 @@ export default async function AdminClarityDetail({
               ))}
             </div>
 
+            </>}
             <div className="admin-response-list">
               <p className="kicker">How They Answered</p>
               {answers.map((answer) => {

@@ -104,7 +104,7 @@ const faqs = [
   {
     question: "What if I don't know what I need yet?",
     answer:
-      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a free Clarity Check, a paid Systems Clarity Audit, a focused project, or a larger engagement.",
+      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a free Systems Score, a paid Systems Clarity Audit, a focused project, or a larger engagement.",
   },
   {
     question: "How involved do I need to be?",

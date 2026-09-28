@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Shell } from "../../components";
-import { categoryLabel, type ClarityCategory } from "../../../lib/clarity-check";
+import { assessmentDisplay, categoryLabel, type ClarityCategory } from "../../../lib/clarity-check";
 import { getAdminClarityAssessments, type ClarityAssessment } from "../../../lib/supabase/admin";
 
-const bandFilters = ["Connected", "Growing Friction", "Disconnected", "Reactive"] as const;
+const bandFilters = ["Foundation", "Patched Together", "Connected", "Built to Scale", "Growing Friction", "Disconnected", "Reactive"] as const;
 const serviceFilters = ["Advisory", "CRM & Systems", "Websites & Customer Experience", "Marketing & Growth"] as const;
 const gapFilters = ["Capture", "Follow-Up", "Connection", "Visibility"] as const;
 
@@ -21,7 +21,7 @@ function statusLabel(value: string) {
 }
 
 function normalize(value: string) {
-  return value.toLowerCase().replaceAll(" ", "_");
+  return value.toLowerCase().replaceAll(" ", "_").replaceAll("-", "_");
 }
 
 function primaryGapCategory(assessment: ClarityAssessment) {
@@ -46,23 +46,23 @@ export default async function AdminClarityPage({
   ]);
 
   const filtered = assessments
-    .filter((assessment) => filter === "all" || normalize(assessment.result_band) === filter)
+    .filter((assessment) => filter === "all" || normalize(assessmentDisplay(assessment).band) === filter)
     .filter((assessment) => service === "all" || normalize(assessment.recommended_service) === service)
     .filter((assessment) => gap === "all" || assessment.weakest_category === gap)
     .sort((a, b) => {
-      if (sort === "lowest") return a.total_score - b.total_score;
-      if (sort === "highest") return b.total_score - a.total_score;
+      if (sort === "lowest") return assessmentDisplay(a).overall / assessmentDisplay(a).max - assessmentDisplay(b).overall / assessmentDisplay(b).max;
+      if (sort === "highest") return assessmentDisplay(b).overall / assessmentDisplay(b).max - assessmentDisplay(a).overall / assessmentDisplay(a).max;
       const aTime = new Date(a.created_at).getTime();
       const bTime = new Date(b.created_at).getTime();
       return sort === "oldest" ? aTime - bTime : bTime - aTime;
     });
 
   const averageScore = assessments.length
-    ? Math.round(assessments.reduce((sum, assessment) => sum + assessment.total_score, 0) / assessments.length)
+    ? Math.round(assessments.reduce((sum, assessment) => sum + assessmentDisplay(assessment).overall / assessmentDisplay(assessment).max * 100, 0) / assessments.length)
     : 0;
   const metrics = [
     ["Total Assessments", assessments.length.toString()],
-    ["Average Clarity Score", assessments.length ? `${averageScore} / 50` : "None yet"],
+    ["Average Systems Score", assessments.length ? `${averageScore} / 100` : "None yet"],
     ["New / Unreviewed", assessments.filter((assessment) => assessment.review_status === "unreviewed").length.toString()],
     ["Most Common Primary Gap", mostCommon(assessments.map((assessment) => assessment.primary_gap))],
     ["Most Common Recommended Service", mostCommon(assessments.map((assessment) => assessment.recommended_service))],
@@ -74,7 +74,7 @@ export default async function AdminClarityPage({
         <div className="admin-head">
           <div>
             <p className="kicker">Mosaic Admin</p>
-            <h1>Clarity Checks.</h1>
+            <h1>Systems Scores.</h1>
           </div>
           <div className="growth-nav">
             <Link className="text-link" href="/admin/outreach">Outreach →</Link>
@@ -126,7 +126,7 @@ export default async function AdminClarityPage({
           </div>
         </div>
 
-        <div className="admin-table admin-clarity-table" role="table" aria-label="Clarity Check responses">
+        <div className="admin-table admin-clarity-table" role="table" aria-label="Systems Score responses">
           <div className="admin-table-head" role="row">
             <span>Name</span>
             <span>Company</span>
@@ -145,8 +145,8 @@ export default async function AdminClarityPage({
               <span data-label="Name">{assessment.first_name}</span>
               <span data-label="Company">{assessment.company_name ?? "Not provided"}</span>
               <span data-label="Email">{assessment.email}</span>
-              <span data-label="Score">{assessment.total_score} / 105</span>
-              <span data-label="Result Band">{assessment.result_band}</span>
+              <span data-label="Score">{assessmentDisplay(assessment).overall} / {assessmentDisplay(assessment).max}</span>
+              <span data-label="Result Band">{assessmentDisplay(assessment).band}</span>
               <span data-label="Strongest Area">{categoryLabel(assessment.strongest_category as ClarityCategory)}</span>
               <span data-label="Primary Gap">{categoryLabel(primaryGapCategory(assessment) as ClarityCategory)}</span>
               <span data-label="Recommended Service">{assessment.recommended_service}</span>

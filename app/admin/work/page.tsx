@@ -29,7 +29,7 @@ export default async function AdminWorkPage() {
           <Link href="/admin">Leads →</Link>
           <Link href="/admin/outreach">Outreach →</Link>
           <Link href="/admin/growth">Growth Dashboard →</Link>
-          <Link href="/admin/clarity">Clarity Checks →</Link>
+          <Link href="/admin/clarity">Systems Scores →</Link>
         </div>
 
         <div className="admin-table admin-work-table" role="table" aria-label="Mosaic work content">

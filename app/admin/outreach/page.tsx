@@ -160,7 +160,7 @@ export default async function OutreachPage({ searchParams }: { searchParams: Pro
           <Link href="/admin">Leads →</Link>
           <Link href="/admin/outreach">Outreach →</Link>
           <Link href="/admin/growth">Growth Dashboard →</Link>
-          <Link href="/admin/clarity">Clarity Checks →</Link>
+          <Link href="/admin/clarity">Systems Scores →</Link>
           <Link href="/admin/work">Work →</Link>
         </div>
 

@@ -159,7 +159,7 @@ export default async function GrowthDashboard({
 
   const pipeline = [
     ["Website Leads", data.leads.length.toString()],
-    ["Clarity Checks", clarityChecks.toString()],
+    ["Systems Scores", clarityChecks.toString()],
     ["Discovery Calls", crm.discovery.toString()],
     ["Proposals Sent", crm.proposals.toString()],
     ["Clients Won", crm.clients.toString()],
@@ -180,7 +180,7 @@ export default async function GrowthDashboard({
           <div className="growth-nav">
             <Link className="text-link" href="/admin">Leads →</Link>
             <Link className="text-link" href="/admin/outreach">Outreach →</Link>
-            <Link className="text-link" href="/admin/clarity">Clarity Checks →</Link>
+            <Link className="text-link" href="/admin/clarity">Systems Scores →</Link>
           </div>
         </div>
 

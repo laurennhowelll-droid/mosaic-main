@@ -39,10 +39,10 @@ export default function StartPage() {
             <div className="start-clarity-callout">
               <h2>Three simple ways to begin.</h2>
               <p>
-                Free Clarity Check if you want to see the gaps. Clarity Session if you have a specific problem. Discovery Call if you think you may want to hire Mosaic.
+                Free Systems Score if you want to see the gaps. Clarity Session if you have a specific problem. Discovery Call if you think you may want to hire Mosaic.
               </p>
               <div className="actions">
-                <Link className="text-link" href="/clarity-check">Take the Free Clarity Check →</Link>
+                <Link className="text-link" href="/systems-score">Take the Free Systems Score →</Link>
                 <Link className="text-link" href="/clarity">Book a Clarity Session →</Link>
               </div>
             </div>

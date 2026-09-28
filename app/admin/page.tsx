@@ -1,3 +1,4 @@
+import { assessmentDisplay } from "../../lib/clarity-check";
 import Link from "next/link";
 import { Shell } from "../components";
 import { getAdminClarityAssessments, getAdminLeads, getPlanLabel, getStageLabel, type Lead } from "../../lib/supabase/admin";
@@ -91,7 +92,7 @@ export default async function AdminDashboard({
     ["New Inquiries", leads.filter((lead) => stage(lead) === "new_inquiry").length.toString()],
     ["Active Opportunities", leads.filter((lead) => !openExcludedStages.has(stage(lead)) && !activeStages.has(stage(lead))).length.toString()],
     ["Projected Revenue", currency(openLeads.reduce((sum, lead) => sum + Number(lead.projected_revenue ?? 0), 0))],
-    ["New Clarity Checks", assessments.filter((assessment) => assessment.review_status === "unreviewed").length.toString()],
+    ["New Systems Scores", assessments.filter((assessment) => assessment.review_status === "unreviewed").length.toString()],
     ["Active Projects", leads.filter((lead) => stage(lead) === "project_active").length.toString()],
     ["Active Retainers", leads.filter((lead) => stage(lead) === "retainer_active").length.toString()],
   ];
@@ -112,7 +113,7 @@ export default async function AdminDashboard({
           <Link href="/admin/outreach">Outreach →</Link>
           <Link href="/admin/work">Work →</Link>
           <Link href="/admin/growth">Growth Dashboard →</Link>
-          <Link href="/admin/clarity">Clarity Checks →</Link>
+          <Link href="/admin/clarity">Systems Scores →</Link>
         </div>
 
         <div className="admin-metrics">
@@ -126,21 +127,21 @@ export default async function AdminDashboard({
 
         <section className="admin-clarity-preview">
           <div>
-            <p className="kicker">Clarity Checks</p>
-            <h2>Recent Clarity Checks</h2>
+            <p className="kicker">Systems Scores</p>
+            <h2>Recent Systems Scores</h2>
           </div>
           <div className="admin-clarity-preview-list">
             {recentAssessments.map((assessment) => (
               <Link href={`/admin/clarity/${assessment.id}`} key={assessment.id}>
                 <span>{assessment.first_name}</span>
-                <strong>{assessment.total_score} / 50</strong>
+                <strong>{assessmentDisplay(assessment).overall} / {assessmentDisplay(assessment).max}</strong>
                 <span>{assessment.primary_gap}</span>
                 <span>{assessment.recommended_service}</span>
               </Link>
             ))}
           </div>
           <Link className="text-link" href="/admin/clarity">
-            View All Clarity Checks →
+            View All Systems Scores →
           </Link>
         </section>
 

@@ -3,14 +3,15 @@ import {
   calculateClarityResult,
   categoryLabel,
   clarityQuestions,
-  resultBandLabel,
+  systemsScore, systemsBand, opportunityCopy, systemsCallUrl, clarityCategories,
   type ClarityAnswer,
 } from "../../../lib/clarity-check";
 import { logLeadNotificationFailure, sendLeadNotification } from "../../../lib/lead-notifications";
 import { getSupabaseServerClient } from "../../../lib/supabase/server";
 
 const emailPattern = /^\S+@\S+\.\S+$/;
-const discoveryCallUrl = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
+const discoveryCallUrl = systemsCallUrl;
+const escapeHtml = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 type QualifyingPayload = {
   businessType?: unknown;
@@ -45,7 +46,7 @@ function validAnswers(value: unknown): ClarityAnswer[] | null {
     score: Number(answer?.score),
   }));
 
-  if (answers.length !== clarityQuestions.length) return null;
+  if (answers.length !== clarityQuestions.length || new Set(answers.map(answer => answer.id)).size !== clarityQuestions.length) return null;
 
   for (const answer of answers) {
     if (expected.get(answer.id) !== answer.category || !Number.isInteger(answer.score) || answer.score < 1 || answer.score > 5) {
@@ -65,6 +66,7 @@ async function sendReportEmail({
   email: string;
   result: ReturnType<typeof calculateClarityResult>;
 }) {
+  const score = systemsScore(result);
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return false;
 
@@ -77,24 +79,25 @@ async function sendReportEmail({
     body: JSON.stringify({
       from: "Mosaic <reports@buildwithmosaic.co>",
       to: [email],
-      subject: "Your Mosaic Clarity Check Results",
+      subject: `Your Mosaic Systems Score: ${score.overall}/100`,
       html: `
         <div style="font-family:Arial,sans-serif;background:#f4f0e9;color:#202124;padding:32px;">
           <div style="max-width:680px;margin:auto;background:#f8f7f3;border:1px solid #ded6ca;padding:32px;">
-            <p style="text-transform:uppercase;letter-spacing:2px;color:#555b44;font-size:11px;font-weight:bold;">Mosaic Clarity Check</p>
-            <h1 style="font-family:Georgia,serif;font-size:42px;line-height:1;margin:0 0 20px;">Here is what your answers revealed.</h1>
-            <p>Hi ${firstName},</p>
-            <p>This is a preliminary self-assessment, not a full systems audit.</p>
-            <div style="background:#ece5da;border:1px solid #d7cfc2;padding:24px;margin:24px 0;">
-              <p style="margin:0;text-transform:uppercase;letter-spacing:2px;font-size:11px;color:#555b44;">Your Result</p>
-              <p style="font-family:Georgia,serif;font-size:52px;margin:12px 0 4px;">${result.totalScore} / ${result.maxScore}</p>
-              <p style="font-family:Georgia,serif;font-size:26px;margin:0;color:#7a8266;">${resultBandLabel(result.resultBand)}</p>
-            </div>
-            <p><strong>Strongest category:</strong> ${categoryLabel(result.strongestCategory)}</p>
-            <p><strong>Greatest opportunity:</strong> ${result.primaryGap}</p>
-            <p><strong>Recommended starting point:</strong> ${result.recommendedService}</p>
-            <p>${result.recommendation}</p>
-            <p><a href="${discoveryCallUrl}" style="display:inline-block;background:#7a8266;color:white;padding:13px 18px;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-size:12px;">Explore What We Could Build</a></p>
+            <p style="text-transform:uppercase;letter-spacing:2px;color:#555b44;font-size:11px;font-weight:bold;">Mosaic Systems Score</p>
+            <p>Hi ${escapeHtml(firstName)},</p>
+            <p>Your Mosaic Systems Score is:</p>
+            <h1 style="font-family:Georgia,serif;font-size:42px;">${score.overall}/100 — ${systemsBand(score.overall)}</h1>
+            <p>Here's your breakdown:</p>
+            ${clarityCategories.map(category => `<p>${categoryLabel(category)}: ${score.categories[category]}/100</p>`).join("")}
+            <p><strong>Your strongest area:</strong> ${categoryLabel(score.strongest)}</p>
+            <p><strong>Your biggest opportunity:</strong> ${categoryLabel(score.lowest)}</p>
+            <p>${opportunityCopy[score.lowest]}</p>
+            <p>Your score tells us where the friction may be.</p>
+            <p>If you'd like a second set of eyes on it, we can spend 20 minutes looking at it together.</p>
+            <p>On a free Systems Call, we'll talk through what's happening behind your score and identify the first place I'd investigate.</p>
+            <p>You don't need to know what software you need.<br />No prep required.<br />Bring the messy version.</p>
+            <p><a href="${discoveryCallUrl}" style="display:inline-block;background:#555b44;color:white;padding:13px 18px;text-decoration:none;">BOOK MY FREE SYSTEMS CALL</a></p>
+            <p>Lauren<br />Mosaic</p>
           </div>
         </div>
       `,
@@ -114,13 +117,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "Please check the form and try again." }, { status: 400 });
   }
 
+  if (!payload || typeof payload !== "object") return NextResponse.json({ success: false, error: "Please check the form and try again." }, { status: 400 });
   const firstName = clean(payload.firstName);
   const email = clean(payload.email).toLowerCase();
   const businessName = clean(payload.businessName) || null;
   const website = clean(payload.website) || null;
   const answers = validAnswers(payload.answers);
 
-  if (!firstName || !email || !answers) {
+  if (!firstName || firstName.length > 100 || email.length > 254 || (businessName?.length ?? 0) > 200 || !email || !answers) {
     return NextResponse.json({ success: false, error: "Please complete the required fields." }, { status: 400 });
   }
 
@@ -129,6 +133,7 @@ export async function POST(request: Request) {
   }
 
   const result = calculateClarityResult(answers);
+  const score = systemsScore(result);
   const supabase = getSupabaseServerClient();
 
   const context = [
@@ -147,17 +152,17 @@ export async function POST(request: Request) {
   ].filter((item): item is string => Boolean(item));
 
   const leadPayload = {
-    company_name: businessName ?? "Clarity Check",
+    company_name: businessName ?? "Systems Score",
     contact_name: firstName,
     email,
     website,
-    problems: `Clarity Check result: ${resultBandLabel(result.resultBand)}. Primary gap: ${result.primaryGap}.`,
+    problems: `Systems Score result: ${systemsBand(score.overall)}. Primary gap: ${result.primaryGap}.`,
     budget: "Not sure yet",
     source: "clarity_check",
     status: "new",
     notes: [
-      `Clarity Score: ${result.totalScore} / ${result.maxScore}`,
-      `Result Band: ${resultBandLabel(result.resultBand)}`,
+      `Systems Score: ${score.overall} / 100`,
+      `Result Band: ${systemsBand(score.overall)}`,
       `Strongest Category: ${categoryLabel(result.strongestCategory)}`,
       `Primary Gap: ${result.primaryGap}`,
       `Recommended Service: ${result.recommendedService}`,
@@ -166,13 +171,15 @@ export async function POST(request: Request) {
     ].join("\n"),
   };
 
-  const { data: existingLead } = await supabase
+  const { data: existingLead, error: lookupError } = await supabase
     .from("leads")
     .select("id")
     .eq("email", email)
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
+
+  if (lookupError) return NextResponse.json({ success: false, error: "Unable to save your breakdown. Please try again." }, { status: 500 });
 
   const leadResult = existingLead
     ? await supabase.from("leads").update({ ...leadPayload, last_updated: new Date().toISOString() }).eq("id", existingLead.id).select("id").single()
@@ -199,7 +206,7 @@ export async function POST(request: Request) {
       weakest_category: result.weakestCategory,
       primary_gap: result.primaryGap,
       recommended_service: result.recommendedService,
-      answers: { scored: answers, context },
+      answers: { scored: answers, context, systems_score: { version: 1, ...score, band: systemsBand(score.overall) }, consent: payload.consent === true },
       lead_id: leadResult.data.id,
     })
     .select("id")
@@ -232,9 +239,9 @@ export async function POST(request: Request) {
       timeline: clean(payload.priorityTimeline),
       primaryChallenge: result.primaryGap,
       clarityScores: {
-        total: result.totalScore,
-        max: result.maxScore,
-        result: resultBandLabel(result.resultBand),
+        total: score.overall,
+        max: 100,
+        result: systemsBand(score.overall),
         strongest: categoryLabel(result.strongestCategory),
         gap: result.primaryGap,
         recommendedService: result.recommendedService,
@@ -251,5 +258,5 @@ export async function POST(request: Request) {
     await logLeadNotificationFailure("clarity check notification exception", error);
   }
 
-  return NextResponse.json({ success: true, emailSent });
+  return NextResponse.json({ success: true, emailSent, assessmentId: assessmentInsert.data.id });
 }

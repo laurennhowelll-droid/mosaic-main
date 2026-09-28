@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/about",
     "/brand",
     "/clarity",
-    "/clarity-check",
+    "/systems-score",
     "/playbook",
     "/process",
     "/resources",

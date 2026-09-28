@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Shell } from "../../../components";
 import { getAdminLead, getClientAssessment, getLeadClient, getLeadClarityAssessments, getPlanLabel, getStageLabel } from "../../../../lib/supabase/admin";
-import { categoryLabel, clarityQuestions, type ClarityCategory } from "../../../../lib/clarity-check";
+import { assessmentDisplay, categoryLabel, clarityQuestions, type ClarityCategory } from "../../../../lib/clarity-check";
 import { acceptLeadAfterDiscovery, declineLeadAfterDiscovery, updateLead } from "../../actions";
 import LeadEditForm from "./LeadEditForm";
 
@@ -85,19 +85,19 @@ export default async function AdminLeadDetail({
 
             {latestAssessment && (
               <div className="admin-assessment">
-                <p className="kicker">Clarity Check</p>
+                <p className="kicker">Systems Score</p>
                 <dl>
-                  <div><dt>Clarity Score</dt><dd>{latestAssessment.total_score} / 50</dd></div>
-                  <div><dt>Result Band</dt><dd>{latestAssessment.result_band}</dd></div>
+                  <div><dt>Systems Score</dt><dd>{assessmentDisplay(latestAssessment).overall} / {assessmentDisplay(latestAssessment).max}</dd></div>
+                  <div><dt>Result Band</dt><dd>{assessmentDisplay(latestAssessment).band}</dd></div>
                   <div><dt>Primary Gap</dt><dd>{latestAssessment.primary_gap}</dd></div>
                   <div><dt>Recommended Service</dt><dd>{latestAssessment.recommended_service}</dd></div>
                   <div><dt>Email Sent</dt><dd>{latestAssessment.email_sent_at ? formatDate(latestAssessment.email_sent_at) : "Not sent"}</dd></div>
                   <div><dt>Created Date</dt><dd>{formatDate(latestAssessment.created_at)}</dd></div>
-                  <div className="wide"><dt>Category Scores</dt><dd>Vision: {latestAssessment.vision_score} · Experience: {latestAssessment.experience_score} · Systems: {latestAssessment.systems_score} · Operations: {latestAssessment.operations_score} · Growth: {latestAssessment.growth_score}</dd></div>
+                  <div className="wide"><dt>Category Scores</dt><dd>{assessmentDisplay(latestAssessment).categories ? Object.entries(assessmentDisplay(latestAssessment).categories!).map(([category, score]) => `${categoryLabel(category as ClarityCategory)}: ${score}/100`).join(" · ") : `Vision: ${latestAssessment.vision_score} · Experience: ${latestAssessment.experience_score} · Systems: ${latestAssessment.systems_score} · Operations: ${latestAssessment.operations_score} · Growth: ${latestAssessment.growth_score}`}</dd></div>
                   <div className="wide"><dt>Linked Lead</dt><dd>{latestAssessment.lead_id}</dd></div>
                 </dl>
                 <div className="admin-answer-list">
-                  {latestAssessment.answers.map((answer) => {
+                  {(Array.isArray(latestAssessment.answers) ? latestAssessment.answers : latestAssessment.answers.scored ?? []).map((answer) => {
                     const question = clarityQuestions.find((item) => item.id === answer.id);
 
                     return (

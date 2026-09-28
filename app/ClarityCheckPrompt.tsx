@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const excludedPaths = ["/admin", "/start", "/clarity", "/clarity-check"];
+const excludedPaths = ["/admin", "/start", "/clarity", "/clarity-check", "/systems-score"];
 
 function hiddenUntil(key: string) {
   const value = localStorage.getItem(key);
@@ -56,14 +56,14 @@ export default function ClarityCheckPrompt() {
   if (!visible) return null;
 
   return (
-    <aside className="clarity-prompt" aria-label="Business Clarity Check">
-      <button type="button" onClick={dismiss} aria-label="Dismiss Clarity Check prompt">
+    <aside className="clarity-prompt" aria-label="Business Systems Score">
+      <button type="button" onClick={dismiss} aria-label="Dismiss Systems Score prompt">
         ×
       </button>
       <h2>Where is your business getting disconnected?</h2>
-      <p>Answer 10 quick questions to see where clarity could create the most momentum.</p>
-          <Link href="/clarity-check" onClick={dismiss}>
-            Take the 2-Minute Clarity Check →
+      <p>21 questions. About 5 minutes. See how connected your client journey really is.</p>
+          <Link href="/systems-score" onClick={dismiss}>
+            Take the 5-Minute Systems Score →
           </Link>
     </aside>
   );

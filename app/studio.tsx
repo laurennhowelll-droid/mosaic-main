@@ -13,7 +13,7 @@ export function Invitation() {
     <p className={styles.eyebrow}>Let’s connect the pieces</p>
     <h2>Your business has its own story.</h2>
     <p>Let’s make the systems behind it feel just as considered.</p>
-    <div className={styles.actions}><Link className="button" href={BOOKING_URL}>Explore What We Could Build <Arrow /></Link><Link className={styles.textLink} href="/clarity-check">Take the free Clarity Check <span aria-hidden="true">→</span></Link></div>
+    <div className={styles.actions}><Link className="button" href={BOOKING_URL}>Explore What We Could Build <Arrow /></Link><Link className={styles.textLink} href="/systems-score">Take the free Systems Score <span aria-hidden="true">→</span></Link></div>
     <small>A free introductory conversation. A clearer next step.</small>
   </section>;
 }

@@ -38,7 +38,7 @@ function text(value?: string | null) {
 function subjectFor(input: LeadNotificationInput) {
   const label = input.businessName || input.name || "Unknown";
 
-  if (input.type === "clarity_check") return `New Mosaic Clarity Check — ${label}`;
+  if (input.type === "clarity_check") return `New Mosaic Systems Score — ${label}`;
   if (input.type === "service_inquiry") return `New Mosaic Service Inquiry — ${input.selectedService || "Service Inquiry"}`;
   if (input.type === "clarity_call") return `New Mosaic Clarity Call Request — ${label}`;
   return `New Mosaic Lead — ${label}`;
@@ -81,7 +81,7 @@ export async function sendLeadNotification(input: LeadNotificationInput) {
         ${row("Submission date", submittedAt.toISOString())}
         ${clarityScores ? `
           <div style="background:#ece5da;border:1px solid #d7cfc2;padding:18px;margin:24px 0;">
-            ${row("Clarity score", `${clarityScores.total} / ${clarityScores.max}`)}
+            ${row("Systems Score", `${clarityScores.total} / ${clarityScores.max}`)}
             ${row("Result", clarityScores.result)}
             ${row("Strongest category", clarityScores.strongest)}
             ${row("Primary gap", clarityScores.gap)}

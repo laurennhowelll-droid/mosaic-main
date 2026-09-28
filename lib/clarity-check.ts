@@ -124,7 +124,7 @@ const gapInterpretation: Record<ClarityCategory, string> = {
 };
 
 export function categoryLabel(category: ClarityCategory) {
-  return categoryLabels[category];
+  return categoryLabels[category] ?? String(category).replaceAll("_", " ");
 }
 
 export function resultBandLabel(resultBand: ClarityResultBand) {
@@ -200,4 +200,47 @@ export function calculateClarityResult(answers: ClarityAnswer[]): ClarityResult 
     })),
     nextStepHref: hrefByService[recommendedService],
   };
+}
+
+// Raw scoring and stored fields above remain compatible with historical submissions.
+export const systemsCallUrl = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
+export function systemsBand(score: number) {
+  return score >= 80 ? "BUILT TO SCALE" : score >= 60 ? "CONNECTED" : score >= 40 ? "PATCHED TOGETHER" : "FOUNDATION";
+}
+export function systemsBandCopy(score: number) {
+  return score >= 80 ? "Your systems are highly connected. The biggest opportunities are likely optimization, visibility, and removing remaining friction."
+    : score >= 60 ? "You've built a solid systems foundation, but a few gaps may still be creating unnecessary work or limiting visibility as you grow."
+    : score >= 40 ? "Your systems are working, but they're probably requiring more manual effort and handoffs than they should."
+    : "You've got some important pieces in place, but your business is still relying heavily on manual work, memory, or disconnected tools.";
+}
+export function systemsScore(result: ClarityResult) {
+  const normalize = (sum: number, count: number) => Math.round((sum - count) / (count * 4) * 100);
+  return {
+    overall: normalize(result.totalScore, 21),
+    categories: Object.fromEntries(clarityCategories.map(category => [category, normalize(scoreForCategory(result, category), category === "visibility" ? 6 : 5)])) as Record<ClarityCategory, number>,
+    strongest: result.strongestCategory,
+    lowest: result.weakestCategory,
+  };
+}
+export const opportunityCopy: Record<ClarityCategory, string> = {
+  capture: "Your biggest opportunity is at the beginning of your client journey. There may be room to create a clearer path for how inquiries enter the business, what information gets captured, and what happens next.",
+  follow_up: "Your biggest opportunity is between inquiry and booking. There may be room to create clearer ownership and next steps so follow-up doesn't depend on someone remembering.",
+  connection: "Your biggest opportunity is how your tools and processes work together. Manual handoffs or disconnected information may be creating unnecessary work behind the scenes.",
+  visibility: "Your biggest opportunity is seeing what happens from lead to revenue. Your business may have useful data, but not one clear view of what is actually driving results.",
+};
+export const systemsCallCopy: Record<ClarityCategory, string> = {
+  capture: "Your Capture score suggests the beginning of your client journey may be creating friction. On your Systems Call, we can look at how inquiries currently enter your business and what happens immediately afterward.",
+  follow_up: "Your Follow-Up score suggests there may be opportunities between inquiry and booking. On your Systems Call, we can look at what currently happens when a new lead comes in and where the process starts relying on manual work.",
+  connection: "Your Connection score suggests your tools may be creating unnecessary handoffs. On your Systems Call, we can look at where information currently moves between systems and where that starts creating friction.",
+  visibility: "Your Visibility score suggests you may not have a clear picture from lead to revenue. On your Systems Call, we can look at what you're currently tracking and where visibility starts to disappear.",
+};
+
+export function assessmentDisplay(assessment: { answers: unknown; total_score: number; result_band: string }) {
+  const payload = assessment.answers as { scored?: ClarityAnswer[] } | null;
+  const answers = Array.isArray(payload) ? payload : payload?.scored;
+  if (Array.isArray(answers) && answers.length === 21 && clarityQuestions.every(q => answers.some(a => a.id === q.id && a.category === q.category && Number.isInteger(a.score) && a.score >= 1 && a.score <= 5))) {
+    const score = systemsScore(calculateClarityResult(answers));
+    return { ...score, band: systemsBand(score.overall), max: 100 };
+  }
+  return { overall: assessment.total_score, band: assessment.result_band, max: 50, categories: null, strongest: null, lowest: null };
 }

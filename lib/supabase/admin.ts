@@ -67,7 +67,7 @@ export type ClarityAssessment = {
   weakest_category: string;
   primary_gap: string;
   recommended_service: string;
-  answers: Array<{ id: string; category: string; score: number }>;
+  answers: Array<{ id: string; category: string; score: number }> | { scored?: Array<{ id: string; category: string; score: number }>; context?: string[] };
   email_sent_at: string | null;
   lead_id: string | null;
   review_status: "unreviewed" | "reviewed" | "follow_up_needed";

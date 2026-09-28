@@ -2,7 +2,7 @@ import Link from "next/link";
 import ResourceDownloadGate from "./ResourceDownloadGate";
 import type { Resource } from "./resources";
 
-const clarityCheckHref = "/clarity-check";
+const clarityCheckHref = "/systems-score";
 
 export default function ResourceLandingPage({ resource }: { resource: Resource }) {
   return (
@@ -73,11 +73,11 @@ export default function ResourceLandingPage({ resource }: { resource: Resource }
         <p className="kicker">Want the bigger picture?</p>
         <h2>This is only one piece.</h2>
         <p>
-          The free Mosaic Clarity Check looks across your vision, customer experience, systems,
-          operations, and growth to help you see where the pieces may not be connecting.
+          The free Mosaic Systems Score looks across your Capture, Follow-Up, Connection,
+          and Visibility to help you see where the pieces may not be connecting.
         </p>
         <Link className="button" href={clarityCheckHref}>
-          Take the Free Clarity Check <b>↗</b>
+          Take the Free Systems Score <b>↗</b>
         </Link>
         <small>Businesses that work beautifully.</small>
       </section>

@@ -5,6 +5,7 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL ? new URL(process.env.
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      { source: "/clarity-check", destination: "/systems-score", permanent: true },
       {
         source: "/free",
         destination: "/resources",

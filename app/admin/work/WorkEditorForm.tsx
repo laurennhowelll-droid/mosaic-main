@@ -61,7 +61,7 @@ export default function WorkEditorForm({ item }: { item?: WorkContent }) {
         <label>Meta Description<textarea name="meta_description" rows={3} defaultValue={item?.meta_description ?? ""} /></label>
         <label>CTA Type<select name="cta_type" value={ctaType} onChange={(event) => setCtaType(event.target.value)}>
           <option value="none">None</option>
-          <option value="clarity_check">Clarity Check</option>
+          <option value="clarity_check">Systems Score</option>
           <option value="discovery_call">Explore What We Could Build</option>
           <option value="email">Email Mosaic</option>
           <option value="custom">Custom</option>

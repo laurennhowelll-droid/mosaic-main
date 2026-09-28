@@ -27,8 +27,8 @@ const leaveWith = [
 
 const faqs = [
   {
-    question: "Is this the same as the free Clarity Check?",
-    answer: "No. The free Clarity Check is a self-assessment. The Clarity Session is a paid working session focused on one decision, workflow, or systems question.",
+    question: "Is this the same as the free Systems Score?",
+    answer: "No. The free Systems Score is a self-assessment. The Clarity Session is a paid working session focused on one decision, workflow, or systems question.",
   },
   {
     question: "What happens after the session?",
