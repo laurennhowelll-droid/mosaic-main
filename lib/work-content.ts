@@ -174,7 +174,7 @@ export async function getAdminWorkItem(id: string) {
 
 export function getCta(item: Pick<WorkContent, "cta_type" | "cta_label" | "cta_url">) {
   if (item.cta_type === "clarity_check") return { label: "Take the Systems Score", href: "/systems-score" };
-  if (item.cta_type === "discovery_call") return { label: "Explore What We Could Build", href: "https://calendar.app.google/JxAn6pJFxwyu1FJq6" };
+  if (item.cta_type === "discovery_call") return { label: "Book a free 20-minute Systems Call", href: "https://calendar.app.google/JxAn6pJFxwyu1FJq6" };
   if (item.cta_type === "email") return { label: "Email Mosaic", href: "mailto:lauren@buildwithmosaic.co" };
   if (item.cta_type === "custom" && item.cta_label && item.cta_url) return { label: item.cta_label, href: item.cta_url };
   return null;

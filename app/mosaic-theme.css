@@ -65,3 +65,6 @@ body { background: #faf9f5; color: #2d4438; -webkit-font-smoothing: antialiased;
 .mosaic-site main > section .kicker { color: #53614b; }
 .mosaic-site .brand-color-terra > p { color: #000; }
 .mosaic-site .case-recovery-path > div > span { color: #53614b; }
+
+/* Keep the skip link hidden until focused, including reduced-motion mode. */
+.mosaic-skip:not(:focus) { visibility:hidden; }

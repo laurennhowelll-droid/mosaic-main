@@ -16,7 +16,8 @@ const initialState = {
   website: "",
   problems: "",
   timeline: "",
-  source: "clarity_session",
+  source: "service_entry_clarity",
+  businessDescription: "Systems Audit request ($300)",
 };
 
 export default function ClarityForm() {
@@ -64,9 +65,9 @@ export default function ClarityForm() {
     return (
       <div className="start-form start-form-success" role="status">
         <h3>Thank you.</h3>
-        <p>We&apos;ve received your Clarity Session request.</p>
+        <p>We&apos;ve received your Systems Audit request.</p>
         <p>Every submission is personally reviewed.</p>
-        <p>We&apos;ll reach out with next steps if the session is the right fit.</p>
+        <p>We&apos;ll reach out with next steps if the audit is the right fit.</p>
       </div>
     );
   }
@@ -148,7 +149,7 @@ export default function ClarityForm() {
       </div>
 
       <button className="button" type="submit" disabled={status === "loading"}>
-        {status === "loading" ? "Sending..." : "Book a Clarity Session →"}
+        {status === "loading" ? "Sending..." : "Request a Systems Audit →"}
       </button>
 
       {message && (

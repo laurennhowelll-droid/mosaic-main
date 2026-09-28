@@ -1,12 +1,13 @@
 import { Shell } from "../components";
 import Link from "next/link";
+import { BOOKING_URL } from "../studio";
 import StartVisionForm from "./StartVisionForm";
 
 const nextSteps = [
   {
     number: "1",
-    title: "Choose the closest starting point.",
-    copy: "Free check, Clarity Session, or Discovery Call. You do not need to diagnose the final engagement.",
+    title: "Start with your Systems Score.",
+    copy: "See where the friction may be across Capture, Follow-Up, Connection, and Visibility.",
   },
   {
     number: "2",
@@ -16,7 +17,7 @@ const nextSteps = [
   {
     number: "3",
     title: "You get a clearer next step.",
-    copy: "That may be a focused build, Clarity Session, larger Mosaic engagement, or an honest no-fit recommendation.",
+    copy: "A free Systems Call helps us decide whether a $300 Systems Audit and a Mosaic Client System build make sense.",
   },
 ];
 
@@ -35,15 +36,15 @@ export default function StartPage() {
         <div className="start-main">
           <section className="start-intro">
             <p className="kicker">Start Here</p>
-            <h1>You don&apos;t need to know what service you need.</h1>
+            <h1>You don&apos;t need to know what you need yet.</h1>
             <div className="start-clarity-callout">
-              <h2>Three simple ways to begin.</h2>
+              <h2>Find out where the friction is.</h2>
               <p>
-                Free Systems Score if you want to see the gaps. Clarity Session if you have a specific problem. Discovery Call if you think you may want to hire Mosaic.
+                Start with the free Systems Score. Already know you want help? Bring the messy version to a free 20-minute Systems Call.
               </p>
               <div className="actions">
-                <Link className="text-link" href="/systems-score">Take the Free Systems Score →</Link>
-                <Link className="text-link" href="/clarity">Book a Clarity Session →</Link>
+                <Link className="button" href="/systems-score">Take the Free Systems Score →</Link>
+                <Link className="text-link" href={BOOKING_URL}>Book a free 20-minute Systems Call →</Link>
               </div>
             </div>
             <p>

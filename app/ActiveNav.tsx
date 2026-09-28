@@ -3,13 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  ["Services", "/services"],
-  ["Work", "/work"],
-  ["Process", "/process"],
-  ["About", "/about"],
-  ["Resources", "/resources"],
-] as const;
+import { primaryNavLinks as navLinks } from "../lib/site-links";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";

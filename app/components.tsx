@@ -20,8 +20,8 @@ export function Header() {
           <span className="mobile-wordmark">Mosaic</span>
         </Link>
         <ActiveNav />
-        <Link className="header-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Explore What We Could Build <b>↗</b>
+        <Link className="header-cta" href="/systems-score">
+          Get your score <b>↗</b>
         </Link>
         <MobileNav />
       </div>
@@ -32,8 +32,8 @@ export function Header() {
 export function Footer() {
   return <footer className="mosaic-footer">
     <div className="mosaic-footer-main"><div><Link className="brand" href="/" aria-label="Mosaic home"><Logo /></Link><p>Thoughtful systems.<br />More room for what matters.</p></div>
-    <div className="mosaic-footer-links"><Link href="/services">Services</Link><Link href="/work">Work</Link><Link href="/process">Process</Link><Link href="/about">About</Link></div>
-    <div className="mosaic-footer-links"><Link href="/resources">Resources</Link><Link href="/playbook">Playbook</Link><Link href="/brand">The Mosaic identity</Link><Link href="/client/login">Client portal</Link></div>
+    <div className="mosaic-footer-links"><Link href="/services">System capabilities</Link><Link href="/work">Work</Link><Link href="/process">How it works</Link><Link href="/about">About</Link></div>
+    <div className="mosaic-footer-links"><Link href="/systems-score">Systems Score</Link><Link href="/resources">Resources</Link><Link href="/playbook">Playbook</Link><Link href="/brand">The Mosaic identity</Link><Link href="/client/login">Client portal</Link></div>
     <div className="mosaic-footer-links"><a href="mailto:lauren@buildwithmosaic.co">Say hello ↗</a><a href="https://www.instagram.com/build.with.mosaic/">Instagram ↗</a><a href="https://www.linkedin.com/in/lauren-howell-christensen/">LinkedIn ↗</a><a href="https://examples.buildwithmosaic.co/examples">Explore examples ↗</a></div></div>
     <div className="mosaic-footer-bottom"><span>© 2026 Mosaic Studio LLC</span><span>Business systems, thoughtfully connected.</span></div>
   </footer>;

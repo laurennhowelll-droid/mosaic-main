@@ -1,4 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { SystemsSteps, Invitation } from "../studio";
+import styles from "../studio.module.css";
+
+export const metadata: Metadata = { title: "How the Mosaic Client System Works | Mosaic", description: "Start with a free Systems Score, talk through the friction, then map and build the right client system for your business." };
 import { Shell } from "../components";
 
 const methodBlocks = [
@@ -18,7 +23,7 @@ const methodBlocks = [
     number: "02",
     title: "Find the real problem",
     lead: "The visible issue is not always the real issue.",
-    copy: "We separate the symptom from the root cause and decide whether the answer is advisory, CRM and systems work, website and customer experience work, marketing and growth work, or a combination.",
+    copy: "In the Systems Audit, we map the client journey and identify bottlenecks, manual work, and disconnected information before deciding what should change.",
     deliverables: [
       "Priorities",
       "Opportunities",
@@ -65,11 +70,10 @@ const methodBlocks = [
 ];
 
 const timeline = [
-  ["Step 1", "Clarity Call"],
-  ["Step 2", "Discovery, audit, or systems review"],
-  ["Step 3", "Scope and priorities"],
-  ["Build", "Project dependent"],
-  ["Optimize", "Ongoing support if needed"],
+  ["01", "Free Systems Score"],
+  ["02", "Free 20-minute Systems Call"],
+  ["03", "$300 Systems Audit"],
+  ["04", "Mosaic Client System build"],
 ];
 
 const principles = [
@@ -82,7 +86,7 @@ const principles = [
 
 const faqs = [
   {
-    question: "Do I need every service?",
+    question: "Do I need a whole new system?",
     answer:
       "No. We begin by understanding what your business needs now, then recommend only the work that supports your goals.",
   },
@@ -97,14 +101,14 @@ const faqs = [
       "No. Mosaic is designed to strengthen the people already inside the business with clearer systems, documentation, and direction.",
   },
   {
-    question: "Do you only work with small businesses?",
+    question: "Who is this built for?",
     answer:
-      "We work best with businesses that care about clarity, customer experience, and sustainable growth, regardless of size.",
+      "Mosaic is built for growing service businesses whose systems have not caught up with their growth.",
   },
   {
     question: "What if I don't know what I need yet?",
     answer:
-      "That is normal. Start with the problem you can name, and Mosaic will help determine whether the next step is a free Systems Score, a paid Systems Clarity Audit, a focused project, or a larger engagement.",
+      "Start with the free Systems Score. Then, on a free 20-minute Systems Call, we can talk through what is happening behind your score and identify the first place to investigate.",
   },
   {
     question: "How involved do I need to be?",
@@ -117,8 +121,8 @@ export default function ProcessPage() {
   return (
     <Shell>
       <section className="process-hero">
-        <p className="kicker">Our Process</p>
-        <h1>A simple way to move from friction to fix.</h1>
+        <p className="kicker">How it works</p>
+        <h1>You don’t have to know what you need.</h1>
         <div className="process-hero-copy">
           <p>
             Bring me what&apos;s not working.
@@ -130,11 +134,12 @@ export default function ProcessPage() {
             The process is designed to keep the work clear, connected, and usable.
           </p>
         </div>
-        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Explore What We Could Build <b>↗</b>
+        <Link className="button" href="/systems-score">
+          Get your free Systems Score <b>↗</b>
         </Link>
       </section>
 
+      <div className={styles.studio}><section className={styles.section}><p className={styles.eyebrow}>Score → Call → Audit → Build</p><SystemsSteps /></section></div>
       <section className="process-vision">
         <div>
           <p className="kicker">Before We Build</p>
@@ -259,20 +264,7 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      <section className="process-final-cta">
-        <p className="kicker">Begin With Understanding</p>
-        <h2>Tell me what feels heavier than it should.</h2>
-        <p>
-          Every potential engagement begins with a complimentary Clarity Call.
-          <br />
-          Not a consulting session.
-          <br />
-          A conversation about where you are today, where you&apos;d like to go, and whether Mosaic is the right partner.
-        </p>
-        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Explore What We Could Build <b>↗</b>
-        </Link>
-      </section>
+      <div className={styles.studio}><Invitation /></div>
     </Shell>
   );
 }

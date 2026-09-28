@@ -1,21 +1,36 @@
 import Link from "next/link";
+import Image from "next/image";
+import { BOOKING_URL, EXAMPLES_URL } from "../lib/site-links";
+export { BOOKING_URL, EXAMPLES_URL } from "../lib/site-links";
 import styles from "./studio.module.css";
-
-export const BOOKING_URL = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
-export const EXAMPLES_URL = "https://examples.buildwithmosaic.co/examples";
 
 export function Arrow() {
   return <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 18 18 6M6 6h12v12" /></svg>;
 }
 
 export function Invitation() {
-  return <section className={styles.invitation}>
-    <p className={styles.eyebrow}>Let’s connect the pieces</p>
-    <h2>Your business has its own story.</h2>
-    <p>Let’s make the systems behind it feel just as considered.</p>
-    <div className={styles.actions}><Link className="button" href={BOOKING_URL}>Explore What We Could Build <Arrow /></Link><Link className={styles.textLink} href="/systems-score">Take the free Systems Score <span aria-hidden="true">→</span></Link></div>
-    <small>A free introductory conversation. A clearer next step.</small>
+  return <section className={styles.invitation} id="next-step">
+    <p className={styles.eyebrow}>Start with understanding</p>
+    <h2>You don’t need to know what you need yet.</h2>
+    <p>Start by finding out where the friction is.</p>
+    <div className={styles.actions}><Link className="button" href="/systems-score">Get your free Systems Score <Arrow /></Link></div>
+    <p className={styles.smallNote}>Already know you want help?</p>
+    <Link className={styles.textLink} href={BOOKING_URL}>Book a free 20-minute Systems Call <Arrow /></Link>
   </section>;
+}
+
+export function ClientJourney({ detailed = false }: { detailed?: boolean }) {
+  const steps = detailed ? ["Lead comes in", "Source + information captured", "Follow-up begins", "Client books", "Estimate / proposal / next step", "Payment", "Dashboard updates"] : ["Inquiry", "Follow-up", "Booked", "Paid", "Reported"];
+  return <ol className={detailed ? styles.systemDiagram : styles.journey} aria-label="The connected client journey">{steps.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong>{index < steps.length - 1 && <i aria-hidden="true">↓</i>}</li>)}</ol>;
+}
+
+export function SystemsSteps() {
+  return <div className={styles.funnelSteps}>
+    <article><span>01 · FREE</span><h3>Systems Score</h3><p>Find out where the friction is.</p><Link className={styles.textLink} href="/systems-score">Get your score <Arrow /></Link></article>
+    <article><span>02 · FREE · 20 MINUTES</span><h3>Systems Call</h3><p>We’ll look at your score together and talk through what’s happening behind it.</p><Link className={styles.textLink} href={BOOKING_URL}>Book a Systems Call <Arrow /></Link></article>
+    <article><span>03 · $300</span><h3>Systems Audit</h3><p>I’ll map what’s happening, identify what should change, and recommend the system I’d build.</p><p className={styles.smallNote}>If you move forward with a qualifying Mosaic build within 30 days, your $300 audit fee is credited toward the project.</p></article>
+    <article><span>04 · CUSTOM BUILD</span><h3>Mosaic Client System</h3><p>I design and build the connected system around the way your business actually works.</p></article>
+  </div>;
 }
 
 export function SectionHeading({ eyebrow, title, copy, href, link }: { eyebrow: string; title: string; copy?: string; href?: string; link?: string }) {
@@ -41,13 +56,13 @@ export function SystemPreview({ compact = false, variant = "sage" }: { compact?:
 
 const examples = [
   { title: "Willow & Stone", industry: "Weddings & events", copy: "From the first hello to the final yes. A more connected wedding venue.", system: "Inquiry & booking management", slug: "wedding-venue", variant: "sage" },
-  { title: "Photographer", industry: "Photography", copy: "More space for the creative work. Less time keeping track of the details.", system: "Client & workflow management", slug: "photographer", variant: "lavender" },
+  { title: "Juniper Lane Photography", industry: "Photography", copy: "More space for the creative work. Less time keeping track of the details.", system: "Client & workflow management", slug: "photographer", variant: "lavender" },
   { title: "Everfield Services", industry: "Home & property services", copy: "A clearer view of the leads, appointments, and people moving a business forward.", system: "Business operations dashboard", slug: "everfield-services", variant: "sand" },
 ] as const;
 
 export function ExampleCards() {
   return <div className={styles.exampleGrid}>{examples.map(example => <Link className={styles.exampleCard} href={`${EXAMPLES_URL}/${example.slug}`} key={example.slug}>
-    <SystemPreview compact variant={example.variant} />
+    <Image className={styles.exampleScreenshot} src={`/examples/${example.slug}.webp`} alt={`${example.title} interactive demo dashboard with fictional records`} width={1100} height={example.slug === "wedding-venue" ? 512 : 626} sizes="(max-width: 760px) 90vw, 30vw" />
     <div className={styles.cardCopy}><span className={styles.badge}>Concept demo</span><p className={styles.eyebrow}>{example.industry}</p><h3>{example.title}<Arrow /></h3><p>{example.copy}</p><span className={styles.cardMeta}>{example.system}</span></div>
   </Link>)}</div>;
 }

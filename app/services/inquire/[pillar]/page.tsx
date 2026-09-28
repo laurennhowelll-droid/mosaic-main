@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { BOOKING_URL } from "../../../studio";
 import { notFound } from "next/navigation";
 import { Shell } from "../../../components";
 import PillarLeadForm from "./PillarLeadForm";
@@ -14,7 +16,7 @@ type Pillar = {
 
 const pillars: Record<string, Pillar> = {
   clarity: {
-    label: "Clarity",
+    label: "Systems planning + advisory",
     headline: "Tell me what feels messy.",
     intro:
       "You do not need to know which service you need. Share the question, decision, or friction point, and Mosaic will help identify the next useful step.",
@@ -22,7 +24,7 @@ const pillars: Record<string, Pillar> = {
     expectFromMosaic: [
       "Lauren will personally review your submission.",
       "If Mosaic can help, you will hear back with a recommended next step.",
-      "That may be a Clarity Call, Systems Clarity Audit, focused build, or larger engagement later.",
+      "Start with a free Systems Call, then a $300 Systems Audit if a deeper review makes sense.",
     ],
     expectFromClient: [
       "Share the honest, messy version of the problem.",
@@ -31,14 +33,14 @@ const pillars: Record<string, Pillar> = {
     ],
   },
   website: {
-    label: "Website",
+    label: "Websites + client experience",
     headline: "Tell me what your website is not doing.",
     intro:
-      "Whether the issue is messaging, structure, conversion, lead capture, Shopify, or a full rebuild, start with what feels broken.",
+      "Your website is the beginning of the client journey. Mosaic connects the inquiry and booking experience to the follow-up, CRM, and reporting behind it.",
     formPrompt: "What is not working about the website right now?",
     expectFromMosaic: [
       "Lauren will review the site and your notes.",
-      "You will hear whether the best next step is an audit, focused fix, landing page, website build, or connected customer experience engagement.",
+      "We look at the website as one part of a Mosaic Client System, from the first inquiry to booked work.",
       "Mosaic will look at the customer journey, lead capture, handoff, and reporting around the website, not only the pages.",
     ],
     expectFromClient: [
@@ -48,14 +50,14 @@ const pillars: Record<string, Pillar> = {
     ],
   },
   systems: {
-    label: "Systems",
+    label: "CRM + connected systems",
     headline: "Tell me where the manual work is piling up.",
     intro:
       "If the team is repeating steps, copying information, chasing updates, or working around tools, describe what is happening now.",
     formPrompt: "What are you doing manually that should feel simpler?",
     expectFromMosaic: [
       "Lauren will review the workflow and look for the simplest useful starting point.",
-      "You will hear whether Mosaic recommends a CRM cleanup, automation sprint, workflow build, dashboard, database, or larger systems engagement.",
+      "We look at how your CRM, follow-up, booking, payments, and reporting can work as one Mosaic Client System.",
       "Mosaic will clarify the process before recommending tools.",
     ],
     expectFromClient: [
@@ -72,7 +74,7 @@ const pillars: Record<string, Pillar> = {
     formPrompt: "What do you wish you could see or understand more easily?",
     expectFromMosaic: [
       "Lauren will review what information you need and where it currently lives.",
-      "You will hear whether the next step is a dashboard, reporting workflow, data cleanup, or broader systems work.",
+      "We look at dashboards and reporting as the visibility layer of your Mosaic Client System.",
       "Mosaic will focus on useful visibility, not vanity metrics.",
     ],
     expectFromClient: [
@@ -82,14 +84,14 @@ const pillars: Record<string, Pillar> = {
     ],
   },
   generate: {
-    label: "Generate",
+    label: "Marketing attribution + lead capture",
     headline: "Tell me where the right customers are getting lost.",
     intro:
-      "If you need more qualified attention, leads, or customers, Mosaic will look at the path from first click through conversion.",
+      "Traffic only tells part of the story. Mosaic connects marketing sources to inquiries, follow-up, booked work, and revenue inside the client system.",
     formPrompt: "What are you trying to generate, and what have you already tried?",
     expectFromMosaic: [
       "Lauren will review the offer, audience, website path, lead capture, and measurement context.",
-      "You will hear whether Mosaic recommends Google Ads, Meta Ads, SEO, email/SMS, a landing page, a tracking fix, or a broader growth systems conversation.",
+      "We look at traffic → lead → follow-up → booked revenue, so marketing decisions connect to what happens after the click.",
       "Mosaic will not promise lead volume, revenue, ROAS, or ad outcomes.",
     ],
     expectFromClient: [
@@ -99,14 +101,14 @@ const pillars: Record<string, Pillar> = {
     ],
   },
   keep: {
-    label: "Keep",
+    label: "Email/SMS + retention",
     headline: "Tell me where customers stop coming back.",
     intro:
       "If you are not doing enough with existing leads, buyers, or customers, Mosaic will look at the journey after the first interaction.",
     formPrompt: "What should happen after someone joins, buys, or inquires?",
     expectFromMosaic: [
       "Lauren will review the current retention path and follow-up touchpoints.",
-      "You will hear whether Mosaic recommends email/SMS setup, Klaviyo flows, lead capture, CRM follow-up, reporting, or a connected growth systems conversation.",
+      "We look at email/SMS, customer follow-up, and retention as connected parts of the same client journey.",
       "Mosaic will not promise retention, revenue, or performance outcomes.",
     ],
     expectFromClient: [
@@ -116,6 +118,12 @@ const pillars: Record<string, Pillar> = {
     ],
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ pillar: string }> }): Promise<Metadata> {
+  const { pillar } = await params;
+  const details = pillars[pillar];
+  return details ? { title: `${details.label} | Mosaic Client System`, description: details.intro } : {};
+}
 
 export function generateStaticParams() {
   return Object.keys(pillars).map((pillar) => ({ pillar }));
@@ -139,11 +147,13 @@ export default async function PillarInquiryPage({
         <div className="pillar-inquiry-main">
           <section className="pillar-inquiry-intro">
             <Link className="text-link" href="/services">
-              Back to Services
+              Explore client system capabilities
             </Link>
             <p className="kicker">{details.label}</p>
             <h1>{details.headline}</h1>
             <p>{details.intro}</p>
+            <p>One capability within the Mosaic Client System. You don’t need to choose a service before we talk.</p>
+            <div className="actions"><Link className="button" href="/systems-score">Get your Systems Score →</Link><Link className="text-link" href={BOOKING_URL}>Book a free 20-minute Systems Call →</Link></div>
           </section>
 
           <section className="pillar-expectations" aria-label="What to expect">
@@ -180,7 +190,7 @@ export default async function PillarInquiryPage({
             <li>Start with one visible problem.</li>
             <li>Let Mosaic look at the business around it.</li>
             <li>Receive a practical recommendation before anything bigger is scoped.</li>
-            <li>If the issue points to Advisory, CRM & Systems, Websites & Customer Experience, or Marketing & Growth later, we will say so clearly.</li>
+            <li>The $300 Systems Audit maps what should change before a Mosaic Client System build is scoped.</li>
           </ul>
         </aside>
       </section>

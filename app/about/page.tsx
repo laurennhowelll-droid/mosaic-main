@@ -1,4 +1,6 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Meet Lauren, Founder of Mosaic | Custom Client Systems", description: "Meet the person behind Mosaic: custom client systems for growing service businesses whose tools and processes have stopped keeping up." };
 import Link from "next/link";
 import { Shell } from "../components";
 
@@ -63,13 +65,13 @@ export default function AboutPage() {
           <p className="kicker">About Mosaic</p>
           <h1>Mosaic is the job I couldn&apos;t find.</h1>
           <p>
-            Mosaic is a Business Systems Studio for service businesses whose CRMs, dashboards, websites, marketing, follow-up, and internal workflows no longer feel as connected as they should.
+            I build custom client systems for growing service businesses whose systems haven’t caught up with their growth. Leads, follow-up, booking, payments, and reporting — connected around the way your business works.
           </p>
           <p>
             You built the business. I make the customer journey and the systems behind it work together.
           </p>
-          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Explore What We Could Build <b>↗</b>
+          <Link className="button" href="/systems-score">
+            Get your free Systems Score <b>↗</b>
           </Link>
         </div>
       </section>
@@ -121,7 +123,7 @@ export default function AboutPage() {
           <p>Eventually, everything technically works-but nothing feels like it belongs to the same business.</p>
           <p>That is the space Mosaic was created to work in.</p>
           <p>Mosaic exists to understand the whole business, organize the confusion, and make sure every part has a reason for being there.</p>
-          <p>Bring me what&apos;s not working. I&apos;ll help you find the break in the journey, then build the system, site, workflow, dashboard, or campaign support that fixes it.</p>
+          <p>Bring me the messy version. We’ll start with where the client journey feels disconnected, then work out what belongs in your Mosaic Client System.</p>
           <blockquote>“Simplicity is power.”</blockquote>
         </div>
       </section>
@@ -256,11 +258,11 @@ export default function AboutPage() {
         <h2>Your business already has the pieces.</h2>
         <p>Let&apos;s make them work together.</p>
         <div className="actions">
-          <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-            Explore What We Could Build <b>↗</b>
+          <Link className="button" href="/systems-score">
+            Get your free Systems Score <b>↗</b>
           </Link>
-          <Link className="text-link" href="/services">
-            Explore How We Help →
+          <Link className="text-link" href="https://examples.buildwithmosaic.co/examples">
+            See examples →
           </Link>
         </div>
       </section>

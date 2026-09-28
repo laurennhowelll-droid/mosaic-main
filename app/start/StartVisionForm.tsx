@@ -75,10 +75,10 @@ export default function StartVisionForm() {
     return (
       <div className="start-form start-form-success" role="status">
         <h3>Thank you.</h3>
-        <p>We&apos;ve received your Discovery Call request.</p>
+        <p>We&apos;ve received your Systems Call request.</p>
         <p>Every submission is personally reviewed.</p>
         <p>
-          If we believe Mosaic may be a good fit, we&apos;ll reach out with the next step for a complimentary Discovery Call.
+          If we believe Mosaic may be a good fit, we&apos;ll reach out with the next step for a free 20-minute Systems Call.
         </p>
         <p>We&apos;re excited to learn more about what you&apos;re building.</p>
       </div>

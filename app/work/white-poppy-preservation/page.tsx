@@ -476,8 +476,8 @@ export default function WhitePoppyCaseStudy() {
           Let&apos;s build a business that works as beautifully behind the
           scenes as it does in front of customers.
         </h2>
-        <Link className="button" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6">
-          Explore What We Could Build <b>↗</b>
+        <Link className="button" href="/systems-score">
+          Get your free Systems Score <b>↗</b>
         </Link>
       </section>
     </Shell>

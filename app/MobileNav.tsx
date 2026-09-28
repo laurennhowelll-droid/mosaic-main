@@ -4,13 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-const navLinks = [
-  ["Services", "/services"],
-  ["Work", "/work"],
-  ["Process", "/process"],
-  ["About", "/about"],
-  ["Resources", "/resources"],
-] as const;
+import { primaryNavLinks as navLinks } from "../lib/site-links";
 
 const secondaryLinks = [
   ["What Mosaic Means", "/brand"],
@@ -95,8 +89,8 @@ export default function MobileNav() {
             ))}
           </nav>
 
-          <Link className="button mobile-menu-cta" href="https://calendar.app.google/JxAn6pJFxwyu1FJq6" onClick={() => setOpen(false)}>
-            Explore What We Could Build <b>↗</b>
+          <Link className="button mobile-menu-cta" href="/systems-score" onClick={() => setOpen(false)}>
+            Get your score <b>↗</b>
           </Link>
 
           <div className="mobile-menu-secondary">
