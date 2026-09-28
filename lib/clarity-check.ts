@@ -203,7 +203,7 @@ export function calculateClarityResult(answers: ClarityAnswer[]): ClarityResult 
 }
 
 // Raw scoring and stored fields above remain compatible with historical submissions.
-export const systemsCallUrl = "https://calendar.app.google/JxAn6pJFxwyu1FJq6";
+export const systemsCallUrl = "https://calendar.app.google/RL8WWoW6Td5tdUbV9";
 export function systemsBand(score: number) {
   return score >= 80 ? "BUILT TO SCALE" : score >= 60 ? "CONNECTED" : score >= 40 ? "PATCHED TOGETHER" : "FOUNDATION";
 }

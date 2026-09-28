@@ -70,7 +70,7 @@ test('save links the lead, preserves raw scores and consent, stores normalized r
   assert.equal(h.emails[0].subject, 'Your Mosaic Systems Score: 50/100');
   assert.match(h.emails[0].html, /&lt;Lauren&gt;/);
   assert.match(h.emails[0].html, /Capture: 50\/100/);
-  assert.match(h.emails[0].html, /JxAn6pJFxwyu1FJq6/);
+  assert.match(h.emails[0].html, /RL8WWoW6Td5tdUbV9/);
   assert.doesNotMatch(h.emails[0].html, /Recommended starting point|Explore Services/);
   assert.equal(h.notifications.length, 1);
 });

@@ -32,7 +32,7 @@ No schema migration is required by this change. `leads`, `clarity_assessments`, 
 
 Successful assessment save triggers the existing Resend flow from `Mosaic <reports@buildwithmosaic.co>`. The subject is `Your Mosaic Systems Score: [XX]/100`; the existing ivory/olive HTML styling contains the overall score and band, all four categories, strongest and lowest areas, the same brief diagnostic copy, and a single Systems Call link. User names are HTML-escaped. Existing admin notifications and `email_sent_at` remain supported.
 
-The results and email share the existing Mosaic destination: https://calendar.app.google/JxAn6pJFxwyu1FJq6 . No booking destination was invented. Calendar availability and the actual appointment duration were not verified against the live calendar.
+The results and email share the Mosaic Systems Call destination: https://calendar.app.google/RL8WWoW6Td5tdUbV9 .
 
 ## Admin and analytics
 
