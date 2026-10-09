@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ActiveNav from "./ActiveNav";
 import MobileNav from "./MobileNav";
+import ScoreHeaderLink from "./ScoreHeaderLink";
 
 export function Mark({ small = false }: { small?: boolean }) {
   return <Image className={`mark ${small ? "mark-small" : ""}`} src="/brand-reference/main-icon.svg" alt="Mosaic icon" width={210} height={210} />;
@@ -20,9 +21,7 @@ export function Header() {
           <span className="mobile-wordmark">Mosaic</span>
         </Link>
         <ActiveNav />
-        <Link className="header-cta" href="/systems-score">
-          Get your score <b>↗</b>
-        </Link>
+        <ScoreHeaderLink className="header-cta" />
         <MobileNav />
       </div>
     </header>

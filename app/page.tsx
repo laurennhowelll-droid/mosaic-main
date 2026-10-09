@@ -53,7 +53,7 @@ export default function Home() {
         <h1>Your business has outgrown <em>the systems that got it here.</em></h1>
         <p>Mosaic builds custom client systems that connect your leads, follow-up, booking, payments, and reporting — so your business is easier to run as it grows.</p>
         <div className={styles.actions}><Link className="button" href="/systems-score">Get your free Systems Score <Arrow /></Link><Link className={styles.textLink} href="#examples">See what I build <Arrow /></Link></div>
-        <span className={styles.heroNote}>21 questions. About 5 minutes. See your score instantly.</span>
+        <span className={styles.heroNote}>12 questions. About 3 minutes. See your score instantly.</span>
       </div>
       <div className={styles.heroJourney}><p className={styles.eyebrow}>The Mosaic Client System</p><ClientJourney /><p>One connected journey.<br /><em>More room to run your business.</em></p></div>
     </section>
@@ -75,7 +75,7 @@ export default function Home() {
     </section>
 
     <section className={styles.scoreFeature} id="systems-score">
-      <div><p className={styles.eyebrow}>Free · 21 questions · About 5 minutes</p><h2>Not sure what’s actually broken?</h2><p>You don’t need to know whether you need a CRM, automation, dashboard, new booking flow, or something else.</p><p>Start by finding out where your client journey is strongest — and where your systems haven’t caught up with your growth.</p><Link className="button" href="/systems-score">Get my Systems Score <Arrow /></Link><p className={styles.smallNote}>See your overall score instantly.</p></div>
+      <div><p className={styles.eyebrow}>Free · 12 questions · About 3 minutes</p><h2>Not sure what’s actually broken?</h2><p>You don’t need to know whether you need a CRM, automation, dashboard, new booking flow, or something else.</p><p>Start by finding out where your client journey is strongest — and where your systems haven’t caught up with your growth.</p><Link className="button" href="/systems-score">Get my Systems Score <Arrow /></Link><p className={styles.smallNote}>See your overall score instantly.</p></div>
       <ol className={styles.scoreCategories}>{[["Capture", "How inquiries enter your business"], ["Follow-Up", "What happens after the first hello"], ["Connection", "How your tools and people work together"], ["Visibility", "What you can see from lead to revenue"]].map(([title, copy], index) => <li key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
     </section>
 

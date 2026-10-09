@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { primaryNavLinks as navLinks } from "../lib/site-links";
+import ScoreHeaderLink from "./ScoreHeaderLink";
 
 const secondaryLinks = [
   ["What Mosaic Means", "/brand"],
@@ -89,9 +90,7 @@ export default function MobileNav() {
             ))}
           </nav>
 
-          <Link className="button mobile-menu-cta" href="/systems-score" onClick={() => setOpen(false)}>
-            Get your score <b>↗</b>
-          </Link>
+          <ScoreHeaderLink className="button mobile-menu-cta" onNavigate={() => setOpen(false)} />
 
           <div className="mobile-menu-secondary">
             {secondaryLinks.map(([label, href]) => (

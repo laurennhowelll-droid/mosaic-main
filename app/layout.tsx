@@ -32,7 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'G-MHZQ736ZDN');
+              gtag('config', 'G-MHZQ736ZDN', { page_location: window.location.href.split('#')[0], page_path: window.location.pathname + window.location.search });
             `,
           }}
         />

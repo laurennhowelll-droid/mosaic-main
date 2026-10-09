@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Shell, services } from "../components";
+import { isReservedPublicPath } from "../../lib/site-links";
 
 type DetailPage = {
   eyebrow: string;
@@ -204,6 +206,7 @@ export default async function CatchAll({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  if (isReservedPublicPath(slug)) notFound();
   const key = slug.join("/");
 
   const item = details[key] ?? getCaseStudy(slug);

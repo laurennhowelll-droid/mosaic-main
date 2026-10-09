@@ -61,9 +61,9 @@ export default function ClarityCheckPrompt() {
         ×
       </button>
       <h2>Where is your business getting disconnected?</h2>
-      <p>21 questions. About 5 minutes. See how connected your client journey really is.</p>
+      <p>12 questions. About 3 minutes. See how connected your client journey really is.</p>
           <Link href="/systems-score" onClick={dismiss}>
-            Take the 5-Minute Systems Score →
+            Take the 3-minute Systems Score →
           </Link>
     </aside>
   );

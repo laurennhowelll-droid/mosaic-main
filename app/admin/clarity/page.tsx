@@ -3,7 +3,7 @@ import { Shell } from "../../components";
 import { assessmentDisplay, categoryLabel, type ClarityCategory } from "../../../lib/clarity-check";
 import { getAdminClarityAssessments, type ClarityAssessment } from "../../../lib/supabase/admin";
 
-const bandFilters = ["Foundation", "Patched Together", "Connected", "Built to Scale", "Growing Friction", "Disconnected", "Reactive"] as const;
+const bandFilters = ["Foundation", "Running on You", "Patched Together", "Connected", "Mostly Connected", "Built to Scale", "Running Like a System", "Growing Friction", "Disconnected", "Reactive"] as const;
 const serviceFilters = ["Advisory", "CRM & Systems", "Websites & Customer Experience", "Marketing & Growth"] as const;
 const gapFilters = ["Capture", "Follow-Up", "Connection", "Visibility"] as const;
 
@@ -134,27 +134,33 @@ export default async function AdminClarityPage({
             <span>Score</span>
             <span>Result Band</span>
             <span>Strongest Area</span>
-            <span>Primary Gap</span>
+            <span>Top Leak</span>
             <span>Recommended Service</span>
             <span>Submitted</span>
+            <span>Report</span>
             <span>Status</span>
             <span>Open</span>
           </div>
-          {filtered.map((assessment) => (
+          {filtered.map((assessment) => {
+            const display = assessmentDisplay(assessment);
+            const topLeak = display.version === 2 ? display.topLeak ?? assessment.primary_gap : categoryLabel(primaryGapCategory(assessment) as ClarityCategory);
+            return (
             <div className="admin-table-row" role="row" key={assessment.id}>
-              <span data-label="Name">{assessment.first_name}</span>
+              <span data-label="Name">{assessment.first_name}{display.version === 2 ? " · v2" : ""}</span>
               <span data-label="Company">{assessment.company_name ?? "Not provided"}</span>
               <span data-label="Email">{assessment.email}</span>
-              <span data-label="Score">{assessmentDisplay(assessment).overall} / {assessmentDisplay(assessment).max}</span>
-              <span data-label="Result Band">{assessmentDisplay(assessment).band}</span>
+              <span data-label="Score">{display.overall} / {display.max}</span>
+              <span data-label="Result Band">{display.band}</span>
               <span data-label="Strongest Area">{categoryLabel(assessment.strongest_category as ClarityCategory)}</span>
-              <span data-label="Primary Gap">{categoryLabel(primaryGapCategory(assessment) as ClarityCategory)}</span>
+              <span data-label="Top Leak">{topLeak}</span>
               <span data-label="Recommended Service">{assessment.recommended_service}</span>
               <span data-label="Submitted">{date(assessment.created_at)}</span>
+              <span data-label="Report">{assessment.email_sent_at ? "Sent" : "Not sent"}</span>
               <span data-label="Status">{statusLabel(assessment.review_status)}</span>
               <Link href={`/admin/clarity/${assessment.id}`}>Open →</Link>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </Shell>

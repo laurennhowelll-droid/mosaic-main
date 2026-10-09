@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Shell } from "../../../components";
 import { getAdminLead, getClientAssessment, getLeadClient, getLeadClarityAssessments, getPlanLabel, getStageLabel } from "../../../../lib/supabase/admin";
 import { assessmentDisplay, categoryLabel, clarityQuestions, type ClarityCategory } from "../../../../lib/clarity-check";
+import { scoredQuestions, sectionLabels } from "../../../../lib/systems-score-v2";
 import { acceptLeadAfterDiscovery, declineLeadAfterDiscovery, updateLead } from "../../actions";
 import LeadEditForm from "./LeadEditForm";
 
@@ -83,21 +84,30 @@ export default async function AdminLeadDetail({
               {lead.notes && <div className="wide"><dt>Submission Notes</dt><dd>{lead.notes}</dd></div>}
             </dl>
 
-            {latestAssessment && (
+            {latestAssessment && (() => {
+              const scoreDisplay = assessmentDisplay(latestAssessment);
+              return (
               <div className="admin-assessment">
                 <p className="kicker">Systems Score</p>
                 <dl>
-                  <div><dt>Systems Score</dt><dd>{assessmentDisplay(latestAssessment).overall} / {assessmentDisplay(latestAssessment).max}</dd></div>
-                  <div><dt>Result Band</dt><dd>{assessmentDisplay(latestAssessment).band}</dd></div>
+                  <div><dt>Systems Score</dt><dd>{scoreDisplay.overall} / {scoreDisplay.max}</dd></div>
+                  <div><dt>Result Band</dt><dd>{scoreDisplay.band}</dd></div>
                   <div><dt>Primary Gap</dt><dd>{latestAssessment.primary_gap}</dd></div>
                   <div><dt>Recommended Service</dt><dd>{latestAssessment.recommended_service}</dd></div>
                   <div><dt>Email Sent</dt><dd>{latestAssessment.email_sent_at ? formatDate(latestAssessment.email_sent_at) : "Not sent"}</dd></div>
                   <div><dt>Created Date</dt><dd>{formatDate(latestAssessment.created_at)}</dd></div>
-                  <div className="wide"><dt>Category Scores</dt><dd>{assessmentDisplay(latestAssessment).categories ? Object.entries(assessmentDisplay(latestAssessment).categories!).map(([category, score]) => `${categoryLabel(category as ClarityCategory)}: ${score}/100`).join(" · ") : `Vision: ${latestAssessment.vision_score} · Experience: ${latestAssessment.experience_score} · Systems: ${latestAssessment.systems_score} · Operations: ${latestAssessment.operations_score} · Growth: ${latestAssessment.growth_score}`}</dd></div>
+                  <div className="wide"><dt>Category Scores</dt><dd>{scoreDisplay.categories ? Object.entries(scoreDisplay.categories).map(([category, score]) => `${categoryLabel(category as ClarityCategory)}: ${score}/${scoreDisplay.sectionMax}`).join(" · ") : `Vision: ${latestAssessment.vision_score} · Experience: ${latestAssessment.experience_score} · Systems: ${latestAssessment.systems_score} · Operations: ${latestAssessment.operations_score} · Growth: ${latestAssessment.growth_score}`}</dd></div>
+                  {scoreDisplay.version === 2 && <div className="wide"><dt>Top Leaks</dt><dd>{v2Leaks(latestAssessment.answers)}</dd></div>}
                   <div className="wide"><dt>Linked Lead</dt><dd>{latestAssessment.lead_id}</dd></div>
                 </dl>
                 <div className="admin-answer-list">
-                  {(Array.isArray(latestAssessment.answers) ? latestAssessment.answers : latestAssessment.answers.scored ?? []).map((answer) => {
+                  {v2AnswerList(latestAssessment.answers).map((answer) => (
+                    <article key={answer.id}>
+                      <span>{answer.label}</span>
+                      <p>{answer.prompt}</p>
+                    </article>
+                  ))}
+                  {(Array.isArray(latestAssessment.answers) ? latestAssessment.answers : "scored" in latestAssessment.answers ? latestAssessment.answers.scored ?? [] : []).map((answer) => {
                     const question = clarityQuestions.find((item) => item.id === answer.id);
 
                     return (
@@ -109,7 +119,8 @@ export default async function AdminLeadDetail({
                   })}
                 </div>
               </div>
-            )}
+              );
+            })()}
 
             {(currentStage === "discovery_call_complete" || lead.discovery_decision !== "pending" || client) && (
               <div className="admin-discovery-decision">
@@ -203,4 +214,26 @@ export default async function AdminLeadDetail({
       </section>
     </Shell>
   );
+}
+
+function v2Record(answers: unknown) {
+  if (!answers || typeof answers !== "object" || Array.isArray(answers)) return null;
+  const stored = (answers as { version?: unknown; systemsScoreV2?: { leaks?: Array<{ name?: string }>; answers?: number[] } }).systemsScoreV2;
+  if (!stored) return null;
+  return stored;
+}
+
+function v2Leaks(answers: unknown) {
+  const names = v2Record(answers)?.leaks?.map((leak) => leak.name).filter((name): name is string => Boolean(name)) ?? [];
+  return names.length ? names.join(", ") : "None recorded";
+}
+
+function v2AnswerList(answers: unknown) {
+  const scores = v2Record(answers)?.answers;
+  if (!scores || scores.length !== 12) return [];
+  return scores.map((score, index) => ({
+    id: scoredQuestions[index].id,
+    label: `${sectionLabels[scoredQuestions[index].section]} · ${score}/4`,
+    prompt: scoredQuestions[index].prompt,
+  }));
 }

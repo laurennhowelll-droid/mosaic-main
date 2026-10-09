@@ -407,6 +407,23 @@ export async function getAdminClarityAssessment(id: string) {
   return assessment;
 }
 
+export async function getSystemsScoreAccessLinks(assessmentId: string) {
+  await requireAdmin();
+  const supabase = getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("systems_score_access_tokens")
+    .select("id, created_at, revoked_at, last_used_at")
+    .eq("assessment_id", assessmentId)
+    .order("created_at", { ascending: false });
+
+  if (error) return { available: false as const, links: [] };
+
+  return {
+    available: true as const,
+    links: (data ?? []) as Array<{ id: string; created_at: string; revoked_at: string | null; last_used_at: string | null }>,
+  };
+}
+
 const defaultTargets = [
   ["linkedin_connection", 50, 200],
   ["outreach_message", 25, 100],

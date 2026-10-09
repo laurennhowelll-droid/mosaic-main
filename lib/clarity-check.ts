@@ -236,11 +236,48 @@ export const systemsCallCopy: Record<ClarityCategory, string> = {
 };
 
 export function assessmentDisplay(assessment: { answers: unknown; total_score: number; result_band: string }) {
+  const v2 = readV2Display(assessment.answers);
+  if (v2) return v2;
   const payload = assessment.answers as { scored?: ClarityAnswer[] } | null;
   const answers = Array.isArray(payload) ? payload : payload?.scored;
   if (Array.isArray(answers) && answers.length === 21 && clarityQuestions.every(q => answers.some(a => a.id === q.id && a.category === q.category && Number.isInteger(a.score) && a.score >= 1 && a.score <= 5))) {
     const score = systemsScore(calculateClarityResult(answers));
-    return { ...score, band: systemsBand(score.overall), max: 100 };
+    return { ...score, band: systemsBand(score.overall), max: 100, version: 1 as const, sectionMax: 100, topLeak: null as string | null };
   }
-  return { overall: assessment.total_score, band: assessment.result_band, max: 50, categories: null, strongest: null, lowest: null };
+  return { overall: assessment.total_score, band: assessment.result_band, max: 50, categories: null, strongest: null, lowest: null, version: 1 as const, sectionMax: 100, topLeak: null as string | null };
+}
+
+function readV2Display(answers: unknown) {
+  if (!answers || typeof answers !== "object" || Array.isArray(answers)) return null;
+  const record = answers as {
+    version?: unknown;
+    systemsScoreV2?: {
+      version?: unknown;
+      overall?: unknown;
+      tierName?: unknown;
+      weakestSection?: unknown;
+      strongestSection?: unknown;
+      sections?: Partial<Record<ClarityCategory, { score?: unknown }>>;
+      leaks?: Array<{ name?: unknown }>;
+    };
+  };
+  const stored = record.systemsScoreV2;
+  if (record.version !== 2 || !stored || stored.version !== 2 || typeof stored.overall !== "number" || typeof stored.tierName !== "string" || !stored.sections) return null;
+  const categories = {
+    capture: Number(stored.sections.capture?.score ?? 0),
+    follow_up: Number(stored.sections.follow_up?.score ?? 0),
+    connection: Number(stored.sections.connection?.score ?? 0),
+    visibility: Number(stored.sections.visibility?.score ?? 0),
+  } satisfies Record<ClarityCategory, number>;
+  return {
+    overall: stored.overall,
+    categories,
+    strongest: (stored.strongestSection ?? "capture") as ClarityCategory,
+    lowest: (stored.weakestSection ?? "follow_up") as ClarityCategory,
+    band: stored.tierName,
+    max: 100,
+    version: 2 as const,
+    sectionMax: 25,
+    topLeak: typeof stored.leaks?.[0]?.name === "string" ? stored.leaks[0].name : null,
+  };
 }

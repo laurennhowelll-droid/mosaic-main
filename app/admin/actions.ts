@@ -445,6 +445,21 @@ export async function updateClarityAssessmentStatus(assessmentId: string, formDa
   revalidatePath(`/admin/clarity/${assessmentId}`);
 }
 
+export async function revokeSystemsScoreAccess(assessmentId: string) {
+  await requireAdmin();
+
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase
+    .from("systems_score_access_tokens")
+    .update({ revoked_at: new Date().toISOString() })
+    .eq("assessment_id", assessmentId)
+    .is("revoked_at", null);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath(`/admin/clarity/${assessmentId}`);
+}
+
 export async function updateGrowthCampaign(campaignId: string, formData: FormData) {
   await requireAdmin();
 
