@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/clarity-check", destination: "/systems-score", permanent: true },
+      { source: "/examples", destination: "https://examples.buildwithmosaic.co/examples", permanent: true },
+      {
+        // Homepage screenshots live in public/examples/*.webp. Redirects run before public files.
+        source: "/examples/:path((?!.*\\.webp$).*)",
+        destination: "https://examples.buildwithmosaic.co/examples/:path",
+        permanent: true,
+      },
       {
         source: "/free",
         destination: "/resources",
